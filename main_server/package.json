@@ -1,0 +1,11 @@
+{
+  "name": "main_server",
+  "version": "1.0.0",
+  "description": "this is the main server for interacting to the end client",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Divyansh Gupta",
+  "license": "ISC"
+}
