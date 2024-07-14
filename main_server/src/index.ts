@@ -18,7 +18,6 @@ const user:User={
     password:"124452"
 }
 SignUp(user);
-
 server.listen(PORT,()=>{
     console.log(`Server is running on port: ${PORT}`)
 });
