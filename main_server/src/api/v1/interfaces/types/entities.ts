@@ -1,10 +1,15 @@
 
 
 type User={
-    name:String,
-    username:String,
-    email:String,
-    password:String
+    name:string,
+    username:string,
+    email:string,
+    password:string,
+    followers?:number,
+    following?:number,
+    number_of_posts?:number,
+    profilePictureURL:string,
+    Bio?:string
 }
 
 type Messgage={

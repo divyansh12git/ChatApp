@@ -4,6 +4,9 @@ type SignUpRequest={
     email:String,
     password:String
 }
+type SignInRequest={
+    username:String,
+    password:String
+}
 
-
-export {SignUpRequest}
+export {SignUpRequest,SignInRequest}
