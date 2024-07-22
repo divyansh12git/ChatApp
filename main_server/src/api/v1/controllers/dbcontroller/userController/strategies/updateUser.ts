@@ -1,5 +1,5 @@
-import { IUpdateUser } from "../../../interfaces/databaseController";
-import Database from "../../../services/database";
+import { IUpdateUser } from "../../../../interfaces/databaseController";
+import Database from "../../../../services/database";
 
 
 // class updateUserStrategy implements IUpdateUser{

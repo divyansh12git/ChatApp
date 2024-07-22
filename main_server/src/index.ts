@@ -3,13 +3,9 @@ import express from "express";
 import 'dotenv/config'
 import { SignUp } from "./api/v1/middleware/authentication/signup";
 import { User } from "./api/v1/interfaces/types";
-import mutateUser from "./api/v1/controllers/dbcontroller/CreateUser";
-import userDBManager from "./api/v1/controllers/dbcontroller/userController/usercontroller";
-import mutateUserStrategy from "./api/v1/controllers/dbcontroller/strategies/mutateUser";
-import getAllUserStrategy from "./api/v1/controllers/dbcontroller/strategies/getAllUser";
-import getUserStrategy from "./api/v1/controllers/dbcontroller/strategies/getUser";
-import deleteUserStrategy from "./api/v1/controllers/dbcontroller/strategies/deleteUser";
 
+import { userDBManager,deleteUserStrategy,
+getAllUserStrategy,getUserStrategy,mutateUserStrategy } from "./api/v1/controllers";
 
 
 

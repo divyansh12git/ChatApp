@@ -1,6 +1,6 @@
-import { IMutateUser } from "../../../interfaces/databaseController";
-import { User } from "../../../interfaces/types";
-import Database from "../../../services/database";
+import { IMutateUser } from "../../../../interfaces/databaseController";
+import { User } from "../../../../interfaces/types";
+import Database from "../../../../services/database";
 
 class mutateUserStrategy implements IMutateUser{
     public Client:Database;

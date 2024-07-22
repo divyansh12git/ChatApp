@@ -1,6 +1,6 @@
-import { IGetUser } from "../../../interfaces/databaseController";
-import { User } from "../../../interfaces/types";
-import Database from "../../../services/database";
+import { IGetUser } from "../../../../interfaces/databaseController";
+import { User } from "../../../../interfaces/types";
+import Database from "../../../../services/database";
 
 
 class getUserStrategy implements IGetUser {

@@ -1,6 +1,6 @@
-import { IGetAllUsers } from "../../../interfaces/databaseController";
-import { User } from "../../../interfaces/types";
-import Database from "../../../services/database";
+import { IGetAllUsers } from "../../../../interfaces/databaseController";
+import { User } from "../../../../interfaces/types";
+import Database from "../../../../services/database";
 
 class getAllUserStrategy implements IGetAllUsers{
     public Client:Database;

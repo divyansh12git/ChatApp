@@ -1,5 +1,5 @@
-import { IDeleteUser } from "../../../interfaces/databaseController";
-import Database from "../../../services/database";
+import { IDeleteUser } from "../../../../interfaces/databaseController";
+import Database from "../../../../services/database";
 
 class deleteUserStrategy implements IDeleteUser{
     public Client:Database;
