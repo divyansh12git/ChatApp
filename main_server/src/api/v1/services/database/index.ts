@@ -20,7 +20,7 @@ class Database{
     
     public disconnect=async()=>{
         try{
-            if(Database.Client){
+            if(Database.Client && this.connected){
                 await Database.Client.$disconnect().then(()=>this.connected=false);
             }
         }catch(e){
@@ -29,7 +29,7 @@ class Database{
     }
     public connect=async()=>{
         try{
-            if(Database.Client){
+            if(Database.Client && !this.connected){
                 await Database.Client.$connect().then(()=>this.connected=true);
             }
         }catch(e){
