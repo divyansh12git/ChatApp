@@ -1,6 +1,7 @@
-import { User } from "./types";
-
 //Strategy Pattern
+
+
+import { User } from "./types";
 
 //object
 interface userStrategy {

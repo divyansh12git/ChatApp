@@ -1,0 +1,29 @@
+version: '3.4'
+
+
+services:
+  postgres:
+    container_name: chatAppDB
+    image: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - chatAppVolume:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: divyansh
+      POSTGRES_DB: chatapp
+      POSTGRES_PASSWORD: divyansh
+
+  redis:
+    container_name: chatAppCache
+    image: redis/redis-stack
+    ports:
+      - 6379:6379
+      - 8001:8001
+    volumes:
+      - chatAppVolume:/var/lib/redis/data
+
+
+
+volumes:
+  chatAppVolume:

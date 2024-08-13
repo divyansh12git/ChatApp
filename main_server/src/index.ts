@@ -8,7 +8,6 @@ import { userDBManager,deleteUserStrategy,
 getAllUserStrategy,getUserStrategy,mutateUserStrategy } from "./api/v1/controllers";
 
 
-
 console.log(process.env.PORT)
 
 const server=express();
@@ -24,7 +23,7 @@ const user:User={
 }
 
 async function main(){
-    const mutateData=new mutateUserStrategy 
+    const mutateData=new mutateUserStrategy;
     const manager=new userDBManager(mutateData);
     // await manager.doAction(user);
     const getall=new getAllUserStrategy()
