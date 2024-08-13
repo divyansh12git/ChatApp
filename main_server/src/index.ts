@@ -1,40 +1,35 @@
 import bodyParser, { urlencoded } from "body-parser";
 import express from "express";
+import cors from "cors";
 import 'dotenv/config'
-import { SignUp } from "./api/v1/middleware/authentication/signup";
-import { User } from "./api/v1/interfaces/types";
 
-import { userDBManager,deleteUserStrategy,
-getAllUserStrategy,getUserStrategy,mutateUserStrategy } from "./api/v1/controllers";
+import startApolloGraphqlServer from "./api/v1/graphql";
+import {expressMiddleware} from "@apollo/server/express4";
+import { ApolloServer } from "@apollo/server";
+
+(async()=>{
 
 
-console.log(process.env.PORT)
+    const server=express();
+    const PORT=process.env.PORT || 5001;
+    
+    server.use(cors());
+    server.use(express.json());
+    //creating graphql server:
 
-const server=express();
-const PORT=process.env.PORT || 5001;
+    try{
+        const gqlServer=await startApolloGraphqlServer()
+        server.use("/graphql",expressMiddleware(gqlServer));
+    }catch(e){
+        console.log(`error in init gql server ${e}`);
+    }
 
-server.use(bodyParser,urlencoded({extended:false}));
-server.use(bodyParser.json());
-const user:User={
-    name:"Divyansh Gupta",
-    username:"divyansh_8888",
-    password:"124452",
-    profilePictureURL:"45"
-}
+    server.get("/",(req,res)=>{
+        res.json({msg:"this is from chat app server!!!"})
+    })
 
-async function main(){
-    const mutateData=new mutateUserStrategy;
-    const manager=new userDBManager(mutateData);
-    // await manager.doAction(user);
-    const getall=new getAllUserStrategy()
-    manager.strategy=getall;
-    const users:User[]|User|Boolean=await manager.doAction("");
-    console.log(users);
-    const getUser=new deleteUserStrategy();
-    manager.strategy=getUser;
-    // console.log(await manager.doAction("divyansh_8888"));
-}
-main();
-server.listen(PORT,()=>{
-    console.log(`Server is running on port: ${PORT}`)
-});
+    server.listen(PORT,()=>{
+        console.log(`Server is running on port: ${PORT}`)
+    });
+
+})();//init express app
