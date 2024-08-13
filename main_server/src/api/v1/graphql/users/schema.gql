@@ -1,0 +1,45 @@
+type User{
+    id: ID!
+    name: String!
+    username: String!
+    password: String!
+    followers: Int
+    following: Int
+    number_of_posts: Int
+    profilePictureURL:String
+    Bio: String
+}
+
+type Queries{
+
+    getAllUsers(search:String!):[User]
+    getUser(username:String!):User
+    
+}
+
+input createUserInput{
+    name: String!
+    username: String!
+    password: String!
+    followers: Int
+    following: Int
+    number_of_posts: Int
+    profilePictureURL:String
+    Bio: String
+}
+input updateUser{
+    name: String!
+    username: String!
+    password: String
+    followers: Int
+    following: Int
+    number_of_posts: Int
+    profilePictureURL:String
+    Bio: String
+}
+type mutation{
+    #create user
+    createUser(input:createUserInput):Boolean
+    #update user
+    updateUser(input:updateUser,user:String!):Boolean
+}

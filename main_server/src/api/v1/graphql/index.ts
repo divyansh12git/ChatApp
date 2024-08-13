@@ -1,17 +1,25 @@
 import { ApolloServer } from '@apollo/server';
 import {expressMiddleware} from "@apollo/server/express4";
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
+import {User} from "./users/index";
 
 const startApolloGraphqlServer=async():Promise<ApolloServer>=>{
     const gqlServer = new ApolloServer({
         typeDefs:`
+            ${User.typedef}
             type Query{
-                hello:String!
+                ${User.queries}
+            }
+            type Mutation{
+                ${User.mutation}
             }
         `,
         resolvers:{
             Query:{
-                hello:()=>{return "Hi bro"}
+                ...User.resolvers.queries,
+            },
+            Mutation:{
+                ...User.resolvers.mutation,
             }
         },
       });

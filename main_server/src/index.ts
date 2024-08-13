@@ -5,7 +5,6 @@ import 'dotenv/config'
 
 import startApolloGraphqlServer from "./api/v1/graphql";
 import {expressMiddleware} from "@apollo/server/express4";
-import { ApolloServer } from "@apollo/server";
 
 (async()=>{
 
@@ -19,7 +18,11 @@ import { ApolloServer } from "@apollo/server";
 
     try{
         const gqlServer=await startApolloGraphqlServer()
-        server.use("/graphql",expressMiddleware(gqlServer));
+        server.use("/graphql",
+                    cors<cors.CorsRequest>(), 
+                    express.json(),
+                    expressMiddleware(gqlServer)
+                );
     }catch(e){
         console.log(`error in init gql server ${e}`);
     }
