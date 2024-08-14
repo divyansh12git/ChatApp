@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 import 'dotenv/config'
 
+
 import startApolloGraphqlServer from "./api/v1/graphql";
 import {expressMiddleware} from "@apollo/server/express4";
 
@@ -14,6 +15,7 @@ import {expressMiddleware} from "@apollo/server/express4";
     
     server.use(cors());
     server.use(express.json());
+    server.use(require('express-status-monitor')());//localhost:${port}/status
     //creating graphql server:
 
     try{

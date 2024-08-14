@@ -11,7 +11,7 @@ interface userStrategy {
 
 // Behaviors interface
 interface IUpdateUser{
-    execute(username:string):Promise<Boolean>;
+    execute(username:string,user:User):Promise<Boolean>;
 }
 interface IGetUser{
     execute(username:string):Promise<User>;
