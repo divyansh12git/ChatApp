@@ -22,8 +22,9 @@ export const typedef=`
         Bio: String
     }
     input updateUser{
-        name: String!
-        username: String!
+        findUser:String!
+        name: String
+        username: String
         password: String
         followers: Int
         following: Int
