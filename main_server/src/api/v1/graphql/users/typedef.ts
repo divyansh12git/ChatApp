@@ -15,11 +15,6 @@ export const typedef=`
         name: String!
         username: String!
         password: String!
-        followers: Int
-        following: Int
-        number_of_posts: Int
-        profilePictureURL:String
-        Bio: String
     }
     input updateUser{
         findUser:String!

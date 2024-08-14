@@ -17,7 +17,7 @@ import {expressMiddleware} from "@apollo/server/express4";
     server.use(express.json());
     server.use(require('express-status-monitor')());//localhost:${port}/status
     //creating graphql server:
-
+    
     try{
         const gqlServer=await startApolloGraphqlServer()
         server.use("/graphql",

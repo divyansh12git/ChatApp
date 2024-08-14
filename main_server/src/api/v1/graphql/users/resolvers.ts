@@ -55,7 +55,10 @@ const queries={
 };
 
 const mutation={
-    createUser:async(_:any,{}:{})=>{
+    createUser:async(_:any,{input}:{input:String}):Promise<string>=>{
+        
+       
+       
         return "Divyansh Gupta";
     },
     updateUser:async(_:any,{input}:{input:any})=>{

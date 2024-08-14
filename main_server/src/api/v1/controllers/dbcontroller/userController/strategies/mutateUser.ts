@@ -11,7 +11,6 @@ class mutateUserStrategy implements IMutateUser{
     async execute(user: User): Promise<Boolean> {
         const handler=Database.Client;
         let result=false;
-        
         await handler?.user.create({
             data:{
                 ...user,

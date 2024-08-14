@@ -6,7 +6,7 @@ services:
     container_name: chatAppDB
     image: postgres
     ports:
-      - 5432:5432
+      - 8002:5432
     volumes:
       - chatAppVolume:/var/lib/postgresql/data
     environment:
