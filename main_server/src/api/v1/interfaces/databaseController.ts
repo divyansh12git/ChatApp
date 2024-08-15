@@ -25,4 +25,7 @@ interface IDeleteUser{
 interface IMutateUser{
     execute(user:User):Promise<Boolean>;
 }
-export{IDeleteUser,IGetAllUsers,IGetUser,IMutateUser,IUpdateUser,userStrategy}
+interface IGetUserById{
+    execute(id:string):Promise<User>;
+}
+export{IDeleteUser,IGetAllUsers,IGetUser,IMutateUser,IUpdateUser,userStrategy,IGetUserById}

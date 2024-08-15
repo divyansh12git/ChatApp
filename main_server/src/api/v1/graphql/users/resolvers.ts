@@ -1,9 +1,17 @@
+import { getUserStrategy, userDBManager } from "../../controllers";
+import { verifyToken } from "../../helpers";
 import { User } from "../../interfaces/types";
+import {getUserHandler} from "../../middleware/user"
 type upinp={
     user:User,
     finduser:string
 }
-
+interface dummyUser{
+    id:Number,
+    name:string,
+    username:string,
+    
+}
 const u=[{
         id: 5,
         name: "Divyansh Gupta",
@@ -43,24 +51,46 @@ const queries={
         return null
     },
     getUser:async(_:any,{input}:{input:String})=>{
-        console.log(input);
-        for(let i=0;i<u.length;i++){
-            console.log(u[i].username);
-            if(u[i].username===input){
-                return u[i];
+        // console.log(input);
+        
+        const user:User|null=await getUserHandler(input);
+        return user;
+    },
+
+    getCurrentUser:async(_:any,__:any,context:any)=>{
+        // console.log(context);
+        if(context && context.currentuser){
+            const tokendata=context.currentuser;
+            const username=verifyToken(tokendata);
+            // console.log(username);
+            if(username){
+                const user:User|null=await getUserHandler(username);
+                // console.log(user);
+                if(user){
+                    return user;
+                }
             }
         }
-        return null;
+
+        const dummyUser:dummyUser={
+            name:"invalid",
+            id:0,
+            username: 'invalid',
+
+          }
+        return dummyUser;
     }
+
 };
 
 const mutation={
-    createUser:async(_:any,{input}:{input:String}):Promise<string>=>{
-        
-       
-       
-        return "Divyansh Gupta";
+    deleteUser:async(_:any,{input}:{input:String}):Promise<Boolean>=>{   
+
+
+        return true;
     },
+
+
     updateUser:async(_:any,{input}:{input:any})=>{
         try{
             const {name,username,password,Bio,followers,

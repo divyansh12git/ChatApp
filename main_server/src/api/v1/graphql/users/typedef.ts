@@ -3,7 +3,6 @@ export const typedef=`
         id: ID!
         name: String!
         username: String!
-        password: String!
         followers: Int
         following: Int
         number_of_posts: Int

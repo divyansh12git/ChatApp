@@ -10,6 +10,16 @@ type User={
     profilePictureURL:string,
     Bio?:string
 }
+type UserStoredInDB={
+    name:string,
+    username:string,
+    password:string,
+    followers:number,
+    following:number,
+    number_of_posts:number,
+    profilePictureURL:string,
+    Bio:string
+}
 
 type Messgage={
     sender:String,
@@ -20,5 +30,5 @@ type Messgage={
 
 
 export {
-    User,Messgage
+    User,Messgage,UserStoredInDB
 }

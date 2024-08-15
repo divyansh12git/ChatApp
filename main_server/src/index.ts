@@ -6,6 +6,7 @@ import 'dotenv/config'
 
 import startApolloGraphqlServer from "./api/v1/graphql";
 import {expressMiddleware} from "@apollo/server/express4";
+import { verifyToken } from "./api/v1/helpers";
 
 (async()=>{
 
@@ -19,11 +20,26 @@ import {expressMiddleware} from "@apollo/server/express4";
     //creating graphql server:
     
     try{
-        const gqlServer=await startApolloGraphqlServer()
+        const gqlServer=await startApolloGraphqlServer();
         server.use("/graphql",
                     cors<cors.CorsRequest>(), 
                     express.json(),
-                    expressMiddleware(gqlServer)
+                    expressMiddleware(gqlServer,{
+                        context:async({req,res})=>{
+                            // @ts-ignore
+                            const token=req.headers["authorization"];
+                            // console.log(token);
+                            try{
+                                if(token){
+                                    const username=verifyToken(token);
+                                    return {currentuser:token};
+                                }
+                            }catch(e){
+                                console.log(e);
+                            }
+                            return {};
+                        },
+                    })
                 );
     }catch(e){
         console.log(`error in init gql server ${e}`);

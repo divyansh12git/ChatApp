@@ -1,15 +1,17 @@
-import {SignUpRequest, User} from "../../interfaces/types"
+import { User} from "../../interfaces/types"
+import { SignUpCredentials } from "../../interfaces/requests";
 import { EncrptData,DecryptData,compareHash,generateHash,createToken,verifyToken } from "../../helpers";
 import { userDBManager,mutateUserStrategy } from "../../controllers";
-const SignUp=async(data:SignUpRequest):Promise<String>=>{
+
+const SignupHandler=async(data:SignUpCredentials):Promise<Boolean>=>{
 
     let {username,password,name}=data;
-    let encData=EncrptData({username,name});
+    let encData=EncrptData({name});
     const hashedPassword=await generateHash(password);
 
     const userToUpload:User={
         name:encData.name.toString(),
-        username:encData.username.toString(),
+        username:username.toString(),
         password:hashedPassword,
         profilePictureURL:"_",
         Bio:"",
@@ -20,13 +22,18 @@ const SignUp=async(data:SignUpRequest):Promise<String>=>{
     try{
         const createUser=new mutateUserStrategy();
         const dbManager=new userDBManager(createUser);
-        dbManager.doAction(userToUpload);
-        return username
+        const result=await dbManager.doAction(userToUpload);
+        if(result){
+            return true;
+        }
+        return false;
+        // const user=verifyToken(sessionToken! );
+        
     }catch(e){
         console.log(e);
-        return "";
+        return false;
     }
 
     
 }
-export {SignUp}
+export default SignupHandler;

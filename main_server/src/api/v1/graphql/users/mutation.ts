@@ -1,10 +1,11 @@
 export const mutation=`
     
     
-    #create user
-    createUser(input:createUserInput):String
+
 
     #update user
     updateUser(input:updateUser):Boolean
     
+    #delete user
+    deleteUser(input:String!):Boolean
 `;
