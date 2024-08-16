@@ -1,0 +1,42 @@
+import express, { urlencoded } from 'express';
+import http from "http";
+import cors from "cors";
+import { Server } from 'socket.io';
+import path from "node:path";
+import { connectionRouter } from './api/v1/routes/connection';
+
+(()=>{
+    const port=4000 || 4001;
+    
+    const app=express();
+    const server = http.createServer(app);
+    const io = new Server(server);
+
+    app.use(express.json());
+    app.use(express.urlencoded());
+    app.use(cors());
+    app.use("/connect",connectionRouter);
+
+    //socket  
+    io.on('connection', (socket) => {
+        console.log('a user connected');
+        socket.on("user-message",(message)=>{
+            console.log("A new user message: ",message);
+            io.emit('broadcast',message)
+        })
+    });
+
+
+
+    app.get('/', (req, res) => {
+        res.sendFile(path.join(__dirname,'..','/testclient.html')  );
+      });
+
+    
+    server.listen(port,()=>{
+        console.log(`Server is running on port: ${port}`);
+    })
+
+
+}
+)();
