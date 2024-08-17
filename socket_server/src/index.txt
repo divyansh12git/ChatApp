@@ -1,7 +1,7 @@
 import express, { urlencoded } from 'express';
 import http from "http";
 import cors from "cors";
-import SocketService from './api/v1/services/socketio';
+import { Server } from 'socket.io';
 import path from "node:path";
 import { connectionRouter } from './api/v1/routes/connection';
 import { ClientToServerEvents,InterServerEvents,
@@ -11,11 +11,9 @@ import { ClientToServerEvents,InterServerEvents,
 (()=>{
     const port=4000 || 4001;
     
-    const socketService=new SocketService();
     const app=express();
-    const httpServer = http.createServer(app);
-    
-    
+    const server = http.createServer(app);
+    const io = new Server();
 
     app.use(express.json());
     app.use(express.urlencoded());
@@ -23,8 +21,14 @@ import { ClientToServerEvents,InterServerEvents,
     app.use("/connect",connectionRouter);
 
     //socket  
-    socketService.io.attach(httpServer);
-    socketService.initListeners();
+    io.on('connection', (socket) => {
+        console.log('a user connected');
+        socket.on("user-message",(message)=>{
+            console.log("A new user message: ",message);
+            io.emit('broadcast',message)
+        })
+    });
+
 
 
     app.get('/', (req, res) => {
@@ -32,7 +36,7 @@ import { ClientToServerEvents,InterServerEvents,
       });
 
     
-    httpServer.listen(port,()=>{
+    server.listen(port,()=>{
         console.log(`Server is running on port: ${port}`);
     })
 
