@@ -4,8 +4,9 @@ type Message={
     id?: number,
     authorId: number,
     time: string,
-    room :Room,
-    roomId: number
+    room? :Room,
+    roomId: number,
+    content:string
 }
 type Room={
     id?: number,
@@ -16,19 +17,19 @@ type Room={
     message: Message[]
 }
 interface IRoomDB{
-    Client:Database;
     createRoom(data:Room):Promise<number>;
     deleteRoom({roomId,userId}:{roomId:number,userId:number}):Promise<Boolean>;//room,user performing action
-    searchRoomByName(roomName:string):Promise<Room>
+    searchRoomById(roomId:number):Promise<Room|null>
     addUserToRoom({roomId,userToAddId}:{roomId:number,userToAddId:number}): Promise<Boolean>;
+    getUsersInRoom(roomId:number):Promise<number[] | []>
     removeUserFromRoom({roomId,userToRemoveId,userRemovingId}:
                     {roomId:number,userToRemoveId:number,userRemovingId:number}): Promise<Boolean>;
 }
 
 interface IMessageDB{
-    Client:Database;
+
     createMessage(data:Message):Promise<number>;
-    getMessage(roomId:number):Promise<Message>;
+    getMessagesInRoom(roomId:number):Promise<Message[] | []>;
 }
 export {
     IMessageDB,
