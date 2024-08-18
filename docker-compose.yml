@@ -2,7 +2,7 @@ version: '3.4'
 
 
 services:
-  postgres:
+  postgres_main_server:
     container_name: chatAppDB
     image: postgres
     ports:
@@ -22,7 +22,18 @@ services:
       - 8001:8001
     volumes:
       - chatAppVolume:/var/lib/redis/data
-
+  
+  postgres_socket_server:
+    container_name: socketServerDB
+    image: postgres
+    ports:
+      - 8003:5432
+    volumes:
+      - chatAppVolume:/var/lib/postgresql2/data
+    environment:
+      POSTGRES_USER: divyansh
+      POSTGRES_DB: chatapp
+      POSTGRES_PASSWORD: divyansh
 
 
 volumes:
