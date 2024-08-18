@@ -13,9 +13,16 @@ class SocketService{
             }
         });
     }
-
+    
     public initListeners(){
         const io=this.io;
+        
+        //validation...
+        io.use((socket,next)=>{
+            next(new Error("thou shall not pass"));
+        });
+
+
         console.log("Initialized socket listener");
 
         io.on("connect",socket=>{
@@ -33,7 +40,7 @@ class SocketService{
     get io():Server{
         return this._io;
     }
-
+    
 
 }
 

@@ -11,8 +11,8 @@ import { ClientToServerEvents,InterServerEvents,
 (()=>{
     const port=4000 || 4001;
     
-    const socketService=new SocketService();
     const app=express();
+    const socketService=new SocketService();
     const httpServer = http.createServer(app);
     
     
@@ -25,12 +25,12 @@ import { ClientToServerEvents,InterServerEvents,
     //socket  
     socketService.io.attach(httpServer);
     socketService.initListeners();
-
+    
 
     app.get('/', (req, res) => {
         res.sendFile(path.join(__dirname,'..','/testclient.html')  );
-      });
-
+    });
+      
     
     httpServer.listen(port,()=>{
         console.log(`Server is running on port: ${port}`);
