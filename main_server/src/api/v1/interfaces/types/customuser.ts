@@ -6,8 +6,8 @@ const customUser:User={
     password:"78894545",
     profilePictureURL:"_",
     Bio:"_",
-    followers:0,
-    following:0,
+    friends:0,
+    requested:0,
     number_of_posts:0
 }
 export default customUser;

@@ -6,8 +6,8 @@ const uservalidate=z.object({
     name:z.string(),
     profilePictureURL:z.string(),
     Bio:z.string(),
-    followers:z.number(),
-    following:z.number(),
+    friends:z.number(),
+    requested:z.number(),
     number_of_posts:z.number()
 });
 
