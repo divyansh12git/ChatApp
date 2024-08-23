@@ -3,9 +3,8 @@ type User{
     name: String!
     username: String!
     password: String!
-    followers: Int
-    following: Int
-    number_of_posts: Int
+    friends: Int
+    requested: Int
     profilePictureURL:String
     Bio: String
 }
@@ -21,8 +20,8 @@ input createUserInput{
     name: String!
     username: String!
     password: String!
-    followers: Int
-    following: Int
+    friends: Int
+    requested: Int
     number_of_posts: Int
     profilePictureURL:String
     Bio: String
@@ -31,8 +30,8 @@ input updateUser{
     name: String!
     username: String!
     password: String
-    followers: Int
-    following: Int
+    friends: Int
+    requested: Int
     number_of_posts: Int
     profilePictureURL:String
     Bio: String

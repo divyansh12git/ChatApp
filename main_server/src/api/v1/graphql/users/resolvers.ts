@@ -12,24 +12,22 @@ interface dummyUser{
     username:string,
     
 }
-const u=[{
-        id: 5,
+const u:User[]=[{
         name: "Divyansh Gupta",
         username: "_divyansh_8",
         password: "13245789",
-        followers: 0,
-        following: 0,
+        friends: 0,
+        requested: 0,
         number_of_posts: 0,
         profilePictureURL:"_",
         Bio: "This is me Divyanh gupta"
     },
     {
-        id: 6,
         name: "Kashish Verma",
         username: "kash4.ish",
         password: "13245789",
-        followers: 0,
-        following: 0,
+        friends: 0,
+        requested:0,
         number_of_posts: 0,
         profilePictureURL:"_",
         Bio: "This is me Kashish Verma"
@@ -103,8 +101,8 @@ const mutation={
                     u[i].username=username || u[i].username;
                     u[i].password=password || u[i].password;
                     u[i].Bio= Bio || u[i].Bio;
-                    u[i].followers=followers || u[i].followers;
-                    u[i].following=following || u[i].following;
+                    u[i].friends=followers || u[i].friends;
+                    u[i].requested=following || u[i].requested;
                     u[i].number_of_posts=number_of_posts || u[i].number_of_posts;
                     u[i].profilePictureURL=profilePictureURL || u[i].profilePictureURL;
                     console.log(u[i]);

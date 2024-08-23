@@ -4,7 +4,7 @@ import Database from "../../../../services/database";
 
 
 class updateUserStrategy implements IUpdateUser{
-    public Client:Database;
+    private Client:Database;
     constructor(){
         this.Client=Database.getDbInstance();
         if(!this.Client.isConnected())this.Client.connect();

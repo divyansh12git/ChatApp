@@ -1,6 +1,5 @@
 import jwt from "jsonwebtoken";
-import { JwtPayload } from "jsonwebtoken";
-import { User } from "../interfaces/types";
+
 import { EncrptData, DecryptData } from "./encrtption";
 const privateKey=process.env.JWT_TOKEN_KEY || "icecream";
 
@@ -13,7 +12,6 @@ const createToken=(username:String):String=>{
     }catch(e){
         console.log(e);
     }
-    
     // console.log(token);
     return token;
 }

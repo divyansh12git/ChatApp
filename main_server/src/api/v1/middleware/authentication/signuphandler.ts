@@ -15,8 +15,8 @@ const SignupHandler=async(data:SignUpCredentials):Promise<Boolean>=>{
         password:hashedPassword,
         profilePictureURL:"_",
         Bio:"",
-        followers:0,
-        following:0,
+        friends:0,
+        requested:0,
         number_of_posts:0
     }
     try{

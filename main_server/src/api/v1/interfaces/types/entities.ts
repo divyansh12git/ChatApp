@@ -4,8 +4,8 @@ type User={
     name:string,
     username:string,
     password:string,
-    followers?:number,
-    following?:number,
+    friends?:number,
+    requested?:number,
     number_of_posts?:number,
     profilePictureURL:string,
     Bio?:string

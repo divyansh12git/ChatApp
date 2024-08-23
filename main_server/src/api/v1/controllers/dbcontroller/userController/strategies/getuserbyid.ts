@@ -3,7 +3,7 @@ import { User } from "../../../../interfaces/types";
 import Database from "../../../../services/database";
 
 class getUserById implements IGetUserById{
-    public Client:Database;
+    private Client:Database;
     constructor(){
         this.Client=Database.getDbInstance();
         if(!this.Client.isConnected())this.Client.connect();
@@ -27,8 +27,8 @@ class getUserById implements IGetUserById{
             profilePictureURL:data?.password || "",
             username:data?.username || "null",
             Bio:data?.Bio || "",
-            followers:data?.followers || 0,
-            following:data?.following || 0,
+            friends:data?.friends || 0,
+            requested:data?.requested || 0,
             number_of_posts:data?.number_of_posts || 0
         }
         return user;
