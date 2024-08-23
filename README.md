@@ -15,7 +15,7 @@ Chat App under Production...
 ### Database
 - Postgres
 - Prisma (ORM)
-### Cahcing
+### Cahching
 - Redis
 ### Services- 
 - Kafka
