@@ -4,7 +4,8 @@ import { createToken, EncrptData } from "../../helpers";
 const mutation={
 
     signIn:async(_:any,{input}:{input:SignInCredentials}):Promise<String>=>{
-
+        console.log("req for sign in");
+        console.log(input);
         const status:Boolean=await SignInHandler(input);
         let token:String="invalid";
         if(status){

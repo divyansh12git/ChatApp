@@ -3,6 +3,8 @@ import React, { useState,useRef } from "react";
 import { Button } from "@/components/ui/button";
 import Inputfield from "../components/inputfield";
 import Link from "next/link";
+
+  
 type formdata={
     name:string,
     username:string,

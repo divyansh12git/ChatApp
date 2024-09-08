@@ -1,7 +1,8 @@
 import { User} from "../../interfaces/types"
 import { SignUpCredentials } from "../../interfaces/requests";
 import { EncrptData,DecryptData,compareHash,generateHash,createToken,verifyToken } from "../../helpers";
-import { userDBManager,mutateUserStrategy } from "../../controllers";
+import { userDBManager,mutateUserStrategy, getUserStrategy } from "../../controllers";
+import { getUserHandler } from "../user";
 
 const SignupHandler=async(data:SignUpCredentials):Promise<Boolean>=>{
 
@@ -21,6 +22,12 @@ const SignupHandler=async(data:SignUpCredentials):Promise<Boolean>=>{
     }
     try{
         const createUser=new mutateUserStrategy();
+        const findUser=new userDBManager(new getUserStrategy());
+        const find=await findUser.doAction(username.toString());
+        //@ts-ignore
+        if(find.username!=="null"){
+            return false;
+        }
         const dbManager=new userDBManager(createUser);
         const result=await dbManager.doAction(userToUpload);
         if(result){

@@ -3,8 +3,8 @@ export const typedef=`
         id: ID!
         name: String!
         username: String!
-        followers: Int
-        following: Int
+        friends: Int
+        requested: Int
         number_of_posts: Int
         profilePictureURL:String
         Bio: String
@@ -20,8 +20,8 @@ export const typedef=`
         name: String
         username: String
         password: String
-        followers: Int
-        following: Int
+        friends: Int
+        requested: Int
         number_of_posts: Int
         profilePictureURL:String
         Bio: String

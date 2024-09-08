@@ -4,6 +4,8 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button";
 import Inputfield from "./components/inputfield";
 import Link from 'next/link'
+
+import { makeLogin } from "@/lib/auth";
 interface formdata{
     username:string,
     password:string,
@@ -31,7 +33,7 @@ const Login=()=>{
           [name]: value,
         });
     };
-    const handleSubmit=(e:any)=>{
+    const handleSubmit=async(e:any)=>{
         e.preventDefault();
         const data:formdata={...formData};
         let usernameError="";
@@ -61,7 +63,13 @@ const Login=()=>{
         setFormData({
             username:"",
             password:""
-        })
+        });
+        const dataToSend={
+            username:data.username,
+            password:data.password
+        }
+        const response=await makeLogin(dataToSend);
+        console.log(response);
     }
     return(
         <form action="" className="flex  flex-col items-center gap-5">

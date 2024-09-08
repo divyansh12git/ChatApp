@@ -1,11 +1,11 @@
-import bg from "@/assets/images/bg.png"
+import bg from "../../../public/images/bg.png"
 const bgimageStyling = {
     backgroundImage: `url(${bg.src})`, // .src gives the URL path of the image
     backgroundSize: 'cover', // adjust as needed
     backgroundPosition: 'center',
 }
 export default function AuthLayout({
-    children, // will be a page or nested layout
+    children, 
   }: {
     children: React.ReactNode
   }) {
@@ -26,5 +26,5 @@ export default function AuthLayout({
         </main>
         
       </section>
-    )
+    );
   }
