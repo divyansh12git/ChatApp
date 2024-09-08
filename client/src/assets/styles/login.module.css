@@ -1,0 +1,5 @@
+.placeholdercol{
+    ::placeholder{
+        color: #ffffffb7;
+    }
+}
