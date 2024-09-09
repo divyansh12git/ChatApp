@@ -21,6 +21,8 @@ export async function POST(request: NextRequest) {
         password:password
     }
     let token="";
+    let status=false;
+    let msg="";
     try{
         const response=await chain("mutation")({
             
@@ -31,9 +33,15 @@ export async function POST(request: NextRequest) {
                 }
             },true]
         });
-        //@ts-ignore
-        token=response.signIn;
+        if(response.signIn){
+            msg="successfully logged in"
+            status=true
+            token=response.signIn;
+        }else{
+            msg="invalid credentials";
+        }
     }catch(e){
+        msg="can't connect to server"
         console.log(e);
     }
     // const x:string=username
@@ -53,5 +61,5 @@ export async function POST(request: NextRequest) {
     // }
 
     console.log(token);
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ status: status,msg:msg });
 }

@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button";
 import Inputfield from "./components/inputfield";
 import Link from 'next/link'
+import {useRouter} from "next/navigation";
 
 import { makeLogin } from "@/lib/auth";
 interface formdata{
@@ -11,6 +12,7 @@ interface formdata{
     password:string,
 }
 const Login=()=>{
+    const router=useRouter();
     const [formData,setFormData]=useState({
         username:"",
         password:"",
@@ -69,6 +71,9 @@ const Login=()=>{
             password:data.password
         }
         const response=await makeLogin(dataToSend);
+        if(response.status){
+            router.push("/");
+        }
         console.log(response);
     }
     return(

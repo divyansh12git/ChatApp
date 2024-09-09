@@ -1,9 +1,10 @@
 'use client'
 import React, { useState,useRef } from "react";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import Inputfield from "../components/inputfield";
 import Link from "next/link";
-
+import { makeSignUp } from "@/lib/auth";
   
 type formdata={
     name:string,
@@ -12,6 +13,8 @@ type formdata={
     confirmPassword:string
 }
 const Signup=()=>{
+    const router=useRouter();
+
     const [data,setdata]=useState({
         name:"",
         username:"",
@@ -39,7 +42,7 @@ const Signup=()=>{
             [name]:value
         })
     }
-    const handleSubmit=(e:any)=>{
+    const handleSubmit=async(e:any)=>{
         e.preventDefault();
         let errorvalue={
             nameError:"",
@@ -74,8 +77,16 @@ const Signup=()=>{
                 password:"",
                 confirmPassword:""
             });
-        
-        console.log(formdata);
+            const dataToSend={
+                name:formdata.name,
+                username:formdata.username,
+                password:formdata.password
+            }
+        const response=await makeSignUp(dataToSend);
+        console.log(response);
+        if(response.status){
+            router.push("/");
+        }
     }
 
     return(
