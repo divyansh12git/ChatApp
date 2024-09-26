@@ -98,7 +98,6 @@ const Signup=()=>{
             <Inputfield errorRef={dataRef.confirmPasswordRef} name="confirmPassword"  value={data.confirmPassword} handleChange={handleChange} key="4" />
             <Button className="hover:bg-zinc-800  bg-zinc-900 rounded-full h-12 w-full px-5 text-white text-lg font-light" onClick={(e)=>handleSubmit(e)}> Sign Up</Button>
             <Link href="/auth"  className="self-end hover:text-gray-500  underline font-light text-xl text-white text-light">Login</Link>
-            
         </form>
     );
 }
