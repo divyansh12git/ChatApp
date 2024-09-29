@@ -5,9 +5,7 @@ interface props{
     username:string,
     message:string,
     count:number
-/*************  ✨ Codeium Command ⭐  *************/
-/******  c1a0a316-edae-44a6-9ccd-26bc9c84e515  *******/}
-
+}
 function ProfileCard({profilepic,username,message,count}:props) {
     return (
       <Link href={`/chat/${username}`} className=" w-full">
