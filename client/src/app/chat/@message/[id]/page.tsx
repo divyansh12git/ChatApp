@@ -1,6 +1,6 @@
 'use client'
 import {useState,useEffect, useRef} from "react"
-import { Topbar,InputBox,MessageArea,MessageBox } from "@/components/custom";
+import { Topbar,InputBox,MessageBox } from "@/components/custom";
 
 import getDateFormat from "@/lib/utils/date";
 import profile1 from "../../../../../public/images/profile/1.png"
