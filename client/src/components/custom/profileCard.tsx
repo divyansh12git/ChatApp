@@ -1,12 +1,16 @@
+import Link from "next/link";
 
 interface props{
     profilepic:any,
     username:string,
     message:string,
     count:number
-}
+/*************  ✨ Codeium Command ⭐  *************/
+/******  c1a0a316-edae-44a6-9ccd-26bc9c84e515  *******/}
+
 function ProfileCard({profilepic,username,message,count}:props) {
     return (
+      <Link href={`/chat/${username}`} className=" w-full">
         <div className="hover:bg-[#54545427] flex w-full flex-col">
               <div  className="flex flex-row h-24 " >
                 <div className=" w-28 flex justify-center items-center ">
@@ -26,6 +30,7 @@ function ProfileCard({profilepic,username,message,count}:props) {
               </div>
               <div className="h-[1px] w-[93%] bg-white self-center"></div>
               </div>
+      </Link>
     )
 }
 export default ProfileCard;
