@@ -1,6 +1,6 @@
 import { IMutateUser } from "../../../../interfaces/databaseController";
 import { User } from "../../../../interfaces/types";
-import Database from "../../../../services/database";
+import {Database} from "../../../../models";
 import UserToRoomController from "../../userToRoomController";
 class mutateUserStrategy implements IMutateUser{
     private Client:Database;

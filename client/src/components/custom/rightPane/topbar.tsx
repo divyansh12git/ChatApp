@@ -6,7 +6,7 @@ export default function Topbar({username,profilepic,status}:{username:string,pro
         backgroundSize: 'cover',backgroundPosition: 'center', backgroundImage: `url(${profilepic})`,
     }
     return (
-        <div className="w-full h-20 bg-[#18171d] grid grid-cols-4">
+        <div className=" sticky top-0  w-full h-20 bg-[#18171d] grid grid-cols-4">
             <div className="pl-5 col-span-3 flex items-center gap-2"> 
                 <div className=" w-20 flex justify-center items-center  ">
                     <div style={profile} 

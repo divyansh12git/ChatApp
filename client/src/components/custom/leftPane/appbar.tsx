@@ -37,8 +37,9 @@ function Appbar({currentStatus}:any) {
         setIndex(x);
         currentStatus(x);
     }
-    return (    
-        <div className=" bg-[rgb(24,23,29)] gap-5 col-span-1 flex flex-col justify-center items-center">
+    return (
+        <div className="bg-[rgb(24,23,29)] col-span-1 flex flex-col items-center  ">    
+        <div className=" fixed gap-5 flex flex-col justify-center items-center      h-[100vh]">
             <div ref={eleRefA} className="hover:bg-[#ffffff18]  w-12 h-12  flex justify-center items-center rounded-full" onClick={(e)=>handleClick(0)}>
                 <MessageSquareMoreIcon className=" h-8 w-8 text-white " />
             </div>
@@ -61,6 +62,7 @@ function Appbar({currentStatus}:any) {
             </div>
             
         </div>
+         </div>
     );
 }
 

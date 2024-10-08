@@ -1,12 +1,13 @@
 import { IUserToRoom,room } from "../../../interfaces/userToRoom";
-import Database from "../../../services/database";
+import Database from "../../../models/database";
 
 const dummyRoom:room={
-    requested:[],
-    requesting:[],
-    rooms:[],
+    requested:[],//user have to accept this list of friend to be the friend
+    requesting:[],// i'm asking for them to accept my request
+    rooms:[],//room is related to the friend id
     userId:1
 }
+
 //requested:They are Requesting me to ad them
 //requesting: I am req them to accept mine
 
@@ -17,6 +18,8 @@ class UserToRoomController implements IUserToRoom{
         this.Client=Database.getDbInstance();
         if(!this.Client.isConnected())this.Client.connect();
     }
+    
+    //get all the data related to a single user
     async getUserToRoomData(myId: number): Promise<room|null> {
         const handler=Database.Client;
         
@@ -43,6 +46,7 @@ class UserToRoomController implements IUserToRoom{
         return null;
     }
 
+    //creating a user in this table
     async createUserToRoom(data: room): Promise<number> {
         const handler=Database.Client;
         try{
@@ -63,6 +67,7 @@ class UserToRoomController implements IUserToRoom{
         return -1;
     }
 
+    // deleting a particular friend from a user
     async deleteRoom(id: number): Promise<Boolean> {
         const handler=Database.Client;
         try{
@@ -77,7 +82,8 @@ class UserToRoomController implements IUserToRoom{
         }
         return false;
     }
- 
+    
+    
     async addRequested({ myId, userId }: { myId: number; userId: number; }): Promise<Boolean> {
         const handler=Database.Client;
         try{

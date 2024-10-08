@@ -8,8 +8,8 @@ const profilepic = {
     backgroundImage: `url(${profile1.src})`, // .src gives the URL path of the image
     
 }
+
 export default function UserMessage({ params }: { params: { id: string } }) {
-    
     const areaRef=useRef(null);
     const [childComponents, setChildComponents] = useState<any>([]);
 
@@ -30,9 +30,8 @@ export default function UserMessage({ params }: { params: { id: string } }) {
             <MessageBox message={message} sender={sender} time={date} key={newid}  />
         ]);     
     }
-
     return (
-        <div className="col-span-7 h-full bg-zinc-400 flex flex-col justify-between">
+        <div className="col-span-7  h-full  flex flex-col justify-between bg-zinc-400 w-full ">
             <Topbar username={params.id} profilepic={`${profile1.src}`} status="online" />
             <div ref={areaRef} style={{overflow: "auto", scrollbarWidth: "none"}} className="h-[32.5rem] mb-2 mx-4">
 
@@ -41,6 +40,7 @@ export default function UserMessage({ params }: { params: { id: string } }) {
                 </div>
             </div>
             <InputBox populateMessages={populateMessages}/>
+            
         </div>
     );
 }
