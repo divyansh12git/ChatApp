@@ -24,6 +24,7 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
       var socket = io();
+      console.log("yooyoy")
       const button=document.getElementById("send");
       const dataToSend=document.getElementById("input");
       const messages=document.getElementById("messages");
@@ -41,7 +42,7 @@
         event.preventDefault();
         const message=dataToSend.value;
         console.log(message);
-        socket.emit("user-message",message)
+        socket.emit("emit:user-message",message)
       })
     </script>
   </body>
