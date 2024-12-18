@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
         username:username,
         password:password
     }
-    let token="";
+    let token:any="";
     let status=false;
     let msg="";
     try{
@@ -33,11 +33,13 @@ export async function POST(request: NextRequest) {
                 }
             },true]
         });
-        if(response.signIn){
+        console.log(response);
+        if(response.signIn!='invalid'){
             msg="successfully logged in"
             status=true
             token=response.signIn;
         }else{
+            status=false
             msg="invalid credentials";
         }
     }catch(e){
@@ -60,6 +62,6 @@ export async function POST(request: NextRequest) {
     //     console.log(e);
     // }
 
-    console.log(token);
-    return NextResponse.json({ status: status,msg:msg });
+    // console.log(token);
+    return NextResponse.json({ status: status,msg:msg, token:token });
 }

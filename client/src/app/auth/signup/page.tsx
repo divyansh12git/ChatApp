@@ -5,16 +5,21 @@ import { Button } from "@/components/ui/button";
 import Inputfield from "../components/inputfield";
 import Link from "next/link";
 import { makeSignUp } from "@/lib/auth";
-  
+import { useAuth } from "@/hooks";
+
+import toast, { Toaster } from 'react-hot-toast';
+import { Loader } from "@/components/ui";
+
 type formdata={
     name:string,
     username:string,
     password:string,
     confirmPassword:string
 }
+
 const Signup=()=>{
     const router=useRouter();
-
+    const {auth,loading,error}=useAuth(makeSignUp);
     const [data,setdata]=useState({
         name:"",
         username:"",
@@ -82,23 +87,38 @@ const Signup=()=>{
                 username:formdata.username,
                 password:formdata.password
             }
-        const response=await makeSignUp(dataToSend);
+        const response=await auth(dataToSend);
         console.log(response);
+        // if(response.status){
+        //     router.push("/");
+        // }
         if(response.status){
+            toast.success(response.msg);
+
+            //setting token to local storage:
+            localStorage.setItem('token', response.token);
+
             router.push("/");
+        }else{
+            toast.error(response.msg || "Something went Wrong");
         }
     }
 
     return(
-        <form action="" className="flex  flex-col items-center gap-5">
-            <div className="text-2xl">Sign Up</div>
-            <Inputfield errorRef={dataRef.nameRef} name="name"  value={data.name} handleChange={handleChange} key="1" />
-            <Inputfield errorRef={dataRef.usernameRef} name="username"  value={data.username} handleChange={handleChange} key="2" />
-            <Inputfield errorRef={dataRef.passwordRef} name="password"  value={data.password} handleChange={handleChange} key="3" />
-            <Inputfield errorRef={dataRef.confirmPasswordRef} name="confirmPassword"  value={data.confirmPassword} handleChange={handleChange} key="4" />
-            <Button className="hover:bg-zinc-800  bg-zinc-900 rounded-full h-12 w-full px-5 text-white text-lg font-light" onClick={(e)=>handleSubmit(e)}> Sign Up</Button>
-            <Link href="/auth"  className="self-end hover:text-gray-500  underline font-light text-xl text-white text-light">Login</Link>
-        </form>
+        <>
+            <Toaster />
+            <form action="" className="flex  flex-col items-center gap-5">
+                <div className="text-2xl">Sign Up</div>
+                <Inputfield errorRef={dataRef.nameRef} name="name"  value={data.name} handleChange={handleChange} key="1" />
+                <Inputfield errorRef={dataRef.usernameRef} name="username"  value={data.username} handleChange={handleChange} key="2" />
+                <Inputfield errorRef={dataRef.passwordRef} name="password"  value={data.password} handleChange={handleChange} key="3" />
+                <Inputfield errorRef={dataRef.confirmPasswordRef} name="confirmPassword"  value={data.confirmPassword} handleChange={handleChange} key="4" />
+                <div className="hover:bg-zinc-800  bg-zinc-900 flex justify-center rounded-full h-12 w-full px-5 text-white text-lg font-light" > 
+                        {loading?<p className=" flex justify-center items-center"><Loader /></p>:<button className="w-full" onClick={(e)=>handleSubmit(e)}>SignUp</button>}
+                    </div>
+                <Link href="/auth"  className="self-end hover:text-gray-500  underline font-light text-xl text-white text-light">Login</Link>
+            </form>
+        </>
     );
 }
 export default Signup;

@@ -5,18 +5,25 @@ import { Button } from "@/components/ui/button";
 import Inputfield from "./components/inputfield";
 import Link from 'next/link'
 import {useRouter} from "next/navigation";
+import {useAuth} from '@/hooks';
+import { makeLogin } from '@/lib/auth';
+import toast, { Toaster } from 'react-hot-toast';
+import { Loader } from "@/components/ui";
 
-import { makeLogin } from "@/lib/auth";
 interface formdata{
     username:string,
     password:string,
 }
+
+
 const Login=()=>{
     const router=useRouter();
     const [formData,setFormData]=useState({
         username:"",
         password:"",
     })
+    const {auth,loading,error}=useAuth(makeLogin);
+
     const usernameRef=useRef(null);
     const passwordRef=useRef(null);
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -70,21 +77,35 @@ const Login=()=>{
             username:data.username,
             password:data.password
         }
-        const response=await makeLogin(dataToSend);
+
+        const response=await auth(dataToSend);
+
         if(response.status){
+            toast.success(response.msg);
+
+            //setting token to local storage:
+            localStorage.setItem('token', response.token);
+
             router.push("/");
+        }else{
+            toast.error(response.msg || "Something went Wrong");
         }
-        console.log(response);
+        // console.log(response);
     }
     return(
-        <form action="" className="flex  flex-col items-center gap-5">
-            <div className="text-2xl"> Login</div>
-            <Inputfield key={"1"} name="username" errorRef={usernameRef} handleChange={handleChange} value={formData.username} />
-            <Inputfield key={"2"} name="password" errorRef={passwordRef} handleChange={handleChange} value={formData.password} />
-            <Button className="hover:bg-zinc-800  bg-zinc-900 rounded-full h-12 w-full px-5 text-white text-lg font-light" onClick={(e)=>handleSubmit(e)}> Login</Button>
-            <Link href="/auth/signup"  className="self-end hover:text-gray-500  underline font-light text-xl text-white text-light">Sign up</Link>
-            
-        </form>
+        <>
+            <Toaster />
+            <form action="" className="flex  flex-col items-center gap-5">
+                <div className="text-2xl"> Login</div>
+                <Inputfield key={"1"} name="username" errorRef={usernameRef} handleChange={handleChange} value={formData.username} />
+                <Inputfield key={"2"} name="password" errorRef={passwordRef} handleChange={handleChange} value={formData.password} />
+                <div className="hover:bg-zinc-800  bg-zinc-900 flex justify-center rounded-full h-12 w-full px-5 text-white text-lg font-light" > 
+                    {loading?<p className=" flex justify-center items-center"><Loader /></p>:<button className="w-full" onClick={(e)=>handleSubmit(e)}>Login</button>}
+                </div>
+                <Link href="/auth/signup"  className="self-end hover:text-gray-500  underline font-light text-xl text-white text-light">Sign up</Link>
+
+            </form>
+        </>
     );
 }
 export default Login;

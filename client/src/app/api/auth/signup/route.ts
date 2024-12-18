@@ -41,5 +41,5 @@ export async function POST(request: NextRequest) {
         }
         console.log(token);
         
-    return NextResponse.json({status:status,msg:msg});
+    return NextResponse.json({status:status,msg:msg,token:token});
 }
