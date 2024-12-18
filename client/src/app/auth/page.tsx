@@ -44,6 +44,7 @@ const Login=()=>{
     };
     const handleSubmit=async(e:any)=>{
         e.preventDefault();
+        
         const data:formdata={...formData};
         let usernameError="";
         let passwordError="";
@@ -82,8 +83,9 @@ const Login=()=>{
 
         if(response.status){
             toast.success(response.msg);
-
+            console.log(response.token);
             //setting token to local storage:
+            localStorage.removeItem('token');
             localStorage.setItem('token', response.token);
 
             router.push("/");

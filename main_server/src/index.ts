@@ -48,7 +48,13 @@ import { verifyToken } from "./api/v1/helpers";
     server.get("/",(req,res)=>{
         res.json({msg:"this is from chat app server!!!"})
     })
-
+    server.get("/token",(req,res)=>{
+        const token=req.headers["authentication"];
+        console.log(token);
+        //@ts-ignore
+        const data=verifyToken(token);
+        res.json({token:data})
+    })
     server.listen(PORT,()=>{
         console.log(`Server is running on port: ${PORT}`)
     });

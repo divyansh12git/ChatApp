@@ -96,6 +96,7 @@ const Signup=()=>{
             toast.success(response.msg);
 
             //setting token to local storage:
+            localStorage.removeItem('token');
             localStorage.setItem('token', response.token);
 
             router.push("/");
