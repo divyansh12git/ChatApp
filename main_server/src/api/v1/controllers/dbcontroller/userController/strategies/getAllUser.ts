@@ -15,6 +15,7 @@ class getAllUserStrategy implements IGetAllUsers{
             
             result.forEach((r)=>{
                 let user:User={
+                    id:r?.id || 0,
                     name:r?.name || "",
                     password:r?.password || "",
                     profilePictureURL:r?.profilePictureURL || "",

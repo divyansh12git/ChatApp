@@ -1,7 +1,7 @@
 type room={
     id?:number
     userId:number,
-    rooms: number[],
+    rooms: {roomID:string,friendID:number}[],
     requested:number[],
     requesting:number[]
 }
@@ -20,7 +20,7 @@ interface IUserToRoom{
     addRooms({myId,userId}:{myId:number,userId:number}):Promise<Boolean>
     removeRequested(data:request):Promise<Boolean>;
     removeRequesting(data:request):Promise<Boolean>;
-    removeRoom({myId,userId}:{myId:number,userId:number}):Promise<Boolean>;
+    removeFriend({myId,userId}:{myId:number,userId:number}):Promise<Boolean>;
 }
 export{
     IUserToRoom,room

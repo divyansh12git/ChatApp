@@ -1,6 +1,6 @@
 import { IUserToRoom,room } from "../../../interfaces/userToRoom";
 import Database from "../../../models/database";
-
+import {v4 as uuid} from "uuid";
 const dummyRoom:room={
     requested:[],//user have to accept this list of friend to be the friend
     requesting:[],// i'm asking for them to accept my request
@@ -35,7 +35,7 @@ class UserToRoomController implements IUserToRoom{
                     id:result.id,
                     requested:result.requested ,
                     requesting:result.requesting ,
-                    rooms:result.rooms ,
+                    rooms:result.rooms as {roomID:string,friendID:number}[] ,
                     userId:result.id
                 }
                 return data;
@@ -86,6 +86,7 @@ class UserToRoomController implements IUserToRoom{
     
     async addRequested({ myId, userId }: { myId: number; userId: number; }): Promise<Boolean> {
         const handler=Database.Client;
+        let status=false;
         try{
             const list=await this.getUserToRoomData(myId);
             const id=list?.id;
@@ -100,17 +101,18 @@ class UserToRoomController implements IUserToRoom{
                         requested:data
                     }
                 }).then(()=>{
-                    return true;
+                    status= true;
                 })
             }
             
         }catch(e){
             console.log(e);
         }
-        return false;
+        return status;
     }
     async addRequesting({ myId, userId }: { myId: number; userId: number; }): Promise<Boolean> {
         const handler=Database.Client;
+        let status=false;
         try{
             const list=await this.getUserToRoomData(myId);
             const id=list?.id;
@@ -128,7 +130,7 @@ class UserToRoomController implements IUserToRoom{
                     //updating another user's requested list
                     await this.addRequested({myId:userId,userId:myId}).then(()=>{
                         console.log("Request Sent")
-                        return true;
+                        status= true;
                     });
 
                 })
@@ -137,17 +139,22 @@ class UserToRoomController implements IUserToRoom{
         }catch(e){
             console.log(e);
         }
-        return false;
+        return status;
     }
     
     async addRooms({ myId, userId }: { myId: number; userId: number; }): Promise<Boolean> {
         const handler=Database.Client;
+        let status=false;
         try{
+            const roomData:{roomID:string,friendID:number}={
+                roomID: uuid(),
+                friendID:userId,
+            }
             const list=await this.getUserToRoomData(myId);
             const id=list?.id;
             if(list && id){
                 const data=list.rooms;
-                data.push(userId);
+                data.push(roomData);
                 await handler?.userToRoom.update({
                     where:{
                         id:id
@@ -156,20 +163,24 @@ class UserToRoomController implements IUserToRoom{
                         rooms:data
                     }
                 }).then(()=>{
-                    return true;
+                    status=true;
                 })
             }
             
         }catch(e){
             console.log(e);
         }
-        return false;
+        return status;
 
     }
     async removeRequested( {myId,userId,status}:{ myId: number ,userId: number, status: Boolean }): Promise<Boolean> {
         const handler=Database.Client;
         try{
-            //updating mine list 
+            //updating mine list if i  have accepted other's request
+            const roomData:{roomID:string,friendID:number}={
+                roomID: uuid(),
+                friendID:userId,
+            }
             let s1=false,s2=false;
             const list=await this.getUserToRoomData(myId);
             const id=list?.id;
@@ -177,7 +188,7 @@ class UserToRoomController implements IUserToRoom{
                 let data=list.requested;
                 let rooms=list.rooms;
                 if(status){
-                    rooms.push(userId);
+                    rooms.push(roomData);
                 }
                 data=data.filter((e)=>e!==userId);
                 await handler?.userToRoom.update({
@@ -206,7 +217,11 @@ class UserToRoomController implements IUserToRoom{
     async removeRequesting({myId,userId,status}:{ myId: number ,userId: number, status: Boolean }): Promise<Boolean> {
         const handler=Database.Client;
         try{
-            //updating mine list 
+            // updating mine list if the other user have accepted the request
+            const roomData:{roomID:string,friendID:number}={
+                roomID: uuid(),
+                friendID:userId,
+            }
             let result=false;
             const list=await this.getUserToRoomData(myId);
             const id=list?.id;
@@ -214,7 +229,7 @@ class UserToRoomController implements IUserToRoom{
                 let data=list.requesting;
                 let rooms=list.rooms;
                 if(status){
-                    rooms.push(userId);
+                    rooms.push(roomData);
                 }
                 data=data.filter((e)=>e!==userId);
                 await handler?.userToRoom.update({
@@ -236,14 +251,14 @@ class UserToRoomController implements IUserToRoom{
         }
         return false;
     }
-    async removeRoom({ myId, userId }: { myId: number; userId: number; }): Promise<Boolean> {
+    async removeFriend({ myId, userId }: { myId: number; userId: number; }): Promise<Boolean> {
         const handler=Database.Client;
         try{
             const list=await this.getUserToRoomData(myId);
             const id=list?.id;
             if(list && id){
                 let data=list.rooms;
-                data=data.filter((e)=>e!==userId);
+                data=data.filter((e)=>e.friendID!==userId);
                 await handler?.userToRoom.update({
                     where:{
                         id:id

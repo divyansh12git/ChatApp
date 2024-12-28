@@ -21,6 +21,7 @@ class getUserById implements IGetUserById{
             console.log(e);
         }
         const user:User={
+            id:data?.id || 0,
             name:data?.name || "",
             password:data?.password || "",
             profilePictureURL:data?.password || "",
@@ -33,3 +34,5 @@ class getUserById implements IGetUserById{
         return user;
     }
 }
+
+export {getUserById};

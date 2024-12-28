@@ -17,9 +17,8 @@ export default  function Home() {
       return ()=>{
         if (!token) {
           return redirect(`/auth`);
-        }
+        }        
 
-        
         console.log(token);
         try {
           // Verify the token

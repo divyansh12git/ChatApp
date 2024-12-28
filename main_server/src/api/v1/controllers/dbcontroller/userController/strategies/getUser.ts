@@ -25,6 +25,7 @@ class getUserStrategy implements IGetUser {
             console.log(e);
         }
         const user:User={
+            id:data?.id || 0,
             name:data?.name || "",
             password:data?.password || "",
             profilePictureURL:data?.password || "",
