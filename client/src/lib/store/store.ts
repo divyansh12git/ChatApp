@@ -1,8 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit'
+import  personalInformationReducer  from './features/personalInformation'
+import usernameSliceReducer from './features/username';
+
 
 export const makeStore = () => {
   return configureStore({
-    reducer: {}
+    reducer: {
+      personalInformation:personalInformationReducer,
+      username:usernameSliceReducer
+    }
   })
 }
 

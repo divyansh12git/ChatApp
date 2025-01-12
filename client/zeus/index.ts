@@ -903,6 +903,7 @@ export type ValueTypes = {
 getAllUsers?: [{	input: string | Variable<any, string>},ValueTypes["User"]],
 getUser?: [{	input: string | Variable<any, string>},ValueTypes["User"]],
 	getCurrentUser?:ValueTypes["User"],
+getFriendsData?: [{	userId: number | Variable<any, string>},ValueTypes["User"]],
 		__typename?: boolean | `@${string}`
 }>;
 	["Mutation"]: AliasType<{
@@ -955,6 +956,7 @@ export type ResolverInputTypes = {
 getAllUsers?: [{	input: string},ResolverInputTypes["User"]],
 getUser?: [{	input: string},ResolverInputTypes["User"]],
 	getCurrentUser?:ResolverInputTypes["User"],
+getFriendsData?: [{	userId: number},ResolverInputTypes["User"]],
 		__typename?: boolean | `@${string}`
 }>;
 	["Mutation"]: AliasType<{
@@ -1010,7 +1012,8 @@ export type ModelTypes = {
 	["Query"]: {
 		getAllUsers?: Array<ModelTypes["User"] | undefined> | undefined,
 	getUser?: ModelTypes["User"] | undefined,
-	getCurrentUser?: ModelTypes["User"] | undefined
+	getCurrentUser?: ModelTypes["User"] | undefined,
+	getFriendsData?: Array<ModelTypes["User"] | undefined> | undefined
 };
 	["Mutation"]: {
 		updateUser?: boolean | undefined,
@@ -1065,7 +1068,8 @@ export type GraphQLTypes = {
 	__typename: "Query",
 	getAllUsers?: Array<GraphQLTypes["User"] | undefined> | undefined,
 	getUser?: GraphQLTypes["User"] | undefined,
-	getCurrentUser?: GraphQLTypes["User"] | undefined
+	getCurrentUser?: GraphQLTypes["User"] | undefined,
+	getFriendsData?: Array<GraphQLTypes["User"] | undefined> | undefined
 };
 	["Mutation"]: {
 	__typename: "Mutation",

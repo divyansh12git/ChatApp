@@ -1,14 +1,14 @@
 'use client'
 import {useState,useEffect} from "react";
-
+import { useSelector, useDispatch } from 'react-redux'
 import { redirect } from 'next/navigation'
-import {} from "@/lib/redux/features/personalInformation"
+import {updatePersonalInformation} from "@/lib/store/features/personalInformation"
 import {DecryptData,verifyToken} from "@/lib/services"
-
-
+import {getUserData} from "@/lib/services/api"
+import {update} from "@/lib/store/features/username";
 export default  function Home() {
   // redirect(`/chat`);
-
+    const dispatch = useDispatch()
     useEffect(() => {
       // This will run only on the client-side
       const token = localStorage.getItem('token');
@@ -18,13 +18,14 @@ export default  function Home() {
         if (!token) {
           return redirect(`/auth`);
         }        
-
-        console.log(token);
+        // console.log(token);
         try {
           // Verify the token
-          const tokenData=verifyToken(token);
-          console.log(tokenData);
-          if(tokenData!=null){
+          const username=verifyToken(token);
+          console.log(username);
+          // console.log(data)
+          dispatch(update({username:username}));
+          if(username!=null){
               return redirect('/chat');
           }
 
@@ -35,7 +36,7 @@ export default  function Home() {
           console.log(err);
           
         }
-        return redirect(`/chat`);
+        return redirect(`/auth`);
       }
     }, []);
 

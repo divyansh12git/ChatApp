@@ -4,8 +4,8 @@ import profile1 from "../../../../../public/images/profile/1.png"
 import profile2 from "../../../../../public/images/profile/2.png"
 import UserContext from "@/lib/context/leftpane"
 import { useContext } from "react";
-
-
+import {RootState} from "@/lib/store/store"
+import { useSelector } from "react-redux";
 const profilepic = {
     backgroundImage: `url(${profile1.src})`, // .src gives the URL path of the image
     backgroundSize: 'cover', // adjust as needed
@@ -25,6 +25,7 @@ interface User {
 }
 function Messages () {
     const appContext = useContext(UserContext);
+    const data=useSelector((state:RootState)=>state.personalInformation)
     if (!appContext) {
       throw new Error('useContext must be used within an AppProvider');
     }
@@ -44,9 +45,12 @@ function Messages () {
             })}
             
             <ProfileCard key={1} profilepic={profilepic} username="Selena" message="What's up, how's goin" count={10} />
+            <ProfileCard key={2} profilepic={profilepic} username={data.username} message="..." count={10}  />
           </div>
       
     );
 }
 
 export default Messages;
+
+

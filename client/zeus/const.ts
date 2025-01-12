@@ -19,6 +19,9 @@ export const AllTypesProps: Record<string,any> = {
 		},
 		getUser:{
 
+		},
+		getFriendsData:{
+
 		}
 	},
 	Mutation:{
@@ -51,7 +54,8 @@ export const ReturnTypes: Record<string,any> = {
 	Query:{
 		getAllUsers:"User",
 		getUser:"User",
-		getCurrentUser:"User"
+		getCurrentUser:"User",
+		getFriendsData:"User"
 	},
 	Mutation:{
 		updateUser:"Boolean",
