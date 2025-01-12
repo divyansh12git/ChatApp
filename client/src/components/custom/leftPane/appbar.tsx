@@ -2,6 +2,7 @@
 import { useState,useRef,useEffect } from "react";
 import { MessageSquareMoreIcon, Phone } from "lucide-react";
 import { Settings } from "lucide-react";
+import Logout from "./logout";
 function Appbar({currentStatus}:any) {
     const [index,setIndex]=useState(0);
     const eleRefA=useRef(null);
@@ -9,7 +10,7 @@ function Appbar({currentStatus}:any) {
     const eleRefC=useRef(null);
     const eleRefD=useRef(null);
     useEffect(()=>{
-        console.log(index);
+        // console.log(index);
         //@ts-ignore
         eleRefA.current.style.backgroundColor="";
         //@ts-ignore
@@ -61,6 +62,7 @@ function Appbar({currentStatus}:any) {
                 <Settings className="h-8 w-8 text-white" />
             </div>
             
+            <Logout  />
         </div>
          </div>
     );

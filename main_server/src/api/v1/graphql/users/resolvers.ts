@@ -2,6 +2,7 @@ import { getUserStrategy, userDBManager } from "../../controllers";
 import { verifyToken } from "../../helpers";
 import { User } from "../../interfaces/types";
 import {getUserHandler} from "../../middleware/user"
+import { getAllFriendsData } from "../../services/friendlogic";
 type upinp={
     user:User,
     finduser:string
@@ -77,6 +78,14 @@ const queries={
 
           }
         return dummyUser;
+    },
+    getFriendsData:async(_:any,{userId}:{userId:number})=>{
+        // const myid=Number(input)
+        const handler=new getAllFriendsData(userId);
+        const data:User[]=await handler.getData();
+        if(data){
+            return data;
+        }
     }
 
 };

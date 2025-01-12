@@ -17,8 +17,10 @@
   </head>
   <body>
 
+    <input id="inputRoom" type="text" autocomplete="off" /><button id="room">Send</button>
     <ul id="messages"></ul>
     <form id="form" action="">
+      
       <input id="input" type="text" autocomplete="off" /><button id="send">Send</button>
     </form>
     <script src="/socket.io/socket.io.js"></script>
@@ -29,11 +31,18 @@
       const dataToSend=document.getElementById("input");
       const messages=document.getElementById("messages");
 
-
-      socket.on("broadcast",(msg)=>{
+      const roomID=document.getElementById("inputRoom");
+      const roomButton=document.getElementById("room");
+      roomButton.addEventListener("click",(event)=>{
+        event.preventDefault();
+        const roomId=roomID.value;
+        console.log(roomId);
+        socket.emit("join-room",roomId);
+      })
+      socket.on("receive-message",(msg)=>{
         console.log(msg);
         const d=document.createElement("div");
-        d.innerText=msg
+        d.innerText=msg.sender+": "+msg.msg;
         messages.appendChild(d);
       });
       
@@ -41,8 +50,9 @@
         console.log("HI bro")
         event.preventDefault();
         const message=dataToSend.value;
+        let room=roomID.value;
         console.log(message);
-        socket.emit("emit:user-message",message)
+        socket.emit("emit:user-message",{roomId:room,msg:message})
       })
     </script>
   </body>

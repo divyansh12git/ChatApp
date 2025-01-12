@@ -13,7 +13,7 @@ type Queries{
 
     getAllUsers(search:String!):[User]
     getUser(username:String!):User
-    
+    getFriendsData(userId:Int!):[User]
 }
 
 input createUserInput{

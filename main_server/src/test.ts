@@ -28,7 +28,7 @@ import { actionOnRequest, getAllFriendsData, sendRequest } from "./api/v1/servic
     // await actionOnRequest({myId:4,userId:3,action:true});
     // await sendRequest({myId:1,userId:3});
     // await sendRequest({myId:3,userId:4});
-    const friends=new getAllFriendsData(3);
+    const friends=new getAllFriendsData(1);
     const data=await friends.getData();
     console.log(data);
     

@@ -31,11 +31,10 @@ function Messages () {
     const { users, setUser } = appContext;
     
     return (
-            
             <div style={{overflow: "auto", scrollbarWidth: "none"}} className="bg-[#1c1c24] w-full col-span-7 flex flex-col items-center overflow-y-scroll overflow-x-hidden">
-            <div className="flex items-center text-sm h-10 w-5/6 mt-5 bg-zinc-800 m-2 rounded-full">
-              <input type="text" className="focus:outline-none ml-5 bg-transparent text-slate-300 font-extralight" placeholder="Enter the username..." />
-              <div className=""></div>
+            <div className=" flex items-center text-sm mt-5 w-5/6  bg-zinc-800 m-2 rounded-full">
+              <input type="text" className="focus:outline-none p-3 ml-5 bg-transparent text-slate-300 font-extralight" placeholder="Enter the username..." />
+              {/* <div className=""></div> */}
             </div>
             <p className="self-start text-2xl text-white ml-5 mt-2">Chats</p>
             {users?.map((user:User)=>{
