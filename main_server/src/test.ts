@@ -23,14 +23,24 @@ import { actionOnRequest, getAllFriendsData, sendRequest } from "./api/v1/servic
         rooms:[{roomID:"55",friendID:2}],
         userId:2
     }
-    // await sendRequest({myId:4,userId:2});
-    // await actionOnRequest({myId:2,userId:1,action:false});
-    // await actionOnRequest({myId:4,userId:3,action:true});
+    const hand=new UserToRoomController();
+    const data=await hand.getUserToRoomData(1);
+    const data2=await hand.getUserToRoomData(5);
+    
+    console.log(data);
+    console.log(data2);
+    // await sendRequest({myId:1,userId:2});
+    // await sendRequest({myId:1,userId:3});
+    // await sendRequest({myId:3,userId:5});
+    // await sendRequest({myId:5,userId:1});
+    // await sendRequest({myId:5,userId:2});
+    // await sendRequest({myId:5,userId:4});
+
     // await sendRequest({myId:1,userId:3});
     // await sendRequest({myId:3,userId:4});
-    const friends=new getAllFriendsData(1);
-    const data=await friends.getData();
-    console.log(data);
+    // const friends=new getAllFriendsData(1);
+    // const data=await friends.getData();
+    // console.log(data);
     
 
 

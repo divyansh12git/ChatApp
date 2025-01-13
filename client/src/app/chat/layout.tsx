@@ -3,7 +3,8 @@ import {useState,useEffect} from "react";
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../lib/store/store';
 import { getUserData } from "@/lib/services/api";
-import {updatePersonalInformation} from "@/lib/store/features/personalInformation"
+import {updatePersonalInformation} from "@/lib/store/slice/personalInformation"
+import verifyToken from "@/lib/services/tokenVerifier";
 
 export default function chatLayout({
     children,
@@ -13,11 +14,13 @@ export default function chatLayout({
       message:React.ReactNode
   }){
         const [loading,setLoading]=useState(false);
-        const username = useSelector((state: RootState) => state.username.username);
+        const token = localStorage.getItem('token');
+        let username = useSelector((state: RootState) => state.username.username);
+        if(token) username=verifyToken(token);
         const dispatch=useDispatch();
 
         console.log(username);
-        console.log("YOYOYOYO");
+        // console.log("YOYOYOYO");
         useEffect(()=>{
             setLoading(true);
 

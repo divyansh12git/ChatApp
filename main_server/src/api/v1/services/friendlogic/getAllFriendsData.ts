@@ -1,7 +1,7 @@
 import { getUserById, userDBManager } from "../../controllers";
 import {UserToRoomController} from "../../controllers/"
 
-import { User } from "../../interfaces/types";
+import { User,UserToRoom } from "../../interfaces/types";
 
 class getAllFriendsData{
     private  myId:number;
@@ -33,6 +33,7 @@ class getAllFriendsData{
         let friendData:User[]=[];
         try{
             await this.initfriendList();
+            if(this.friendList.length==0)return friendData;
             const userStrategy=new getUserById();
             const userhandler=new userDBManager(userStrategy);
             
@@ -54,8 +55,25 @@ class getAllFriendsData{
         }
         // console.log("HI1");
         return friendData;
-    }
+    };
 
+    getUserToRoomData=async():Promise<UserToRoom[]>=>{
+        let roomData:UserToRoom[]=[];
+        try{
+            await this.initfriendList();
+            if(this.friendList.length==0)return roomData;
+            const roomHandler=new UserToRoomController();
+            const data=await roomHandler.getUserToRoomData(this.myId);
+            if(data){
+                data.rooms.map((el)=>{
+                    roomData.push(el);
+                });
+            }
+        }catch(e){
+            console.log(e);
+        }
+        return roomData;
+    }
 
 
 }

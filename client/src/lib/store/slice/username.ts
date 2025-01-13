@@ -13,6 +13,6 @@ const usernameSlice=createSlice(
     },
     }
 );
-export const {update}=usernameSlice.actions
+export const {update}=usernameSlice.actions;
 
-export default usernameSlice.reducer
+export default usernameSlice.reducer;

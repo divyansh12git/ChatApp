@@ -2,10 +2,10 @@
 import {useState,useEffect} from "react";
 import { useSelector, useDispatch } from 'react-redux'
 import { redirect } from 'next/navigation'
-import {updatePersonalInformation} from "@/lib/store/features/personalInformation"
+import {updatePersonalInformation} from "@/lib/store/slice/personalInformation"
 import {DecryptData,verifyToken} from "@/lib/services"
 import {getUserData} from "@/lib/services/api"
-import {update} from "@/lib/store/features/username";
+import {update} from "@/lib/store/slice/username";
 export default  function Home() {
   // redirect(`/chat`);
     const dispatch = useDispatch()

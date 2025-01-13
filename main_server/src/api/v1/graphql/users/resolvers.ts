@@ -1,6 +1,6 @@
 import { getUserStrategy, userDBManager } from "../../controllers";
 import { verifyToken } from "../../helpers";
-import { User } from "../../interfaces/types";
+import { User, UserToRoom } from "../../interfaces/types";
 import {getUserHandler} from "../../middleware/user"
 import { getAllFriendsData } from "../../services/friendlogic";
 type upinp={
@@ -86,8 +86,12 @@ const queries={
         if(data){
             return data;
         }
+    },
+    getUserToRoomData:async(_:any,{userId}:{userId:number})=>{
+        const handler=new getAllFriendsData(userId);
+        const data:UserToRoom[]=await handler.getUserToRoomData();
+        if(data)return data;
     }
-
 };
 
 const mutation={

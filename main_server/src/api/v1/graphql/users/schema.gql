@@ -8,12 +8,17 @@ type User{
     profilePictureURL:String
     Bio: String
 }
+type UserToRoom{
+        roomID: String!
+        friendID: number!,
+}
 
 type Queries{
 
     getAllUsers(search:String!):[User]
     getUser(username:String!):User
     getFriendsData(userId:Int!):[User]
+    getUserToRoomData(userId:Int!):[UserToRoom]
 }
 
 input createUserInput{

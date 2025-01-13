@@ -9,7 +9,11 @@ export const typedef=`
         profilePictureURL:String
         Bio: String
     }
-    
+    type UserToRoom{
+        roomID: String!
+        friendID: Int!,
+    }
+
     input createUserInput{
         name: String!
         username: String!

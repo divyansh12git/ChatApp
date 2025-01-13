@@ -1,13 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit'
-import  personalInformationReducer  from './features/personalInformation'
-import usernameSliceReducer from './features/username';
-
+import  personalInformationReducer  from './slice/personalInformation'
+import usernameSliceReducer from './slice/username';
+import friendDataSliceReducer from "./slice/friendData"
+import roomDataSliceReducer from "./slice/roomData"
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
       personalInformation:personalInformationReducer,
-      username:usernameSliceReducer
+      username:usernameSliceReducer,
+      friendData:friendDataSliceReducer,
+      roomData:roomDataSliceReducer
     }
   })
 }

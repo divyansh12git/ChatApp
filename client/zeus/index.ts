@@ -874,6 +874,11 @@ export type ValueTypes = {
 	Bio?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
+	["UserToRoom"]: AliasType<{
+	roomID?:boolean | `@${string}`,
+	friendID?:boolean | `@${string}`,
+		__typename?: boolean | `@${string}`
+}>;
 	["createUserInput"]: {
 	name: string | Variable<any, string>,
 	username: string | Variable<any, string>,
@@ -904,6 +909,7 @@ getAllUsers?: [{	input: string | Variable<any, string>},ValueTypes["User"]],
 getUser?: [{	input: string | Variable<any, string>},ValueTypes["User"]],
 	getCurrentUser?:ValueTypes["User"],
 getFriendsData?: [{	userId: number | Variable<any, string>},ValueTypes["User"]],
+getUserToRoomData?: [{	userId: number | Variable<any, string>},ValueTypes["UserToRoom"]],
 		__typename?: boolean | `@${string}`
 }>;
 	["Mutation"]: AliasType<{
@@ -925,6 +931,11 @@ export type ResolverInputTypes = {
 	number_of_posts?:boolean | `@${string}`,
 	profilePictureURL?:boolean | `@${string}`,
 	Bio?:boolean | `@${string}`,
+		__typename?: boolean | `@${string}`
+}>;
+	["UserToRoom"]: AliasType<{
+	roomID?:boolean | `@${string}`,
+	friendID?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
 	["createUserInput"]: {
@@ -957,6 +968,7 @@ getAllUsers?: [{	input: string},ResolverInputTypes["User"]],
 getUser?: [{	input: string},ResolverInputTypes["User"]],
 	getCurrentUser?:ResolverInputTypes["User"],
 getFriendsData?: [{	userId: number},ResolverInputTypes["User"]],
+getUserToRoomData?: [{	userId: number},ResolverInputTypes["UserToRoom"]],
 		__typename?: boolean | `@${string}`
 }>;
 	["Mutation"]: AliasType<{
@@ -983,6 +995,10 @@ export type ModelTypes = {
 	number_of_posts?: number | undefined,
 	profilePictureURL?: string | undefined,
 	Bio?: string | undefined
+};
+	["UserToRoom"]: {
+		roomID: string,
+	friendID: number
 };
 	["createUserInput"]: {
 	name: string,
@@ -1013,7 +1029,8 @@ export type ModelTypes = {
 		getAllUsers?: Array<ModelTypes["User"] | undefined> | undefined,
 	getUser?: ModelTypes["User"] | undefined,
 	getCurrentUser?: ModelTypes["User"] | undefined,
-	getFriendsData?: Array<ModelTypes["User"] | undefined> | undefined
+	getFriendsData?: Array<ModelTypes["User"] | undefined> | undefined,
+	getUserToRoomData?: Array<ModelTypes["UserToRoom"] | undefined> | undefined
 };
 	["Mutation"]: {
 		updateUser?: boolean | undefined,
@@ -1038,6 +1055,11 @@ export type GraphQLTypes = {
 	number_of_posts?: number | undefined,
 	profilePictureURL?: string | undefined,
 	Bio?: string | undefined
+};
+	["UserToRoom"]: {
+	__typename: "UserToRoom",
+	roomID: string,
+	friendID: number
 };
 	["createUserInput"]: {
 		name: string,
@@ -1069,7 +1091,8 @@ export type GraphQLTypes = {
 	getAllUsers?: Array<GraphQLTypes["User"] | undefined> | undefined,
 	getUser?: GraphQLTypes["User"] | undefined,
 	getCurrentUser?: GraphQLTypes["User"] | undefined,
-	getFriendsData?: Array<GraphQLTypes["User"] | undefined> | undefined
+	getFriendsData?: Array<GraphQLTypes["User"] | undefined> | undefined,
+	getUserToRoomData?: Array<GraphQLTypes["UserToRoom"] | undefined> | undefined
 };
 	["Mutation"]: {
 	__typename: "Mutation",

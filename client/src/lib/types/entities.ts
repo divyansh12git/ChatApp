@@ -9,3 +9,7 @@ export type User={
     Bio?:string
 }
 
+export type Room={
+    friendID:number,
+    roomID:string
+}

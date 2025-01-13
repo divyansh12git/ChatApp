@@ -3,4 +3,5 @@ export const queries=`
         getUser(input:String!):User
         getCurrentUser:User
         getFriendsData(userId:Int!):[User]
+        getUserToRoomData(userId:Int!):[UserToRoom]
 `;

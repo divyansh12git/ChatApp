@@ -24,5 +24,5 @@ export const personalInformationSlice = createSlice({
     },
 });
 
-export const { updatePersonalInformation } = personalInformationSlice.actions
-export default personalInformationSlice.reducer
+export const { updatePersonalInformation } = personalInformationSlice.actions;
+export default personalInformationSlice.reducer;

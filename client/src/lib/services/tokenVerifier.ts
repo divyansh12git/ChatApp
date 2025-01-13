@@ -5,10 +5,10 @@ const privateKey="Thisis_Divyansh_Private_key";
 
 const verifyToken=(token:String):any=>{
     let username:String|null=null;
-    console.log(privateKey);
+    // console.log(privateKey);
     try{
         const tokendata = token.split(' ')[1];
-        console.log(tokendata);
+        // console.log(tokendata);
         const decodeToken=DecryptData({data:tokendata});
         const t=decodeToken.data.toString();
         jwt.verify(t, privateKey.toString(), (err, user) => {

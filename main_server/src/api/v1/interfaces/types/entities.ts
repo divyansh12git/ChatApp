@@ -28,8 +28,12 @@ type Messgage={
     data:String;
     time:Date
 }
+type UserToRoom={
+    friendID:number,
+    roomID:String
+}
 
 
 export {
-    User,Messgage,UserStoredInDB
+    User,Messgage,UserStoredInDB,UserToRoom
 }

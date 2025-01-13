@@ -22,6 +22,9 @@ export const AllTypesProps: Record<string,any> = {
 		},
 		getFriendsData:{
 
+		},
+		getUserToRoomData:{
+
 		}
 	},
 	Mutation:{
@@ -51,11 +54,16 @@ export const ReturnTypes: Record<string,any> = {
 		profilePictureURL:"String",
 		Bio:"String"
 	},
+	UserToRoom:{
+		roomID:"String",
+		friendID:"Int"
+	},
 	Query:{
 		getAllUsers:"User",
 		getUser:"User",
 		getCurrentUser:"User",
-		getFriendsData:"User"
+		getFriendsData:"User",
+		getUserToRoomData:"UserToRoom"
 	},
 	Mutation:{
 		updateUser:"Boolean",

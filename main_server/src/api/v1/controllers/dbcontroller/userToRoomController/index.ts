@@ -177,8 +177,9 @@ class UserToRoomController implements IUserToRoom{
         const handler=Database.Client;
         try{
             //updating mine list if i  have accepted other's request
+            const roomID= uuid()
             const roomData:{roomID:string,friendID:number}={
-                roomID: uuid(),
+                roomID:roomID,
                 friendID:userId,
             }
             let s1=false,s2=false;
@@ -202,7 +203,7 @@ class UserToRoomController implements IUserToRoom{
                 }).then(()=>s1=true);
             }
             //updating the other user's details
-            await this.removeRequesting({myId:userId,userId:myId,status:status}).then(()=>s2=true);
+            if(s1)await this.removeRequesting({myId:userId,userId:myId,status:status,roomID:roomID}).then(()=>s2=true);
             
             if(s1 && s2){
                 return true;
@@ -214,12 +215,12 @@ class UserToRoomController implements IUserToRoom{
         return false;
     }
 
-    async removeRequesting({myId,userId,status}:{ myId: number ,userId: number, status: Boolean }): Promise<Boolean> {
+    async removeRequesting({myId,userId,status,roomID}:{ myId: number ,userId: number, status: Boolean ,roomID:string }): Promise<Boolean> {
         const handler=Database.Client;
         try{
             // updating mine list if the other user have accepted the request
             const roomData:{roomID:string,friendID:number}={
-                roomID: uuid(),
+                roomID: roomID,
                 friendID:userId,
             }
             let result=false;

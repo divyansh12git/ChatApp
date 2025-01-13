@@ -6,11 +6,11 @@ const getUserData=async(username:string)=>{
     const response=await axios.get("/api/getuserdata",{params:{
         username:username
     }});
-    console.log(response.data.success);
+    // console.log(response.data.success);
     // const data={...response.data.data};
     // console.log(data);
     if(!response.data.success){
-        console.log("Hi there")
+        // console.log("Hi there")
         return response.data.NextRequest
     };
     const data:User={

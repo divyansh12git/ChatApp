@@ -1,8 +1,8 @@
 
 import { err } from "./response";
-import { Messgage,User,UserStoredInDB } from "./entities";
+import { Messgage,User,UserStoredInDB,UserToRoom } from "./entities";
 
 
 export {
-   err,Messgage,User,UserStoredInDB
+   err,Messgage,User,UserStoredInDB,UserToRoom
 }
