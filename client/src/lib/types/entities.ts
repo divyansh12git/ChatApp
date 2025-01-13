@@ -16,7 +16,7 @@ export type Room={
 
 export type Message={
     id:number,
-    sendByMe:Boolean,
+    sendByMe:boolean,
     data:string,
     time:string,
 }

@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import {currentFriendSlice,friendDataSliceReducer,personalInformationReducer
-  ,roomDataSliceReducer,usernameSliceReducer
+  ,roomDataSliceReducer,usernameSliceReducer,messageReducer
 } from "./slice"
 
 export const makeStore = () => {
@@ -10,7 +10,8 @@ export const makeStore = () => {
       username:usernameSliceReducer,
       friendData:friendDataSliceReducer,
       roomData:roomDataSliceReducer,
-      currentFriend:currentFriendSlice
+      currentFriend:currentFriendSlice,
+      messages:messageReducer
     }
   })
 }

@@ -1,15 +1,39 @@
 'use client'
 import { SendHorizonal } from "lucide-react";
-import { useState } from "react";
-const InputBox=({populateMessages}:{populateMessages:(message:string,sender:boolean)=>void})=>{
+import { useState,useCallback } from "react";
+import { useDispatch } from "react-redux";
+import {updateMessage} from "@/lib/store/slice/messages"
+import { Message } from "@/lib/types/entities";
+import getDateFormat from "@/lib/utils/date";
+interface InputBoxProps {    
+    currentMessageId: number;
+    friendId:number;
+}
+
+const InputBox: React.FC<InputBoxProps> = ({currentMessageId, friendId }) =>{
+
     const [message,setMessage]=useState<string>('');
-    const sendMessage=(e:React.MouseEvent<HTMLButtonElement, MouseEvent>)=>{
-        e.preventDefault();
-        if(message==='') return;
-        // console.log(message)
-        populateMessages(message,true);
-        setMessage('');
-    }
+    const dispatch=useDispatch();
+
+    const sendMessage=useCallback(
+        (e:React.MouseEvent<HTMLButtonElement, MouseEvent>)=>{
+            e.preventDefault();
+            if(message==='') return;
+            const time=getDateFormat();
+            // console.log(message)
+            // populateMessages(message,true,time);
+            const msg:Message={
+                id:currentMessageId,
+                data:message,
+                sendByMe:true,
+                time:time
+            }
+            //adding messsage to the redux store
+    
+            dispatch(updateMessage({id:friendId,message:msg}));
+            setMessage('');
+        },[message, currentMessageId, friendId, dispatch]
+    );
     const keyDown=(e:React.KeyboardEvent<HTMLInputElement>)=>{
         if(e.key==='Enter'){
             //@ts-ignore
