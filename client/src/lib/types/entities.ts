@@ -1,5 +1,5 @@
 export type User={
-    id?:number,
+    id:number,
     name:string,
     username:string,
     friends?:number,
@@ -12,4 +12,11 @@ export type User={
 export type Room={
     friendID:number,
     roomID:string
+}
+
+export type Message={
+    id:number,
+    sendByMe:Boolean,
+    data:string,
+    time:string,
 }

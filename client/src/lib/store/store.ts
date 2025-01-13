@@ -1,8 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
-import  personalInformationReducer  from './slice/personalInformation'
-import usernameSliceReducer from './slice/username';
-import friendDataSliceReducer from "./slice/friendData"
-import roomDataSliceReducer from "./slice/roomData"
+import {currentFriendSlice,friendDataSliceReducer,personalInformationReducer
+  ,roomDataSliceReducer,usernameSliceReducer
+} from "./slice"
 
 export const makeStore = () => {
   return configureStore({
@@ -10,7 +9,8 @@ export const makeStore = () => {
       personalInformation:personalInformationReducer,
       username:usernameSliceReducer,
       friendData:friendDataSliceReducer,
-      roomData:roomDataSliceReducer
+      roomData:roomDataSliceReducer,
+      currentFriend:currentFriendSlice
     }
   })
 }

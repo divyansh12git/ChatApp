@@ -81,12 +81,12 @@ function Messages () {
             <p className="self-start text-2xl text-white ml-5 mt-2">Chats</p>
             {friendData?.map((user:Friend)=>{
               return(
-                <ProfileCard key={user.id} username={user.username} count={0} message={"hi"} profilepic={profilepic2} />
+                <ProfileCard key={user.id} id={user.id} username={user.username} count={0} message={"hi"} profilepic={profilepic2} />
               )
             })}
             
-            <ProfileCard key={1} profilepic={profilepic} username="Selena" message="What's up, how's goin" count={10} />
-            <ProfileCard key={2} profilepic={profilepic} username={data.username} message="..." count={10}  />
+            <ProfileCard key={1} id={100} profilepic={profilepic} username="Selena" message="What's up, how's goin" count={10} />
+            <ProfileCard key={2} id={101} profilepic={profilepic} username={data.username} message="..." count={10}  />
             {/* <ProfileCard key={2} profilepic={profilepic} username={x} message="..." count={10}  /> */}
           </div>
       

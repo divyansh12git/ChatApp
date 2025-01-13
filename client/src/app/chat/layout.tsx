@@ -5,13 +5,12 @@ import { RootState } from '../../lib/store/store';
 import { getUserData } from "@/lib/services/api";
 import {updatePersonalInformation} from "@/lib/store/slice/personalInformation"
 import verifyToken from "@/lib/services/tokenVerifier";
+import { SocketProvider } from "@/lib/socket/socketProvider";
 
 export default function chatLayout({
-    children,
-    message  
+    children
   }:{
       children:React.ReactNode,
-      message:React.ReactNode
   }){
         const [loading,setLoading]=useState(false);
         const token = localStorage.getItem('token');
@@ -41,10 +40,11 @@ export default function chatLayout({
             if(loading)return(<div>loading...</div>);
             return(
                 <>
-                <main className="h-[100vh]  ">
+                <main className="h-[100vh]">
                     <div className="h-full bg-[#12132a] grid grid-cols-10">
-                        {children}
-                        {message}
+                        <SocketProvider>
+                            {children}
+                        </SocketProvider>
                     </div>
                 </main>
                 </>

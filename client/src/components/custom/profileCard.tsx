@@ -1,29 +1,42 @@
 import Link from "next/link";
 import profile1 from "../../../public/images/profile/2.png"
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/lib/store/store";
+import { Room } from "@/lib/types/entities";
+import { updateCurrentFriend } from "@/lib/store/slice/currentFriend";
 interface props{
+    id:number,
     profilepic:any,
     username:string,
     message:string,
     count:number
 }
-function ProfileCard({profilepic,username,message,count}:props) {
+function ProfileCard({id,profilepic,username,message,count}:props) {
     const profilepicStyle = {
       backgroundImage:`url(${profile1.src})` || `url(${profilepic.src})`, 
        // .src gives the URL path of the image
       backgroundSize: 'cover', // adjust as needed
       backgroundPosition: 'center',
     }
-    const data=useSelector((state:RootState)=>state.roomData);
-    function handleTest(){
-      console.log(data);
-      console.log("HIIIIII")
+
+    const dispatch=useDispatch();
+    const roomData:Room[]=useSelector((state:RootState)=>state.roomData);
+    const roomId=roomData.filter((e)=>e.friendID===id);
+    function changeCurrentFriend(){
+      // console.log(data);
+      // console.log("HIIIIII")
+      dispatch(updateCurrentFriend(
+        {
+          id:id,
+          username:username,
+          roomId:roomId,
+          profilePictureURL:profilepic
+        }
+      ))
     }
 
     return (
-      <Link href={`/chat/${username}`} className=" w-full">
-        <div className="hover:bg-[#54545427] flex w-full flex-col" onClick={()=>{handleTest()}}>
+        <div className="hover:bg-[#54545427] flex w-full flex-col" onClick={()=>{changeCurrentFriend()}}>
               <div  className="flex flex-row h-24 " >
                 <div className=" w-28 flex justify-center items-center ">
                   <div style={profilepicStyle} className="bg-white w-[3.5rem] h-[3.5rem] rounded-full border border-white">.</div>
@@ -42,7 +55,6 @@ function ProfileCard({profilepic,username,message,count}:props) {
               </div>
               <div className="h-[1px] w-[93%] bg-white self-center"></div>
               </div>
-       </Link>
     )
 }
 export default ProfileCard;

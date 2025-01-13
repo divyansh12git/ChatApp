@@ -1,5 +1,4 @@
-
-export default function DefaultMessage({ children }: { children: React.ReactNode }) {
+export default function DefaultMessage() {
 
     return (
         <>
