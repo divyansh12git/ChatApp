@@ -21,7 +21,7 @@ const DynamicMessagingArea = () => {
     const roomId = currentFriend.roomId;
     const friendId = currentFriend.id;
     // const xx=useSelector((state:RootState)=>state.messages);
-    let messagesData = useSelector((state: RootState) => state.messages.find((e) => e.friendId === friendId));
+    let messagesData = useSelector((state: RootState) => state.messages.find((e) => e.friendId === Number(friendId)));
     // console.log(roomId)
     console.log(friendId)
     console.log(messagesData);

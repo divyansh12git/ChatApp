@@ -78,20 +78,23 @@ function Messages () {
     //message listening logic:
     useEffect(()=>{
       if(socket){
-        socket.on("receive-message", (data:{id:number,sender:number,msg:string,time:string}) => {
-          console.log("New message received:", data);
+        if (!socket.hasListeners("receive-message")) {
 
-          // Update your state or dispatch Redux actions
-          const receivedMessage:Message={
-            id:data.id,
-            data:data.msg,
-            sendByMe:false,
-            time:data.time
-          };
-          console.log(data.sender+" from receiver");
-          dispatch(updateMessage({id:(Number(data.sender)),message:receivedMessage}));
-        });
+          socket.on("receive-message", (data:{id:number,sender:number,msg:string,time:string}) => {
+            console.log("New message received:", data);
+
+            // Update your state or dispatch Redux actions
+            const receivedMessage:Message={
+              id:data.id,
+              data:data.msg,
+              sendByMe:false,
+              time:data.time
+            };
+            console.log(data.sender+" from receiver");
+            dispatch(updateMessage({id:(Number(data.sender)),message:receivedMessage}));
+          });
       }
+    }
 
       return () => {
         socket.off("message"); // Cleanup event listener on unmount

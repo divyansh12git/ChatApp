@@ -34,7 +34,7 @@ const InputBox: React.FC<InputBoxProps> = ({currentMessageId, friendId, roomId, 
                 time:time
             }
             //adding messsage to the redux store
-            dispatch(updateMessage({id:friendId,message:msg}));
+            dispatch(updateMessage({id:Number(friendId),message:msg}));
             
             console.log(myId+" from sender");
             const data={

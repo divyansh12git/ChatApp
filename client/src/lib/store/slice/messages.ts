@@ -46,9 +46,11 @@ const messageSlice=createSlice({
         initialState,
         reducers:{
             updateMessage:(state,action:PayloadAction<{id:number,message:Message}>)=>{
-                console.log("Hi from message slice");
+              console.log("Hi from message slice");
+              console.log("State: ", state);
+              console.log("Action Payload: ", action.payload);
                 const friend=state.find((friend)=>(friend.friendId)===(action.payload.id));
-                console.log(friend);
+                console.log("Found Friend: ",friend);
                 // console.log(id);
                 console.log(action.payload.id);
                 if(friend){
