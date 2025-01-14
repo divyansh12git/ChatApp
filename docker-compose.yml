@@ -22,6 +22,18 @@ services:
       - 8001:8001
     volumes:
       - chatAppVolume:/var/lib/redis/data
+
+  cassandra:
+    image: cassandra:latest
+    container_name: cassandra_chatApp
+    ports:
+      - "7001:9042"
+    volumes:
+      - chatAppVolume:/var/lib/cassandra/data2
+    environment:
+      - CASSANDRA_CLUSTER_NAME=TestCluster
+      - CASSANDRA_SEEDS=cassandra
+      - CASSANDRA_START_RPC=true
   
   postgres_socket_server:
     container_name: socketServerDB
