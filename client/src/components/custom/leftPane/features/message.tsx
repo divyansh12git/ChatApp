@@ -9,9 +9,12 @@ import { useState,useEffect, useContext } from "react";
 import {RootState} from "@/lib/store/store"
 import { useSelector } from "react-redux";
 import { getFriendsData } from "@/lib/services/api";
-import {User as Friend,Room} from "@/lib/types/entities"
+import {User as Friend,Message,Room} from "@/lib/types/entities"
 import {updateFriendData} from "@/lib/store/slice/friendData"
 import { updateRoomData } from "@/lib/store/slice/roomData";
+import { useSocket } from "@/lib/socket/socketProvider";
+import { updateMessage } from "@/lib/store/slice/messages";
+
 const profilepic = {
     backgroundImage: `url(${profile1.src})`, // .src gives the URL path of the image
     backgroundSize: 'cover', // adjust as needed
@@ -36,6 +39,8 @@ function Messages () {
     const [friendData,setFriendData]=useState<Friend[]>([]);
     const [roomData,setRoomData]=useState<Room[]>([]);
     const data=useSelector((state:RootState)=>state.personalInformation)
+    
+    const socket=useSocket();
     // const appContext = useContext(UserContext);
     
     // if (!appContext) {
@@ -70,6 +75,30 @@ function Messages () {
       }
     },[]);
 
+    //message listening logic:
+    useEffect(()=>{
+      if(socket){
+        socket.on("receive-message", (data:{id:number,sender:number,msg:string,time:string}) => {
+          console.log("New message received:", data);
+
+          // Update your state or dispatch Redux actions
+          const receivedMessage:Message={
+            id:data.id,
+            data:data.msg,
+            sendByMe:false,
+            time:data.time
+          };
+          console.log(data.sender+" from receiver");
+          dispatch(updateMessage({id:(Number(data.sender)),message:receivedMessage}));
+        });
+      }
+
+      return () => {
+        socket.off("message"); // Cleanup event listener on unmount
+      };
+    },[])
+
+
     if(loading)return (<div>loading...</div>);
 
     return (
@@ -85,8 +114,8 @@ function Messages () {
               )
             })}
             
-            <ProfileCard key={1} id={100} profilepic={profilepic} username="Selena" message="What's up, how's goin" count={10} />
-            <ProfileCard key={2} id={101} profilepic={profilepic} username={data.username} message="..." count={10}  />
+            {/* <ProfileCard key={1} id={100} profilepic={profilepic} username="Selena" message="What's up, how's goin" count={10} />
+            <ProfileCard key={2} id={101} profilepic={profilepic} username={data.username} message="..." count={10}  /> */}
             {/* <ProfileCard key={2} profilepic={profilepic} username={x} message="..." count={10}  /> */}
           </div>
       

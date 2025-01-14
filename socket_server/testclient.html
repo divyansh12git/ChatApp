@@ -37,7 +37,7 @@
         event.preventDefault();
         const roomId=roomID.value;
         console.log(roomId);
-        socket.emit("join-room",roomId);
+        socket.emit("joinRoom",roomId);
       })
       socket.on("receive-message",(msg)=>{
         console.log(msg);
@@ -52,7 +52,7 @@
         const message=dataToSend.value;
         let room=roomID.value;
         console.log(message);
-        socket.emit("emit:user-message",{roomId:room,msg:message})
+        socket.emit("message",{id:10008,time:"2069",senderId:9999 ,roomId:room,msg:message})
       })
     </script>
   </body>

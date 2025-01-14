@@ -2,8 +2,13 @@ import Link from "next/link";
 import profile1 from "../../../public/images/profile/2.png"
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/lib/store/store";
-import { Room } from "@/lib/types/entities";
+import { Message, Room } from "@/lib/types/entities";
 import { updateCurrentFriend } from "@/lib/store/slice/currentFriend";
+import { updateMessage } from "@/lib/store/slice/messages";
+import { useEffect } from "react";
+import SocketFunctions from "@/lib/socket/socketFunctions";
+import { useSocket } from "@/lib/socket/socketProvider";
+import getDateFormat from "@/lib/utils/date";
 interface props{
     id:number,
     profilepic:any,
@@ -21,19 +26,35 @@ function ProfileCard({id,profilepic,username,message,count}:props) {
 
     const dispatch=useDispatch();
     const roomData:Room[]=useSelector((state:RootState)=>state.roomData);
-    const roomId=roomData.filter((e)=>e.friendID===id);
+    const friendData=useSelector((state:RootState)=>state.friendData);
+    const socket=useSocket();
+
+
+    const room=roomData.find((e)=>(e.friendID)===Number(id));
+    console.log(room?.roomID)
     function changeCurrentFriend(){
-      // console.log(data);
-      // console.log("HIIIIII")
+
       dispatch(updateCurrentFriend(
         {
           id:id,
           username:username,
-          roomId:roomId,
+          roomId:room?.roomID,
           profilePictureURL:profilepic
         }
       ))
     }
+
+    //joining the room:
+    useEffect(()=>{
+      // console.log(room);
+      if(room && socket ){
+
+        socket.emit("joinRoom",room.roomID);
+        
+        }else console.log("sominthg went wrong");
+
+        
+    },[socket]);
 
     return (
         <div className="hover:bg-[#54545427] flex w-full flex-col" onClick={()=>{changeCurrentFriend()}}>

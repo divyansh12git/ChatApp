@@ -6,13 +6,14 @@ const currentFriendSlice=createSlice({
             id:-1,
             username:"",
             profilePictureURL:"",
-            roomId:-1,
+            roomId:"0",
         },
         reducers:{
             updateCurrentFriend:(state,action)=>{
                 state.id=action.payload.id,
                 state.username=action.payload.username,
                 state.profilePictureURL=action.payload.profilePictureURL
+                state.roomId=action.payload.roomId
             }
         }
     }

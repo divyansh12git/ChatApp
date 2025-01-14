@@ -23,10 +23,12 @@ import { ClientToServerEvents,InterServerEvents,
     //socket  
     socketService.initListeners();
 
-    app.get('/', (req, res) => {
+    app.get('/test', (req, res) => {
         res.sendFile(path.join(__dirname,'..','/testclient.html')  );
     });
-      
+    app.get('/',(req,res)=>{
+        res.send("Socket Server is running...");
+    }) 
     
     httpServer.listen(port,()=>{
         console.log(`Server is running on port: ${port}`);

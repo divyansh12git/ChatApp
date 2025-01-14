@@ -16,13 +16,15 @@ const profilepic = {
 const DynamicMessagingArea = () => {
 
     const currentFriend = useSelector((state: RootState) => state.currentFriend);
+    const myId=Number(useSelector((state:RootState)=>state.personalInformation.id));
     const messagesEndRef = useRef<HTMLDivElement | null>(null);
-    const roomId = currentFriend.roomId
-    const friendId = currentFriend.id
+    const roomId = currentFriend.roomId;
+    const friendId = currentFriend.id;
     // const xx=useSelector((state:RootState)=>state.messages);
     let messagesData = useSelector((state: RootState) => state.messages.find((e) => e.friendId === friendId));
-    
-    // console.log(friendId)
+    // console.log(roomId)
+    console.log(friendId)
+    console.log(messagesData);
     // console.log(xx);
     let currentMessageId=0;
     let messages:Message[]=[];
@@ -35,19 +37,7 @@ const DynamicMessagingArea = () => {
             currentMessageId=messages[messages.length - 1].id;
         }
     }
-    // console.log(roomId);
-    // console.log(currentFriend);
 
-    // useEffect(() => {
-    //     if (areaRef.current) {
-    //         // @ts-ignore
-    //         areaRef.current.scrollTop = areaRef.current.scrollHeight;
-    //     }
-    // }, [childComponents]);
-
-    // useEffect(() => {
-    //     setChildComponents([]);
-    // }, [currentFriend])
     useEffect(() => {
         // @ts-ignore
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -67,7 +57,7 @@ const DynamicMessagingArea = () => {
                     <div ref={messagesEndRef} />
                 </div>
             </div>
-            <InputBox currentMessageId={currentMessageId+1}  friendId={friendId} />
+            <InputBox currentMessageId={currentMessageId+1} roomId={roomId} friendId={friendId} myId={myId} />
 
         </div>
     );
