@@ -11,8 +11,21 @@ class getAllUserStrategy implements IGetAllUsers{
     async execute(condition:string):Promise<Array<User>>{
         const handler=Database.Client;
         const data:User[]=[];
-        await handler?.user.findMany({}).then((result)=>{
-            
+        try{
+            let result;
+            if(condition==='*'){
+                result=await handler?.user.findMany({})
+            }else{
+                result=await handler?.user.findMany({
+                    where:{
+                        username:{
+                            startsWith:condition,
+                        }
+                    }
+                })
+            }
+        if(result){
+
             result.forEach((r)=>{
                 let user:User={
                     id:r?.id || 0,
@@ -24,12 +37,15 @@ class getAllUserStrategy implements IGetAllUsers{
                     requested:r?.requested || 0,
                     Bio:r?.Bio || "",
                     number_of_posts:r?.number_of_posts || 0
-                
+                    
                 }
                 data.push(user);
-            })
-        })
-
+            });
+        }
+        }catch(e){
+            console.log("error while fetching all users")
+            console.log(e);
+        }
         return data;
     }
     

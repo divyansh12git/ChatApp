@@ -1,8 +1,9 @@
 import { getUserStrategy, userDBManager } from "../../controllers";
 import { verifyToken } from "../../helpers";
 import { User, UserToRoom } from "../../interfaces/types";
-import {getUserHandler} from "../../middleware/user"
+import {getUserHandler} from "../../services/user"
 import { getAllFriendsData } from "../../services/friendlogic";
+import {getAllUsersHandler} from "../../services/user";
 type upinp={
     user:User,
     finduser:string
@@ -37,17 +38,9 @@ const u:User[]=[{
 
 const queries={
     getAllUsers:async(_:any,{input}:{input:string})=>{
-        if(input==="*"){
-            return u;
-        }
-        else{
-            for(let i=0;i<u.length;i++){
-                if(u[i].username.startsWith(input)){
-                    return [u[i]];
-                }
-            }
-        }
-        return null
+        console.log(input);
+        const data=await getAllUsersHandler(input);
+        return data;
     },
     getUser:async(_:any,{input}:{input:String})=>{
         // console.log(input);

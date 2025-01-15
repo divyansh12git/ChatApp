@@ -10,12 +10,20 @@ type User{
 }
 type UserToRoom{
         roomID: String!
-        friendID: number!,
+        friendID: Int!,
+}
+
+type getAllUsersResponse={
+    id:Int!,
+    name:string,
+    username:string!,
+    profilePictureURL:string,
+    Bio:string,
 }
 
 type Queries{
 
-    getAllUsers(search:String!):[User]
+    getAllUsers(search:String!):[getAllUsersResponse]
     getUser(username:String!):User
     getFriendsData(userId:Int!):[User]
     getUserToRoomData(userId:Int!):[UserToRoom]

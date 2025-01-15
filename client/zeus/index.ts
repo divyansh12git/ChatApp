@@ -879,6 +879,14 @@ export type ValueTypes = {
 	friendID?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
+	["getAllUsersResponse"]: AliasType<{
+	id?:boolean | `@${string}`,
+	name?:boolean | `@${string}`,
+	username?:boolean | `@${string}`,
+	profilePictureURL?:boolean | `@${string}`,
+	Bio?:boolean | `@${string}`,
+		__typename?: boolean | `@${string}`
+}>;
 	["createUserInput"]: {
 	name: string | Variable<any, string>,
 	username: string | Variable<any, string>,
@@ -905,7 +913,7 @@ export type ValueTypes = {
 	password: string | Variable<any, string>
 };
 	["Query"]: AliasType<{
-getAllUsers?: [{	input: string | Variable<any, string>},ValueTypes["User"]],
+getAllUsers?: [{	input: string | Variable<any, string>},ValueTypes["getAllUsersResponse"]],
 getUser?: [{	input: string | Variable<any, string>},ValueTypes["User"]],
 	getCurrentUser?:ValueTypes["User"],
 getFriendsData?: [{	userId: number | Variable<any, string>},ValueTypes["User"]],
@@ -938,6 +946,14 @@ export type ResolverInputTypes = {
 	friendID?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
+	["getAllUsersResponse"]: AliasType<{
+	id?:boolean | `@${string}`,
+	name?:boolean | `@${string}`,
+	username?:boolean | `@${string}`,
+	profilePictureURL?:boolean | `@${string}`,
+	Bio?:boolean | `@${string}`,
+		__typename?: boolean | `@${string}`
+}>;
 	["createUserInput"]: {
 	name: string,
 	username: string,
@@ -964,7 +980,7 @@ export type ResolverInputTypes = {
 	password: string
 };
 	["Query"]: AliasType<{
-getAllUsers?: [{	input: string},ResolverInputTypes["User"]],
+getAllUsers?: [{	input: string},ResolverInputTypes["getAllUsersResponse"]],
 getUser?: [{	input: string},ResolverInputTypes["User"]],
 	getCurrentUser?:ResolverInputTypes["User"],
 getFriendsData?: [{	userId: number},ResolverInputTypes["User"]],
@@ -1000,6 +1016,13 @@ export type ModelTypes = {
 		roomID: string,
 	friendID: number
 };
+	["getAllUsersResponse"]: {
+		id: number,
+	name?: string | undefined,
+	username: string,
+	profilePictureURL?: string | undefined,
+	Bio?: string | undefined
+};
 	["createUserInput"]: {
 	name: string,
 	username: string,
@@ -1026,7 +1049,7 @@ export type ModelTypes = {
 	password: string
 };
 	["Query"]: {
-		getAllUsers?: Array<ModelTypes["User"] | undefined> | undefined,
+		getAllUsers?: Array<ModelTypes["getAllUsersResponse"] | undefined> | undefined,
 	getUser?: ModelTypes["User"] | undefined,
 	getCurrentUser?: ModelTypes["User"] | undefined,
 	getFriendsData?: Array<ModelTypes["User"] | undefined> | undefined,
@@ -1061,6 +1084,14 @@ export type GraphQLTypes = {
 	roomID: string,
 	friendID: number
 };
+	["getAllUsersResponse"]: {
+	__typename: "getAllUsersResponse",
+	id: number,
+	name?: string | undefined,
+	username: string,
+	profilePictureURL?: string | undefined,
+	Bio?: string | undefined
+};
 	["createUserInput"]: {
 		name: string,
 	username: string,
@@ -1088,7 +1119,7 @@ export type GraphQLTypes = {
 };
 	["Query"]: {
 	__typename: "Query",
-	getAllUsers?: Array<GraphQLTypes["User"] | undefined> | undefined,
+	getAllUsers?: Array<GraphQLTypes["getAllUsersResponse"] | undefined> | undefined,
 	getUser?: GraphQLTypes["User"] | undefined,
 	getCurrentUser?: GraphQLTypes["User"] | undefined,
 	getFriendsData?: Array<GraphQLTypes["User"] | undefined> | undefined,

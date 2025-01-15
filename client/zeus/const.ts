@@ -58,8 +58,15 @@ export const ReturnTypes: Record<string,any> = {
 		roomID:"String",
 		friendID:"Int"
 	},
+	getAllUsersResponse:{
+		id:"Int",
+		name:"String",
+		username:"String",
+		profilePictureURL:"String",
+		Bio:"String"
+	},
 	Query:{
-		getAllUsers:"User",
+		getAllUsers:"getAllUsersResponse",
 		getUser:"User",
 		getCurrentUser:"User",
 		getFriendsData:"User",

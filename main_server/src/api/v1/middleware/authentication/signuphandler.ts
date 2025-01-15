@@ -2,7 +2,7 @@ import { User} from "../../interfaces/types"
 import { SignUpCredentials } from "../../interfaces/requests";
 import { EncrptData,DecryptData,compareHash,generateHash,createToken,verifyToken } from "../../helpers";
 import { userDBManager,mutateUserStrategy, getUserStrategy } from "../../controllers";
-import { getUserHandler } from "../user";
+import { getUserHandler } from "../../services/user";
 
 const SignupHandler=async(data:SignUpCredentials):Promise<Boolean>=>{
 

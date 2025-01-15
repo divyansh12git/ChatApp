@@ -20,3 +20,11 @@ export type Message={
     data:string,
     time:string,
 }
+
+export type searchUser={
+    id:number,
+    name:string,
+    username:string,
+    profilePictureURL:string,
+    Bio:string,
+}

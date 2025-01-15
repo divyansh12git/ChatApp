@@ -13,6 +13,13 @@ export const typedef=`
         roomID: String!
         friendID: Int!,
     }
+    type getAllUsersResponse{
+        id:Int!,
+        name:String,
+        username:String!,
+        profilePictureURL:String,
+        Bio:String,
+    }
 
     input createUserInput{
         name: String!
@@ -30,4 +37,5 @@ export const typedef=`
         profilePictureURL:String
         Bio: String
     }
+
 `;

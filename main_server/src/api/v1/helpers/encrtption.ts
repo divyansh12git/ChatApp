@@ -10,8 +10,13 @@ const EncrptData=(data:Record<any,String>):Record<any,String>=>{
 }
 
 const DecryptData=(data:Record<any,String>):Record<any,String>=>{
-    for(let key in data){
-        data[key] = cryptr.decrypt(data[key].toString());
+    try{
+        for(let key in data){
+            data[key] = cryptr.decrypt(data[key].toString()) || data[key];
+        }
+    }
+    catch(e){
+        return data
     }
     // console.log(data);
     return data;

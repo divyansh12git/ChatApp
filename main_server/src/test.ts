@@ -7,7 +7,7 @@ import { mutateUserStrategy,userDBManager } from "./api/v1/controllers";
 import { User } from "./api/v1/interfaces/types";
 import { signupHandler } from "./api/v1/helpers/authroute/handlers/signup";
 import { actionOnRequest, getAllFriendsData, sendRequest } from "./api/v1/services/friendlogic";
-
+import {getAllUsersHandler} from "./api/v1/services/user"
 
 (async()=>{
     const obj:User={
@@ -23,12 +23,18 @@ import { actionOnRequest, getAllFriendsData, sendRequest } from "./api/v1/servic
         rooms:[{roomID:"55",friendID:2}],
         userId:2
     }
-    const hand=new UserToRoomController();
-    const data=await hand.getUserToRoomData(1);
-    const data2=await hand.getUserToRoomData(5);
-    
+    const data=await getAllUsersHandler("*");
     console.log(data);
-    console.log(data2);
+
+
+
+
+    // const hand=new UserToRoomController();
+    // const data=await hand.getUserToRoomData(1);
+    // const data2=await hand.getUserToRoomData(5);
+    
+    // console.log(data);
+    // console.log(data2);
     // await sendRequest({myId:1,userId:2});
     // await sendRequest({myId:1,userId:3});
     // await sendRequest({myId:3,userId:5});
