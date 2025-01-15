@@ -18,7 +18,8 @@ function SearchUsers () {
     const friendList=useSelector((state:RootState)=>state.friendlist);
     const requestList=useSelector((state:RootState)=>state.requestList);
     const requestingList=useSelector((state:RootState)=>state.requestingList);
-    
+
+    //copmplete this dispatch??
     useEffect(()=>{
         if((!requestList.length || !requestingList) && myId.length){
             getLists(Number(myId)).then((e)=>{
@@ -44,7 +45,7 @@ function SearchUsers () {
 
     const searchUserName=async(e:React.MouseEvent<HTMLButtonElement, MouseEvent>)=>{
         e.preventDefault();
-        console.log(search);
+        // console.log(search);
         if(search.length){
            const data=await searchUsers(search); 
            if(data){
@@ -64,6 +65,9 @@ function SearchUsers () {
         setSearch("");
     }
     const handleSearchChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
+        if(search.length===0){
+            setUsersList([]);
+        }
         setSearch(e.target.value);
     }
     const keyDown=(e:React.KeyboardEvent<HTMLInputElement>)=>{

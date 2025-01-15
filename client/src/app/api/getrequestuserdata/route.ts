@@ -8,20 +8,22 @@ export async function GET(request: NextRequest) {
         const { searchParams } = new URL(request.url);
         const myId =Number( searchParams.get('myId'));
         const response=await chain("query")({
-            getRequestRequestingList:[{
-                userId:myId
-            },
-            {
-                request:true,
-                requesting:true
-            }
-
-            ],
+            getRequestUserData:[
+                {
+                    userId:myId
+                },{
+                    id:true,
+                    Bio:true,
+                    name:true,
+                    profilePictureURL:true,
+                    username:true
+                }
+            ]
             
             
         });
-        if(response.getRequestRequestingList){
-            return NextResponse.json({success:true,data:response.getRequestRequestingList});
+        if(response.getRequestUserData){
+            return NextResponse.json({success:true,data:response.getRequestUserData});
         }
         return NextResponse.json({ success: false,NextRequest:"invalid username" })
     }catch(e){

@@ -3,14 +3,21 @@ import profile1 from "@/../public/images/profile/2.png";
 import Accept from "@/../public/icons/accept.png"
 import Decline from "@/../public/icons/decline.png"
 import Image from "next/image";
-const RequestUser=()=>{
+interface IProps{
+  userId:number;
+  Bio:string;
+  username:string;
+  profilePic:string;
+
+}
+const RequestUser=({userId,Bio,username,profilePic}:IProps)=>{
     const profilepicStyle = {
         backgroundImage:`url(${profile1.src})` , 
          // .src gives the URL path of the image
         backgroundSize: 'cover', // adjust as needed
         backgroundPosition: 'center',
       }
-      const username="Divyansh Gupta"
+
 
     return(
         <div className="hover:bg-[#54545427]  flex w-full flex-col" >
@@ -20,8 +27,8 @@ const RequestUser=()=>{
                 </div>
                 <div className=" w-full flex flex-row justify-start hover:cursor-default">
                     <div className="px-2 overflow-hidden truncate h-full flex flex-col justify-center w-[11.5rem]">
-                      <p className="font-medium text-lg text-white -mb-1">Divyansh Gupta</p>
-                      <p className=" font-extralight text-sm text-zinc-400 ">I am vengence</p>
+                      <p className="font-medium text-lg text-white -mb-1">{username}</p>
+                      <p className=" font-extralight text-sm text-zinc-400 ">{Bio}</p>
                     </div>
                     <div className="flex justify-center h-24 items-center gap-3 w-[5rem] ">
                       <div className="hover:bg-[#4092503e]  h-auto w-1/2 rounded-full flex items center hover:cursor-pointer">
