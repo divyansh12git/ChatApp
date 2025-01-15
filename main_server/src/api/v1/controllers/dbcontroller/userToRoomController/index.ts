@@ -1,6 +1,8 @@
 import { IUserToRoom,room } from "../../../interfaces/userToRoom";
 import Database from "../../../models/database";
 import {v4 as uuid} from "uuid";
+import { getRequestRequestingList } from "../../../services/friendlogic";
+import {getFriendList} from "../../../services/friendlogic/"
 const dummyRoom:room={
     requested:[],//user have to accept this list of friend to be the friend
     requesting:[],// i'm asking for them to accept my request
@@ -92,7 +94,9 @@ class UserToRoomController implements IUserToRoom{
             const id=list?.id;
             if(list && id){
                 const data=list.requested;
-                data.push(userId);
+                if(!data.some((e)=>e===userId)){
+                    data.push(userId);
+                }
                 await handler?.userToRoom.update({
                     where:{
                         id:id
@@ -114,11 +118,15 @@ class UserToRoomController implements IUserToRoom{
         const handler=Database.Client;
         let status=false;
         try{
+            const friendList=await getFriendList(myId);
+            if(friendList.some((e)=>e===userId))return false;
             const list=await this.getUserToRoomData(myId);
             const id=list?.id;
             if(list && id){
                 const data=list.requesting;
-                data.push(userId);
+                if(!data.some((e)=>e===userId)){
+                    data.push(userId);
+                }
                 await handler?.userToRoom.update({
                     where:{
                         id:id
@@ -173,9 +181,22 @@ class UserToRoomController implements IUserToRoom{
         return status;
 
     }
-    async removeRequested( {myId,userId,status}:{ myId: number ,userId: number, status: Boolean }): Promise<Boolean> {
+    async removeRequested({myId,userId,status}:{ myId: number ,userId: number, status: Boolean }): Promise<Boolean> {
         const handler=Database.Client;
         try{
+            //checking if userId is in my request list and myId is in userId list
+            const myRequestList=(await getRequestRequestingList(myId)).request;
+            const userIdRequestingList=(await getRequestRequestingList(userId)).requesting;
+            if(!myRequestList.some((id)=>id===userId) || !(userIdRequestingList.some((id)=>id===myId))){
+                return false;
+            }
+
+            //check if the user already not in my friend list
+            const friendList=await getFriendList(myId);
+            if(friendList.some((e)=>e===userId))return false;
+
+            //now the request is valid proceed:
+
             //updating mine list if i  have accepted other's request
             const roomID= uuid()
             const roomData:{roomID:string,friendID:number}={

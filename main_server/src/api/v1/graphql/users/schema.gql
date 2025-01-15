@@ -13,12 +13,17 @@ type UserToRoom{
         friendID: Int!,
 }
 
-type getAllUsersResponse={
+type getAllUsersResponse{
     id:Int!,
     name:string,
     username:string!,
     profilePictureURL:string,
     Bio:string,
+}
+
+type requestRequestingList{
+    request:[Int],
+    requesting:[Int]
 }
 
 type Queries{
@@ -27,6 +32,8 @@ type Queries{
     getUser(username:String!):User
     getFriendsData(userId:Int!):[User]
     getUserToRoomData(userId:Int!):[UserToRoom]
+    getRequestRequestingList(userId:Int!):requestRequestingList
+    getRequestUserData(userId:Int!):[getAllUsersResponse]
 }
 
 input createUserInput{
@@ -54,4 +61,7 @@ type mutation{
     createUser(input:createUserInput):Boolean
     #update user
     updateUser(input:updateUser,user:String!):Boolean
+
+    sendRequest(myId:String!, userId:String!):Boolean
+    actionOnRequest(myId:String!, userId:String! ):Boolean
 }

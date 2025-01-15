@@ -8,7 +8,8 @@ import { User } from "./api/v1/interfaces/types";
 import { signupHandler } from "./api/v1/helpers/authroute/handlers/signup";
 import { actionOnRequest, getAllFriendsData, sendRequest } from "./api/v1/services/friendlogic";
 import {getAllUsersHandler} from "./api/v1/services/user"
-
+import getRequestData from "./api/v1/services/user/getRequestData";
+import {getFriendList} from "./api/v1/services/friendlogic";
 (async()=>{
     const obj:User={
         id:444,
@@ -23,13 +24,16 @@ import {getAllUsersHandler} from "./api/v1/services/user"
         rooms:[{roomID:"55",friendID:2}],
         userId:2
     }
-    const data=await getAllUsersHandler("*");
-    console.log(data);
-
-
-
-
+    // const data=await getRequestData(5);
+    
+    
+    
+    
     // const hand=new UserToRoomController();
+    // const data=await sendRequest({myId:4,userId:5});
+    // const data=await actionOnRequest({action:true,myId:1,userId:3});
+    const data=await getFriendList(5);
+    console.log(data);
     // const data=await hand.getUserToRoomData(1);
     // const data2=await hand.getUserToRoomData(5);
     

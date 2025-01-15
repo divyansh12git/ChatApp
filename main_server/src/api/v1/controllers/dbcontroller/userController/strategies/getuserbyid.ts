@@ -7,9 +7,15 @@ class getUserById implements IGetUserById{
         this.Client=Database.getDbInstance();
         if(!this.Client.isConnected())this.Client.connect();
     }
-    async execute(id: string): Promise<User> {
+    async execute(id: string): Promise<User > {
         const handler=Database.Client;
-
+        let user:User={
+            id:0,
+            name:"",
+            password:"",
+            profilePictureURL:"",
+            username:"",
+        }
         let data=null;
         try{
             data=await handler?.user.findFirst({
@@ -20,16 +26,20 @@ class getUserById implements IGetUserById{
         }catch(e){
             console.log(e);
         }
-        const user:User={
-            id:data?.id || 0,
-            name:data?.name || "",
-            password:data?.password || "",
-            profilePictureURL:data?.password || "",
-            username:data?.username || "null",
-            Bio:data?.Bio || "",
-            friends:data?.friends || 0,
-            requested:data?.requested || 0,
-            number_of_posts:data?.number_of_posts || 0
+        if(data){
+
+            user={
+                id:data.id ,
+                name:data.name || "",
+                password:data.password || "",
+                profilePictureURL:data.password || "",
+                username:data.username || "null",
+                Bio:data.Bio || "",
+                friends:data.friends || 0,
+                requested:data.requested || 0,
+                number_of_posts:data.number_of_posts || 0
+            }
+
         }
         return user;
     }

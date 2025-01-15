@@ -1,13 +1,7 @@
 import { getAllUserStrategy, userDBManager } from "../../controllers";
 import { DecryptData } from "../../helpers";
-import {User} from "../../interfaces/types"
-type ResUser={
-    id:number,
-    name:string,
-    username:string,
-    profilePictureURL:string,
-    Bio:string,
-}
+import {User, ResUser} from "../../interfaces/types"
+
 const getAllUsersHandler=async(condition:string):Promise<ResUser[]>=>{
 
     const dbhandler=new userDBManager(new getAllUserStrategy());
@@ -20,16 +14,18 @@ const getAllUsersHandler=async(condition:string):Promise<ResUser[]>=>{
         // console.log(users);
         // decrypting the data;
         users.map((user:User)=>{
-            const {name}=user
-            const d=DecryptData({name});
-            const temp:ResUser={
-                id:user.id || -1,
-                name:d.name.toString(),
-                username:user.username,
-                profilePictureURL:user.profilePictureURL,
-                Bio:user.Bio || ""
+            if(user.id!=0){
+                const {name}=user
+                const d=DecryptData({name});
+                const temp:ResUser={
+                    id:user.id || 0,
+                    name:d.name.toString(),
+                    username:user.username,
+                    profilePictureURL:user.profilePictureURL,
+                    Bio:user.Bio || ""
+                }
+                decryptedData.push(temp)
             }
-            decryptedData.push(temp)
         })
         
 

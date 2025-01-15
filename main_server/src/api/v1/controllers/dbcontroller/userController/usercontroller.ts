@@ -16,7 +16,7 @@ class userDBManager {
     return this._strategy;
   }
 
-  doAction(arg: User | string): Promise<User> | Promise<Array<User>> | Promise<Boolean> {
+  doAction(arg: User | string): Promise<User > | Promise<Array<User>> | Promise<Boolean> {
     if (typeof arg === "string") {
       // Type guard for string (username)
       return this._strategy.execute(arg);

@@ -32,8 +32,14 @@ type UserToRoom={
     friendID:number,
     roomID:String
 }
-
+type ResUser={
+    id:number,
+    name:string,
+    username:string,
+    profilePictureURL:string,
+    Bio:string,
+}
 
 export {
-    User,Messgage,UserStoredInDB,UserToRoom
+    User,Messgage,UserStoredInDB,UserToRoom,ResUser
 }

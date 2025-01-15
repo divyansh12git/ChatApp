@@ -4,6 +4,11 @@ import { User, UserToRoom } from "../../interfaces/types";
 import {getUserHandler} from "../../services/user"
 import { getAllFriendsData } from "../../services/friendlogic";
 import {getAllUsersHandler} from "../../services/user";
+import {getRequestRequestingList} from "../../services/friendlogic";
+import {getRequestData} from "../../services/user";
+import { sendRequest,actionOnRequest } from "../../services/friendlogic";
+import { ResUser } from "../../interfaces/types";
+
 type upinp={
     user:User,
     finduser:string
@@ -15,6 +20,7 @@ interface dummyUser{
     
 }
 const u:User[]=[{
+        id:9999,
         name: "Divyansh Gupta",
         username: "_divyansh_8",
         password: "13245789",
@@ -25,6 +31,7 @@ const u:User[]=[{
         Bio: "This is me Divyanh gupta"
     },
     {
+        id:9999,
         name: "Kashish Verma",
         username: "kash4.ish",
         password: "13245789",
@@ -38,7 +45,7 @@ const u:User[]=[{
 
 const queries={
     getAllUsers:async(_:any,{input}:{input:string})=>{
-        console.log(input);
+        // console.log(input);
         const data=await getAllUsersHandler(input);
         return data;
     },
@@ -84,12 +91,28 @@ const queries={
         const handler=new getAllFriendsData(userId);
         const data:UserToRoom[]=await handler.getUserToRoomData();
         if(data)return data;
+    },
+
+    getRequestRequestingList:async(_:any,{userId}:{userId:number})=>{
+        let res:any=[];
+        const data=await getRequestRequestingList(userId);
+        if(data)res= data;
+        return data;
+    },
+
+    getRequestUserData:async(_:any,{userId}:{userId:number})=>{
+        let res:any=[];
+        const data=await getRequestData(userId);
+        console.log(data);
+        if(data) res= data;
+        return res;
     }
+
 };
 
 const mutation={
     deleteUser:async(_:any,{input}:{input:String}):Promise<Boolean>=>{   
-
+        
 
         return true;
     },
@@ -120,7 +143,18 @@ const mutation={
             console.log(e);
             return false;
         }
-    }
+    },
+
+    sendRequest:async(_:any,{myId,userId}:{myId:number,userId:number})=>{
+        const status=await sendRequest({myId,userId});
+        return status;
+    },
+    actionOnRequest:async(_:any,{myId,userId,accept}:{myId:number,userId:number,accept:boolean})=>{
+        return await actionOnRequest({myId,userId,action:accept});
+    
+    },
+
+
 };
 
 export const resolvers={queries,mutation};

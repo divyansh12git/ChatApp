@@ -11,10 +11,8 @@ const actionOnRequest=async ({myId,userId,action}:sendRequest):Promise<Boolean>=
     //action==true-->accept request
     //action==false-->decline request
 
-    
     let status=false;
     try{
-
         const dbcontroller=new UserToRoomController();
         const operation1=await dbcontroller.removeRequested({myId,userId,status:action});
         

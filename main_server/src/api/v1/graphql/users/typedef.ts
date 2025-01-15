@@ -20,7 +20,10 @@ export const typedef=`
         profilePictureURL:String,
         Bio:String,
     }
-
+    type requestRequestingList{
+        request:[Int],
+        requesting:[Int]
+    }
     input createUserInput{
         name: String!
         username: String!
