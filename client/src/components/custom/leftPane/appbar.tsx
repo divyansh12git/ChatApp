@@ -1,8 +1,10 @@
 'use client'
 import { useState,useRef,useEffect } from "react";
-import { MessageSquareMoreIcon, Phone } from "lucide-react";
+import { MessageSquareMoreIcon, Phone, Search, User2Icon as Profile } from "lucide-react";
 import { Settings } from "lucide-react";
+import Image from "next/image";
 import Logout from "./logout";
+import requestIcon from "./request.png";
 function Appbar({currentStatus}:any) {
     const [index,setIndex]=useState(0);
     const eleRefA=useRef(null);
@@ -33,7 +35,7 @@ function Appbar({currentStatus}:any) {
             ref.current.style.backgroundColor="#515a69";
             console.log("hi");
         }
-    },[index])
+    },[index]);
     function handleClick(x:number){
         setIndex(x);
         currentStatus(x);
@@ -45,21 +47,13 @@ function Appbar({currentStatus}:any) {
                 <MessageSquareMoreIcon className=" h-8 w-8 text-white " />
             </div>
             <div ref={eleRefB} className="hover:bg-[#ffffff18]  w-12 h-12 flex justify-center items-center rounded-full" onClick={(e)=>handleClick(1)}>
-                <svg xmlns="http://www.w3.org/2000/svg" className="icon h-8 w-8  icon-tabler  icon-tabler-users-group" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                    <path d="M10 13a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" stroke="white" />
-                    <path d="M8 21v-1a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v1" stroke="white" />
-                    <path d="M15 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" stroke="white" />
-                    <path d="M17 10h2a2 2 0 0 1 2 2v1" stroke="white" />
-                    <path d="M5 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" stroke="white" />
-                    <path d="M3 13v-1a2 2 0 0 1 2 -2h2" stroke="white" />
-                </svg>
+                <Search className="h-8 w-8 text-white"/>
             </div>
             <div ref={eleRefC} className="hover:bg-[#ffffff18]  w-12 h-12 flex justify-center items-center rounded-full" onClick={(e)=>handleClick(2)}>
-                <Phone  className="h-8 w-8 text-white" />
+                <Image  style={{filter:'invert(1)'}} src={requestIcon} alt='request_icon' className="text-white h-8 w-8 mt-1 " />
             </div>
             <div ref={eleRefD} className="hover:bg-[#ffffff18]  w-12 h-12 flex justify-center items-center rounded-full" onClick={(e)=>handleClick(3)}>
-                <Settings className="h-8 w-8 text-white" />
+                <Profile className="h-8 w-8 text-white" />
             </div>
             
             <Logout  />

@@ -25,6 +25,12 @@ export const AllTypesProps: Record<string,any> = {
 		},
 		getUserToRoomData:{
 
+		},
+		getRequestRequestingList:{
+
+		},
+		getRequestUserData:{
+
 		}
 	},
 	Mutation:{
@@ -32,6 +38,12 @@ export const AllTypesProps: Record<string,any> = {
 			input:"updateUser"
 		},
 		deleteUser:{
+
+		},
+		sendRequest:{
+
+		},
+		actionOnRequest:{
 
 		},
 		signIn:{
@@ -65,16 +77,24 @@ export const ReturnTypes: Record<string,any> = {
 		profilePictureURL:"String",
 		Bio:"String"
 	},
+	requestRequestingList:{
+		request:"Int",
+		requesting:"Int"
+	},
 	Query:{
 		getAllUsers:"getAllUsersResponse",
 		getUser:"User",
 		getCurrentUser:"User",
 		getFriendsData:"User",
-		getUserToRoomData:"UserToRoom"
+		getUserToRoomData:"UserToRoom",
+		getRequestRequestingList:"requestRequestingList",
+		getRequestUserData:"getAllUsersResponse"
 	},
 	Mutation:{
 		updateUser:"Boolean",
 		deleteUser:"Boolean",
+		sendRequest:"Boolean",
+		actionOnRequest:"Boolean",
 		signIn:"String",
 		signUp:"String"
 	}

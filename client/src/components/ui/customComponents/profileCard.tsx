@@ -1,5 +1,5 @@
 import Link from "next/link";
-import profile1 from "../../../public/images/profile/2.png"
+import profile1 from "@/../public/images/profile/1.png";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/lib/store/store";
 import { Message, Room } from "@/lib/types/entities";
@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import SocketFunctions from "@/lib/socket/socketFunctions";
 import { useSocket } from "@/lib/socket/socketProvider";
 import getDateFormat from "@/lib/utils/date";
+
 interface props{
     id:number,
     profilepic:any,
@@ -63,7 +64,7 @@ function ProfileCard({id,profilepic,username,message,count}:props) {
                   <div style={profilepicStyle} className="bg-white w-[3.5rem] h-[3.5rem] rounded-full border border-white">.</div>
                 </div>
                 <div className=" w-full flex flex-row justify-start ">
-                    <div className=" overflow-hidden h-full flex flex-col justify-center w-full">
+                    <div className=" overflow-hidden h-full flex flex-col justify-center truncate w-[15rem]">
                       <p className="font-medium text-lg text-white -mb-1">{username} </p>
                       <p className=" font-extralight text-sm text-zinc-400 ">{message}</p>
                     </div>
@@ -75,7 +76,7 @@ function ProfileCard({id,profilepic,username,message,count}:props) {
                 
               </div>
               <div className="h-[1px] w-[93%] bg-white self-center"></div>
-              </div>
+        </div>
     )
 }
 export default ProfileCard;

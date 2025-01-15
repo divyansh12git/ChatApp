@@ -1,17 +1,17 @@
-import Calls from "./features/searchUsers";
+import Requests from "./features/requests";
 import Messages from "./features/message";
-import Settings from "./features/profile";
-import Groups from "./features/friends";
+import Profile from "./features/profile";
+import Search from "./features/search";
 import { UserProvider } from "@/lib/context/leftpane";
 function FeatureBox (props:any) {
     if(props.index===0)
         return <UserProvider><Messages /></UserProvider>
     else if(props.index===1)
-        return <Groups />
+        return <Search />
     else if(props.index===2)
-        return <Calls />
+        return <Requests />
     else
-        return <Settings />
+        return <Profile />
 }
 
 export default FeatureBox;

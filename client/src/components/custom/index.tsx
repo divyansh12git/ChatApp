@@ -1,4 +1,4 @@
-import ProfileCard from "./profileCard";
+import ProfileCard from "../ui/customComponents/profileCard";
 import Appbar from "./leftPane/appbar";
 import LeftPane from "./leftPane/leftpane";
 import Topbar from "./rightPane/topbar";

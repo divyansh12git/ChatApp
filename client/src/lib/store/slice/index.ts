@@ -5,6 +5,9 @@ import roomDataSliceReducer from "./roomData"
 import currentFriendSlice from "./currentFriend"
 import messageReducer from "./messages";
 import searchUserReducer from "./searchUser"
+import FriendListReducer from "./lists/friendlist";
+import RequestListReducer from "./lists/requestlist";
+import RequestingListReducer from "./lists/requestinglist"
 export {
     currentFriendSlice,
     friendDataSliceReducer,
@@ -12,5 +15,8 @@ export {
     roomDataSliceReducer,
     usernameSliceReducer,
     messageReducer,
-    searchUserReducer
+    searchUserReducer,
+    FriendListReducer,
+    RequestingListReducer,
+    RequestListReducer
 }

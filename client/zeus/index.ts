@@ -887,6 +887,11 @@ export type ValueTypes = {
 	Bio?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
+	["requestRequestingList"]: AliasType<{
+	request?:boolean | `@${string}`,
+	requesting?:boolean | `@${string}`,
+		__typename?: boolean | `@${string}`
+}>;
 	["createUserInput"]: {
 	name: string | Variable<any, string>,
 	username: string | Variable<any, string>,
@@ -918,11 +923,15 @@ getUser?: [{	input: string | Variable<any, string>},ValueTypes["User"]],
 	getCurrentUser?:ValueTypes["User"],
 getFriendsData?: [{	userId: number | Variable<any, string>},ValueTypes["User"]],
 getUserToRoomData?: [{	userId: number | Variable<any, string>},ValueTypes["UserToRoom"]],
+getRequestRequestingList?: [{	userId: number | Variable<any, string>},ValueTypes["requestRequestingList"]],
+getRequestUserData?: [{	userId: number | Variable<any, string>},ValueTypes["getAllUsersResponse"]],
 		__typename?: boolean | `@${string}`
 }>;
 	["Mutation"]: AliasType<{
 updateUser?: [{	input?: ValueTypes["updateUser"] | undefined | null | Variable<any, string>},boolean | `@${string}`],
 deleteUser?: [{	input: string | Variable<any, string>},boolean | `@${string}`],
+sendRequest?: [{	myId: number | Variable<any, string>,	userId: number | Variable<any, string>},boolean | `@${string}`],
+actionOnRequest?: [{	myId: number | Variable<any, string>,	userId: number | Variable<any, string>,	accept: boolean | Variable<any, string>},boolean | `@${string}`],
 signIn?: [{	input?: ValueTypes["SignInInput"] | undefined | null | Variable<any, string>},boolean | `@${string}`],
 signUp?: [{	input?: ValueTypes["SignUpInput"] | undefined | null | Variable<any, string>},boolean | `@${string}`],
 		__typename?: boolean | `@${string}`
@@ -952,6 +961,11 @@ export type ResolverInputTypes = {
 	username?:boolean | `@${string}`,
 	profilePictureURL?:boolean | `@${string}`,
 	Bio?:boolean | `@${string}`,
+		__typename?: boolean | `@${string}`
+}>;
+	["requestRequestingList"]: AliasType<{
+	request?:boolean | `@${string}`,
+	requesting?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
 	["createUserInput"]: {
@@ -985,11 +999,15 @@ getUser?: [{	input: string},ResolverInputTypes["User"]],
 	getCurrentUser?:ResolverInputTypes["User"],
 getFriendsData?: [{	userId: number},ResolverInputTypes["User"]],
 getUserToRoomData?: [{	userId: number},ResolverInputTypes["UserToRoom"]],
+getRequestRequestingList?: [{	userId: number},ResolverInputTypes["requestRequestingList"]],
+getRequestUserData?: [{	userId: number},ResolverInputTypes["getAllUsersResponse"]],
 		__typename?: boolean | `@${string}`
 }>;
 	["Mutation"]: AliasType<{
 updateUser?: [{	input?: ResolverInputTypes["updateUser"] | undefined | null},boolean | `@${string}`],
 deleteUser?: [{	input: string},boolean | `@${string}`],
+sendRequest?: [{	myId: number,	userId: number},boolean | `@${string}`],
+actionOnRequest?: [{	myId: number,	userId: number,	accept: boolean},boolean | `@${string}`],
 signIn?: [{	input?: ResolverInputTypes["SignInInput"] | undefined | null},boolean | `@${string}`],
 signUp?: [{	input?: ResolverInputTypes["SignUpInput"] | undefined | null},boolean | `@${string}`],
 		__typename?: boolean | `@${string}`
@@ -1023,6 +1041,10 @@ export type ModelTypes = {
 	profilePictureURL?: string | undefined,
 	Bio?: string | undefined
 };
+	["requestRequestingList"]: {
+		request?: Array<number | undefined> | undefined,
+	requesting?: Array<number | undefined> | undefined
+};
 	["createUserInput"]: {
 	name: string,
 	username: string,
@@ -1053,11 +1075,15 @@ export type ModelTypes = {
 	getUser?: ModelTypes["User"] | undefined,
 	getCurrentUser?: ModelTypes["User"] | undefined,
 	getFriendsData?: Array<ModelTypes["User"] | undefined> | undefined,
-	getUserToRoomData?: Array<ModelTypes["UserToRoom"] | undefined> | undefined
+	getUserToRoomData?: Array<ModelTypes["UserToRoom"] | undefined> | undefined,
+	getRequestRequestingList?: ModelTypes["requestRequestingList"] | undefined,
+	getRequestUserData?: Array<ModelTypes["getAllUsersResponse"] | undefined> | undefined
 };
 	["Mutation"]: {
 		updateUser?: boolean | undefined,
 	deleteUser?: boolean | undefined,
+	sendRequest?: boolean | undefined,
+	actionOnRequest?: boolean | undefined,
 	signIn?: string | undefined,
 	signUp?: string | undefined
 };
@@ -1092,6 +1118,11 @@ export type GraphQLTypes = {
 	profilePictureURL?: string | undefined,
 	Bio?: string | undefined
 };
+	["requestRequestingList"]: {
+	__typename: "requestRequestingList",
+	request?: Array<number | undefined> | undefined,
+	requesting?: Array<number | undefined> | undefined
+};
 	["createUserInput"]: {
 		name: string,
 	username: string,
@@ -1123,12 +1154,16 @@ export type GraphQLTypes = {
 	getUser?: GraphQLTypes["User"] | undefined,
 	getCurrentUser?: GraphQLTypes["User"] | undefined,
 	getFriendsData?: Array<GraphQLTypes["User"] | undefined> | undefined,
-	getUserToRoomData?: Array<GraphQLTypes["UserToRoom"] | undefined> | undefined
+	getUserToRoomData?: Array<GraphQLTypes["UserToRoom"] | undefined> | undefined,
+	getRequestRequestingList?: GraphQLTypes["requestRequestingList"] | undefined,
+	getRequestUserData?: Array<GraphQLTypes["getAllUsersResponse"] | undefined> | undefined
 };
 	["Mutation"]: {
 	__typename: "Mutation",
 	updateUser?: boolean | undefined,
 	deleteUser?: boolean | undefined,
+	sendRequest?: boolean | undefined,
+	actionOnRequest?: boolean | undefined,
 	signIn?: string | undefined,
 	signUp?: string | undefined
 }

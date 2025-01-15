@@ -1,7 +1,7 @@
 'use client'
 
 import { useDispatch } from "react-redux";
-import ProfileCard from "../../profileCard";
+import ProfileCard from "../../../ui/customComponents/profileCard";
 import profile1 from "../../../../../public/images/profile/1.png"
 import profile2 from "../../../../../public/images/profile/2.png"
 import UserContext from "@/lib/context/leftpane"
@@ -12,6 +12,7 @@ import { getFriendsData } from "@/lib/services/api";
 import {User as Friend,Message,Room} from "@/lib/types/entities"
 import {updateFriendData} from "@/lib/store/slice/friendData"
 import { updateRoomData } from "@/lib/store/slice/roomData";
+import { updateFriendList } from "@/lib/store/slice/lists/friendlist";
 import { useSocket } from "@/lib/socket/socketProvider";
 import { updateMessage } from "@/lib/store/slice/messages";
 
@@ -56,6 +57,7 @@ function Messages () {
               if(data.status){
                 if(data.friends){
                   data.friends.map((friend:Friend)=>{
+                    dispatch(updateFriendList({id:friend.id}));
                     dispatch(updateFriendData(friend));
                   });
                   setFriendData((e)=>[...data.friends]);

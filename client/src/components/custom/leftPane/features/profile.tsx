@@ -1,11 +1,10 @@
 
-function Settings () {
+function Profile () {
     return (
         <>
-            Settings
+            Profile
         </>
-
     );
 }
 
-export default Settings;
+export default Profile;
