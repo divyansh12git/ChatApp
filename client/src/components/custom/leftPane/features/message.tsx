@@ -15,6 +15,7 @@ import { updateRoomData } from "@/lib/store/slice/roomData";
 import { updateFriendList } from "@/lib/store/slice/lists/friendlist";
 import { useSocket } from "@/lib/socket/socketProvider";
 import { updateMessage } from "@/lib/store/slice/messages";
+import { Loader } from "@/components/ui";
 
 const profilepic = {
     backgroundImage: `url(${profile1.src})`, // .src gives the URL path of the image
@@ -104,8 +105,6 @@ function Messages () {
     },[])
 
 
-    if(loading)return (<div>loading...</div>);
-
     return (
             <div style={{overflow: "auto", scrollbarWidth: "none"}} className="bg-[#1c1c24] w-full col-span-7 flex flex-col items-center overflow-y-scroll overflow-x-hidden">
             <div className=" flex items-center text-sm mt-5 w-5/6  bg-zinc-800 m-2 rounded-full">
@@ -113,10 +112,13 @@ function Messages () {
               {/* <div className=""></div> */}
             </div>
             <p className="self-start text-2xl text-white ml-5 mt-2">Chats</p>
-            {friendData?.map((user:Friend)=>{
-              return(
-                <ProfileCard key={user.id} id={user.id} username={user.username} count={0} message={"hi"} profilepic={profilepic2} />
-              )
+            {loading?<div className="h-10 w-10 mt-10">
+                      <Loader />
+              </div>:
+              friendData?.map((user:Friend)=>{
+                return(
+                  <ProfileCard key={user.id} id={user.id} username={user.username} count={0} message={"hi"} profilepic={profilepic2} />
+                )
             })}
             
             {/* <ProfileCard key={1} id={100} profilepic={profilepic} username="Selena" message="What's up, how's goin" count={10} />

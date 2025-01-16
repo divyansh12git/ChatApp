@@ -1,7 +1,7 @@
 import axios from "axios";
 import {searchUser} from "../../types/entities"
 const getLists=async(myId:number)=>{
-    let data={
+    let data:{request:number[],requesting:number[]}={
         request:[],
         requesting:[]
     }

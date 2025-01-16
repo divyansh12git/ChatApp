@@ -4,11 +4,15 @@ const RequestListSlice=createSlice({
         name:"requestList",
         initialState:[],
         reducers:{
-            updateRequestList:(state,action:PayloadAction<{id:number}>)=>{
-                if(!state.some((e)=>e===action.payload.id)){
-                    //@ts-ignore
-                    state.push(action.payload.id);
+            updateRequestList:(state,action:PayloadAction<{list:number[]}>)=>{
+                //@ts-ignore
+                action.payload.list.map((e:any)=>{
+                    if(!state.some((id)=>id===e)){
+                        //@ts-ignore
+                        state.push(e)
+                    }
                 }
+                )
             }
         }
     }

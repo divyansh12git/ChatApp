@@ -10,14 +10,15 @@ interface SignUpData{
 }
 export async function POST(request: NextRequest) {
 
-    const data:SignUpData=await request.json();
-    console.log(data);
-    if(!data.username || !data.password || !data.name || data.password.length<8 || data.username.includes(" "))
-            return NextResponse.json({msg:"data invalid"}); 
-        let token="";
-        let msg="";
-        let status=false
-        try{
+    let token="";
+    let msg="";
+    let status=false
+    try{
+            const data:SignUpData=await request.json();
+            // console.log(data);
+            if(!data.username || !data.password || !data.name || data.password.length<8 || data.username.includes(" "))
+                    return NextResponse.json({msg:"data invalid"}); 
+                
             const response=await chain("mutation")({
                 signUp:[{
                     input:{

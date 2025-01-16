@@ -1,5 +1,5 @@
 import Link from "next/link";
-import profile1 from "@/../public/images/profile/1.png";
+import profile1 from "@/../public/images/profile/2.png";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/lib/store/store";
 import { Message, Room } from "@/lib/types/entities";

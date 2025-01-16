@@ -6,6 +6,7 @@ import {updatePersonalInformation} from "@/lib/store/slice/personalInformation"
 import {DecryptData,verifyToken} from "@/lib/services"
 import {getUserData} from "@/lib/services/api"
 import {update} from "@/lib/store/slice/username";
+import { LoadingPage } from "@/components/custom";
 export default  function Home() {
   // redirect(`/chat`);
     const dispatch = useDispatch()
@@ -41,6 +42,6 @@ export default  function Home() {
     }, []);
 
     // console.log(token)
-      
+    return(<LoadingPage title="Welcome To ChatApp Please Wait..." />)
   
 }

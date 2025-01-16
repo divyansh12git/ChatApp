@@ -7,7 +7,7 @@ import { Room, Message } from "@/lib/types/entities";
 import getDateFormat from "@/lib/utils/date";
 import { Topbar, InputBox, MessageBox } from "@/components/custom";
 
-import profile1 from "../../../../public/images/profile/1.png";
+import profile1 from "../../../../public/images/profile/2.png";
 
 const profilepic = {
     backgroundImage: `url(${profile1.src})`, // .src gives the URL path of the image

@@ -1,11 +1,15 @@
 import {useState} from "react";
-
+import {useSelector} from "react-redux"
+import { RootState } from "@/lib/store/store";
 import profile1 from "@/../public/images/profile/2.png";
 import Accept from "@/../public/icons/accept.png"
 import Decline from "@/../public/icons/decline.png"
 import Image from "next/image";
 import RequestBox from "./box/requestBox";
-import NormalBox from "./box/normalBox"
+import NormalBox from "./box/normalBox";
+import { handleRequest } from "@/lib/services/api";
+import Loader from "../loader";
+
 interface props{
   userName:string;
   Bio:string;
@@ -20,9 +24,22 @@ const SearchUserCard=({userName,Bio,profilePic,userId,status}:props)=>{
         backgroundSize: 'cover', // adjust as needed
         backgroundPosition: 'center',
       }
+
+      const myId=useSelector((state:RootState)=>state.personalInformation).id;
       const [request,setRequest]=useState<Boolean>(true);
-      const handleRequest=()=>{
+      const [sentSuccess,setSentSuccess]=useState(false);
+
+      const handleRequestButton=async()=>{
         setRequest(false);
+       const status=await handleRequest({
+          myId:Number(myId),
+          sending:true,
+          action:true,
+          userId:userId
+        })
+        if(!status)setRequest(true);
+        else setSentSuccess(true)
+
       }
 
     return(
@@ -37,7 +54,10 @@ const SearchUserCard=({userName,Bio,profilePic,userId,status}:props)=>{
                       <p className=" font-extralight text-sm text-zinc-400 ">{Bio}</p>
                     </div>
                     {
-                      request?<RequestBox handler={handleRequest}  action={"Request"} />:<NormalBox action={"Requested"} />
+                      status==="requesting"?<NormalBox action={"Requesting"} />:
+                      status==="friend"?<NormalBox action={"Friend"} />:
+                      request?<RequestBox handler={handleRequestButton}  action={"Request"} />:
+                      sentSuccess?<NormalBox action={"Requested"} />:<Loader />
                     }
                     
 

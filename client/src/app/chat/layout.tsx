@@ -6,13 +6,13 @@ import { getUserData } from "@/lib/services/api";
 import {updatePersonalInformation} from "@/lib/store/slice/personalInformation"
 import verifyToken from "@/lib/services/tokenVerifier";
 import { SocketProvider } from "@/lib/socket/socketProvider";
-
+import {LoadingPage} from "@/components/custom"
 export default function chatLayout({
     children
   }:{
       children:React.ReactNode,
   }){
-        const [loading,setLoading]=useState(false);
+        const [loading,setLoading]=useState(true);
         const token = localStorage.getItem('token');
         let username = useSelector((state: RootState) => state.username.username);
         if(token) username=verifyToken(token);
@@ -21,10 +21,8 @@ export default function chatLayout({
         console.log(username);
         // console.log("YOYOYOYO");
         useEffect(()=>{
-            setLoading(true);
-
             getUserData(username).then((data:any)=>{
-                console.log(data);
+                // console.log(data);
                 if(data){
                     dispatch(updatePersonalInformation({...data}))
                 }
@@ -37,7 +35,7 @@ export default function chatLayout({
 
 
         {
-            if(loading)return(<div>loading...</div>);
+            if(loading)return(<LoadingPage title="Loading Chats..." />)
             return(
                 <>
                 <main className="h-[100vh]">
