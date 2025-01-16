@@ -119,7 +119,8 @@ class UserToRoomController implements IUserToRoom{
         let status=false;
         try{
             const friendList=await getFriendList(myId);
-            if(friendList.some((e)=>e===userId))return false;
+            const requestedList=(await getRequestRequestingList(myId)).request;
+            if(friendList.some((e)=>e===userId) || requestedList.some((e)=>e===userId))return false;
             const list=await this.getUserToRoomData(myId);
             const id=list?.id;
             if(list && id){
