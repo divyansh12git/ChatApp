@@ -38,10 +38,10 @@ const RequestUserCard=({userId,Bio,username,profilePic}:IProps)=>{
           console.log(status);
           if(status){
             setSuccess(true); 
-            setLoading(false);
+            // setLoading(false);
           }else{
             setSuccess(true); 
-            setLoading(false);
+            // setLoading(false);
             setBoxData("decline")
           }
             // dispatch()

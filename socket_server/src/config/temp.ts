@@ -2,7 +2,7 @@ import client from "../config/cassandra"
 
 
 const query1='SELECT * FROM chat_messages';
-const query2=`INSERT INTO chat_messages (id, chat_id,timestamp,message,receiver_id,sender_id,time) VALUES(uuid(),'bravos_got', toTimestamp(now()), 'valgaur moharis', 55,56,'dasa');`
+const query2=`INSERT INTO chat_messages (id, chat_id,timestamp,message,receiver_id,sender_id,time) VALUES(uuid(),'test1_test2', toTimestamp(now()), 'valgaur moharis', 55,56,'dasa');`
 let parameters:string[]=[];
 let parameters2:string[]=[];
 

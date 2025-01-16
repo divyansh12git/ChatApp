@@ -7,7 +7,8 @@ const executeQueries=(queries:string[]):Promise<any>=>{
         client.connect((err)=>{
             if(err){
                 console.log(err);
-                return;
+                client.shutdown();
+                reject(response);
             }
         
             queries.map((query,ind)=>{
@@ -16,7 +17,7 @@ const executeQueries=(queries:string[]):Promise<any>=>{
                         if (error) {
                             console.error(`Error while executing ${ind} query`, error);
                         } else {
-                            console.log('Query result:', result);
+                            // console.log('Query result:', result);
                             response.push(result);
                             // console.log(result.rows);
                         }
@@ -29,6 +30,7 @@ const executeQueries=(queries:string[]):Promise<any>=>{
         
                 }catch(e){
                     console.log(e);
+                    client.shutdown();
                     reject(response);
                 }
             });
