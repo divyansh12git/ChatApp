@@ -1,7 +1,7 @@
 import client from "../../../../config/cassandra";
 
 
-const executeQueries=(queries:string[]):Promise<any>=>{
+const executeQueries=(queries:string[],params:[]):Promise<any>=>{
     const response:any[]=[];
     const pro=new Promise((resolve,reject)=>{
         client.connect((err)=>{
@@ -13,7 +13,9 @@ const executeQueries=(queries:string[]):Promise<any>=>{
         
             queries.map((query,ind)=>{
                 try{
-                    client.execute(query,[],(error,result)=>{
+                    // console.log(query);
+                    // console.log(params);
+                    client.execute(query,params,{ prepare: true },(error,result)=>{
                         if (error) {
                             console.error(`Error while executing ${ind} query`, error);
                         } else {

@@ -4,6 +4,7 @@ import cors from "cors";
 import SocketService from './api/v1/services/socketio';
 import path from "node:path";
 import { connectionRouter } from './api/v1/routes/connection';
+import {dbRouter} from "./api/v1/routes/db"
 import { ClientToServerEvents,InterServerEvents,
         ServerToClientEvents,SocketData
  } from './api/v1/interfaces/events';
@@ -19,7 +20,7 @@ import { ClientToServerEvents,InterServerEvents,
     app.use(express.urlencoded());
     app.use(cors());
     app.use("/connect",connectionRouter);
-
+    app.use("/messages",dbRouter);
     //socket  
     socketService.initListeners();
 

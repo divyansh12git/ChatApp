@@ -19,16 +19,16 @@ import {insertMessage} from "./api/v1/services/cassandra/"
             time:time().toString(),
             content :"What's up buddy"
         }
-        getMessages({
-            sender_id:5,
-            receiver_id:6
+        const data=await getMessages({
+            sender_id:0,
+            receiver_id:12
         });
+        console.log(data);
         // await insertMessage({
         //     sender_id:0,
-        //     receiver_id:11,
-        //     message:"Hi bro vallah habibi",
+        //     receiver_id:12,
+        //     message:"akkad bakkad bambe bomba",
         //     time:"45ds4d5",
-
         // });
     }
 )()

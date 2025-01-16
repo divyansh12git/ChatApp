@@ -8,8 +8,11 @@ interface params{
 }
 const insertMessage=async({sender_id,receiver_id,message,time}:params)=>{
     const chatId=generateChatId(sender_id,receiver_id);
-    const query=`INSERT INTO chat_messages (id, chat_id,timestamp,message,receiver_id,sender_id,time) VALUES(uuid(),'${chatId}', toTimestamp(now()), '${message}' , ${receiver_id},${sender_id},'${time}');` ;
-    const result=await executeQueries([query]);
+    const query=`INSERT INTO chat_messages (id, chat_id,timestamp,message,receiver_id,sender_id,time) VALUES(uuid(),?, toTimestamp(now()), ? , ?,?,?);` ;
+    const params=[chatId,message,receiver_id,sender_id,time];
+    //@ts-ignore
+    const result=await executeQueries([query],params);
+    // console.log(result);
     if(result[0])return true;
     else return false;
 }
