@@ -78,6 +78,7 @@ TBD :)
 - Web RTC
 ### Database
 - Postgres
+- Cassandra
 - Prisma (ORM)
 ### Cahching
 - Redis
