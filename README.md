@@ -6,8 +6,8 @@ Welcome to **ChatApp**, a modern and feature-rich messaging application designed
 
 ---
 
-## **Phase 1 Completed: 17/01/2025**  
-
+## **Phase 1 Completed:**  
+####  10/07/2024 - 17/01/2025
 I am extremely excited to announce the successful completion of Phase 1 of ChatApp! While the application is still under development, the foundation is set with these core features:  
 
 - **Authentication Module**:  
