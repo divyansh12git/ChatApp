@@ -15,6 +15,7 @@ function Requests (props:any) {
             setLoading(true);
             getRequestUserData(myId).then((data)=>{
                 if(data){
+                    setRequestList([]);
                     data.map((user)=>{
                         setRequestList((prev)=>{
                             return [...prev,user]
@@ -28,7 +29,7 @@ function Requests (props:any) {
     return (
         <>
             <div className="bg-[#1c1c24] w-full col-span-7 flex flex-col items-center ">
-                <div className="text-white  text-2xl my-3">
+                <div className="text-white mx-auto text-2xl my-3">
                     Request Box
                 </div>
             <div style={{overflow: "auto", scrollbarWidth: "none"}} className="h-full  my-3 w-11/12 rounded-xl mx-5 bg-zinc-700 overflow-y-scroll overflow-x-hidden">

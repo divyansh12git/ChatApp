@@ -8,14 +8,16 @@ dbRouter.get('/',(req,res)=>{
     res.json({data:"hi from messages "})
 })
 dbRouter.get('/get',async(req,res)=>{
-    // console.log(req.headers);
+    console.log(req.headers);
     const userId=(req.headers['userid']);
     const friendId=(req.headers['friendid']);
+    console.log(userId+" "+friendId);
     if(!userId || !friendId  ){
         return res.status(405).json({status:false,desc:"invalid data parameters provided"});
     }
     // console.log(data);
     const result=await getMessages({ sender_id: Number(userId), receiver_id: Number(friendId) });
+    console.log(result);
     if(result){
         res.send({status:true,data:result});
     }else{

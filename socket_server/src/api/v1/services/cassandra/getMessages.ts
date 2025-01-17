@@ -6,12 +6,12 @@ const getMessages=async({sender_id,receiver_id}:any)=>{
     const chatId=generateChatId(sender_id,receiver_id);
     // const chatId='u1_u2';
     const query=`SELECT * FROM chat_messages WHERE chat_id='${chatId}'` ;
-    const result=await executeQueries([query],[]);
+    const result=await executeQueries(query,[]);
     // console.log(result);
     const messagesData:message[]=[];
-    if(result?.length){
+    if(result){
         // console.log(result[0].rows);
-        const dbData=result[0].rows;
+        const dbData=result.rows;
 
         //sorting messages by time stamp
         //@ts-ignore

@@ -11,9 +11,9 @@ const insertMessage=async({sender_id,receiver_id,message,time}:params)=>{
     const query=`INSERT INTO chat_messages (id, chat_id,timestamp,message,receiver_id,sender_id,time) VALUES(uuid(),?, toTimestamp(now()), ? , ?,?,?);` ;
     const params=[chatId,message,receiver_id,sender_id,time];
     //@ts-ignore
-    const result=await executeQueries([query],params);
+    const result=await executeQueries(query,params);
     // console.log(result);
-    if(result[0])return true;
+    if(result)return true;
     else return false;
 }
 export default insertMessage;

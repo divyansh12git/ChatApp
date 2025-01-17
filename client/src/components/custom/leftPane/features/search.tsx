@@ -1,4 +1,4 @@
-import {useState,useEffect} from "react";
+import {useState,useEffect, useCallback} from "react";
 import {Search } from "lucide-react"
 import { useDispatch,useSelector } from "react-redux";
 import { RootState } from "@/lib/store/store";
@@ -60,31 +60,29 @@ function SearchUsers () {
     }
 
 
-    const searchUserName=async(e:React.MouseEvent<HTMLButtonElement, MouseEvent>)=>{
-        e.preventDefault();
-        setLoading(true);
-        // console.log(search);
-        if(search.length){
-           const data=await searchUsers(search); 
-           if(data){
-            data.map((user)=>{
-                const status=findStatus(user.id);
-                const temp:searchUserList={
-                    status:status,
-                    userData:user
-                }
-                setUsersList((e)=>[...e,temp]);
-            });
-            setLoading(false);
-           }
-        }else{
-            setLoading(false);
-        }
-
-
-
-        setSearch("");
-    }
+    const searchUserName=useCallback(async(e:React.MouseEvent<HTMLButtonElement, MouseEvent>)=>{
+            e.preventDefault();
+            setLoading(true);
+            // console.log(search);
+            if(search.length){
+               const data=await searchUsers(search); 
+               if(data){
+                data.map((user)=>{
+                    const status=findStatus(user.id);
+                    const temp:searchUserList={
+                        status:status,
+                        userData:user
+                    }
+                    setUsersList((e)=>[...e,temp]);
+                });
+                setLoading(false);
+               }
+            }else{
+                setLoading(false);
+            }
+            // setSearch("");
+        },[search]);
+        
     const handleSearchChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
         if(search.length===0){
             setUsersList([]);

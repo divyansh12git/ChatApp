@@ -1,43 +1,18 @@
-import client from "../../../../config/cassandra";
+// import client from "../../../../config/cassandra";
+import { cassandraClient } from "../../../../config/cassandra";
 
+const executeQueries=async(query:string,params:[])=>{
+    let response;
+    try{
 
-const executeQueries=(queries:string[],params:[]):Promise<any>=>{
-    const response:any[]=[];
-    const pro=new Promise((resolve,reject)=>{
-        client.connect((err)=>{
-            if(err){
-                console.log(err);
-                client.shutdown();
-                reject(response);
-            }
-        
-            queries.map((query,ind)=>{
-                try{
-                    // console.log(query);
-                    // console.log(params);
-                    client.execute(query,params,{ prepare: true },(error,result)=>{
-                        if (error) {
-                            console.error(`Error while executing ${ind} query`, error);
-                        } else {
-                            // console.log('Query result:', result);
-                            response.push(result);
-                            // console.log(result.rows);
-                        }
-                        if(ind===queries.length-1){
-                            client.shutdown();
-                            resolve(response);
-                        }
-                    })
-        
-        
-                }catch(e){
-                    console.log(e);
-                    client.shutdown();
-                    reject(response);
-                }
-            });
-        }) 
-    });
-    return pro;
+        const cassandra = cassandraClient.getInstance(); // Get the singleton instance
+        const client = cassandraClient; // Use the cassandraClient directly
+        // console.log(query);
+        // console.log(params);
+        response=await cassandra.execute(query,params,{ prepare: true });
+    }catch(e){
+        console.log(e);
+    }
+    return response;
 }
 export  {executeQueries};

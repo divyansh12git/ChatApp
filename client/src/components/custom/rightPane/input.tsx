@@ -6,6 +6,7 @@ import {updateMessage} from "@/lib/store/slice/messages"
 import { Message } from "@/lib/types/entities";
 import getDateFormat from "@/lib/utils/date";
 import { useSocket } from "@/lib/socket/socketProvider";
+import { insertMessage } from "@/lib/services/api/socket_server/insertmessage";
 interface InputBoxProps {    
     currentMessageId: number;
     friendId:number;
@@ -21,11 +22,12 @@ const InputBox: React.FC<InputBoxProps> = ({currentMessageId, friendId, roomId, 
     
 
     const sendMessage=useCallback(
-        (e:React.MouseEvent<HTMLButtonElement, MouseEvent>)=>{
+        async(e:React.MouseEvent<HTMLButtonElement, MouseEvent>)=>{
             e.preventDefault();
             if(message==='') return;
             const time=getDateFormat();
             // console.log(message)
+            
             // populateMessages(message,true,time);
             const msg:Message={
                 id:currentMessageId,
@@ -33,10 +35,19 @@ const InputBox: React.FC<InputBoxProps> = ({currentMessageId, friendId, roomId, 
                 sendByMe:true,
                 time:time
             }
+
             //adding messsage to the redux store
             dispatch(updateMessage({id:Number(friendId),message:msg}));
             
-            console.log(myId+" from sender");
+            //adding message to the database
+            await insertMessage({
+                sender_id:myId,
+                receiver_id:friendId,
+                message:message,
+                time:time
+            });
+            // console.log(myId+" from sender");
+
             const data={
                 id:currentMessageId,
                 roomId:roomId,

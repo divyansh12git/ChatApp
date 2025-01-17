@@ -12,7 +12,7 @@ interface props{
 const insertMessage=async({sender_id,receiver_id,message,time}:props)=>{
     let status=false;
     try{
-        const response:any =await axios.post('connectionURL'+'/insert',{
+        const response:any =await axios.post(`${connectionURL}`+'/insert',{
             sender_id, receiver_id, message, time
         });
         status=response.status
