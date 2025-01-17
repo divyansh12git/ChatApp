@@ -1,6 +1,6 @@
 'use client'
 import { useState, useEffect, useRef } from "react"
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/lib/store/store";
 import { useRoom } from "@/hooks";
 import { Room, Message } from "@/lib/types/entities";
@@ -9,7 +9,7 @@ import { Topbar, InputBox, MessageBox } from "@/components/custom";
 import { getMessages } from "@/lib/services/api/socket_server/getmessages";
 import profile1 from "../../../../public/images/profile/2.png";
 import { Loader } from "@/components/ui";
-
+import { updatePrevMessages,clearPrevMessages } from "@/lib/store/slice/prevmessages";
 const profilepic = {
     backgroundImage: `url(${profile1.src})`, // .src gives the URL path of the image
 }
@@ -22,14 +22,15 @@ type prevMessage={
 }
 const DynamicMessagingArea = () => {
     const [loading,setLoading]=useState(false);
-    const [prevMessages,setPrevMessages]=useState<prevMessage[]>([]);
+    const dispatch=useDispatch();
     const currentFriend = useSelector((state: RootState) => state.currentFriend);
     const myId=Number(useSelector((state:RootState)=>state.personalInformation.id));
     const messagesEndRef = useRef<HTMLDivElement | null>(null);
     const roomId = currentFriend.roomId;
-    const friendId = currentFriend.id;
+    const friendId = Number(currentFriend.id);
     // const xx=useSelector((state:RootState)=>state.messages);
-    let messagesData = useSelector((state: RootState) => state.messages.find((e) => e.friendId === Number(friendId)));
+    let messagesData = useSelector((state: RootState) => state.messages.find((e) => e.friendId === friendId));
+    let prevMessagesData = useSelector((state: RootState) => state.prevMessages.find((e) => e.friendId === friendId));
     // console.log(roomId)
     // console.log(friendId)
     // console.log(messagesData);
@@ -45,19 +46,27 @@ const DynamicMessagingArea = () => {
             currentMessageId=messages[messages.length - 1].id;
         }
     }
-    
+    let prevMessages:prevMessage[]=[];
+    if(prevMessagesData){
+        prevMessages=prevMessagesData.messages;
+    }
     //fetching previous message hitory if any:
     useEffect(()=>{
-        setLoading(true);
-        getMessages({sender_id:myId,receiver_id:friendId}).then((data)=>{
-            setPrevMessages([]);
-            // console.log(data);
-            if(data.length){
-                data.map((msg:prevMessage)=>{
-                    setPrevMessages(prevMessages=>[...prevMessages,msg]);
-                });
-            }
-        }).finally(()=>setLoading(false));
+        //@ts-ignore
+        console.log(prevMessagesData);
+        if(!prevMessagesData || prevMessagesData.messages.length===0){
+            setLoading(true);
+
+            getMessages({sender_id:myId,receiver_id:friendId}).then((data)=>{
+                // console.log(data);
+                if(data.length){
+                    dispatch(clearPrevMessages({id:friendId}))
+                    data.map((msg:prevMessage)=>{
+                        dispatch(updatePrevMessages({id:friendId,message:msg}));
+                    });
+                }
+            }).finally(()=>setLoading(false));
+        }
 
     },[currentFriend])
 

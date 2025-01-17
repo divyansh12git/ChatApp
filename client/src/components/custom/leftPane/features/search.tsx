@@ -112,7 +112,7 @@ function SearchUsers () {
                         <Search className="text-white h-7 w-7 my-auto" />
                     </div>
                 </div>
-                <div style={{overflow: "auto", scrollbarWidth: "none"}} className="h-full  my-3 w-11/12 rounded-xl mx-5 bg-zinc-700 overflow-y-scroll overflow-x-hidden">
+                <div style={{overflow: "auto", scrollbarWidth: "none"}} className="h-[33rem]  my-3 w-11/12 rounded-xl mx-5 bg-zinc-700 overflow-y-scroll overflow-x-hidden">
                     {
                         loading?(
                             <div className="h-10 w-10 mx-auto my-10">

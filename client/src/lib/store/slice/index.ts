@@ -8,6 +8,7 @@ import searchUserReducer from "./searchUser"
 import FriendListReducer from "./lists/friendlist";
 import RequestListReducer from "./lists/requestlist";
 import RequestingListReducer from "./lists/requestinglist"
+import prevMessagesReducer from "./prevmessages"
 export {
     currentFriendSlice,
     friendDataSliceReducer,
@@ -18,5 +19,6 @@ export {
     searchUserReducer,
     FriendListReducer,
     RequestingListReducer,
-    RequestListReducer
+    RequestListReducer,
+    prevMessagesReducer
 }

@@ -32,7 +32,7 @@ function Requests (props:any) {
                 <div className="text-white mx-auto text-2xl my-3">
                     Request Box
                 </div>
-            <div style={{overflow: "auto", scrollbarWidth: "none"}} className="h-full  my-3 w-11/12 rounded-xl mx-5 bg-zinc-700 overflow-y-scroll overflow-x-hidden">
+            <div style={{overflow: "auto", scrollbarWidth: "none"}} className="h-[33rem]  my-3 w-11/12 rounded-xl mx-5 bg-zinc-700 overflow-y-scroll overflow-x-hidden">
                     {
                         !(requestList.length)?loading?<div className="h-10 w-10 mx-auto my-10">
                                                             <Loader />

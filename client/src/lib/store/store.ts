@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 import {currentFriendSlice,friendDataSliceReducer,personalInformationReducer
   ,roomDataSliceReducer,usernameSliceReducer,messageReducer,searchUserReducer,
-  FriendListReducer,RequestListReducer,RequestingListReducer
+  FriendListReducer,RequestListReducer,RequestingListReducer,prevMessagesReducer
 } from "./slice"
 
 export const makeStore = () => {
@@ -16,7 +16,8 @@ export const makeStore = () => {
       searchUser:searchUserReducer,
       friendlist:FriendListReducer,
       requestList:RequestListReducer,
-      requestingList:RequestingListReducer
+      requestingList:RequestingListReducer,
+      prevMessages:prevMessagesReducer
     }
   })
 }
