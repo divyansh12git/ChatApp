@@ -2,7 +2,7 @@
 # ChatApp
 
 
-Welcome to **ChatApp**, a modern and feature-rich messaging application designed for seamless communication. Below is an overview of our progress so far, detailing the features implemented in **Phase 1**, the roadmap for **Phase 2**, and the technologies powering ChatApp.  
+Welcome to **ChatApp**, a modern and feature-rich messaging application designed for seamless communication.  
 
 ---
 
