@@ -35,7 +35,7 @@ const RequestUserCard=({userId,Bio,username,profilePic}:IProps)=>{
             action:action,
             userId:userId
           });
-          console.log(status);
+          // console.log(status);
           if(status){
             setSuccess(true); 
             // setLoading(false);

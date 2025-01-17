@@ -32,7 +32,7 @@ function SearchUsers () {
         setLoading(true);
         if((!requestList.length || !requestingList) && myId.length){
             getLists(Number(myId)).then((e)=>{
-                console.log(e);
+                // console.log(e);
                 dispatch(updateRequestList({list:e.request}));
                 dispatch(updateRequestingList({list:e.requesting}));
             }).finally(()=>setLoading(false));

@@ -8,16 +8,16 @@ dbRouter.get('/',(req,res)=>{
     res.json({data:"hi from messages "})
 })
 dbRouter.get('/get',async(req,res)=>{
-    console.log(req.headers);
+    // console.log(req.headers);
     const userId=(req.headers['userid']);
     const friendId=(req.headers['friendid']);
-    console.log(userId+" "+friendId);
+    // console.log(userId+" "+friendId);
     if(!userId || !friendId  ){
         return res.status(405).json({status:false,desc:"invalid data parameters provided"});
     }
     // console.log(data);
     const result=await getMessages({ sender_id: Number(userId), receiver_id: Number(friendId) });
-    console.log(result);
+    // console.log(result);
     if(result){
         res.send({status:true,data:result});
     }else{
@@ -27,7 +27,7 @@ dbRouter.get('/get',async(req,res)=>{
 
 dbRouter.post('/insert',async(req,res)=>{
     const data=req.body;
-    console.log(data);
+    // console.log(data);
     if(!(data.sender_id && data.receiver_id && data.message && data.time && data.message.length>0)){
        return res.status(405).json({status:false,desc:"invalid data parameters provided"});
     }

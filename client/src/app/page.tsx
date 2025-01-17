@@ -31,7 +31,7 @@ export default  function Home() {
           }
 
         } catch (err) {
-          console.log("Hi from error")
+          // console.log("Hi from error")
           //@ts-ignore
           if(err.message === "NEXT_REDIRECT")redirect('/chat');
           console.log(err);
@@ -42,6 +42,7 @@ export default  function Home() {
     }, []);
 
     // console.log(token)
-    return(<LoadingPage title="Welcome To ChatApp Please Wait..." />)
+    return(<LoadingPage title="Welcome To ChatApp Please Wait...
+      " />)
   
 }

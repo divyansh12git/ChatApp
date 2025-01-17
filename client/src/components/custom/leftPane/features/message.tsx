@@ -84,7 +84,7 @@ function Messages () {
         if (!socket.hasListeners("receive-message")) {
 
           socket.on("receive-message", (data:{id:number,sender:number,msg:string,time:string}) => {
-            console.log("New message received:", data);
+            // console.log("New message received:", data);
 
             // Update your state or dispatch Redux actions
             const receivedMessage:Message={
@@ -93,7 +93,7 @@ function Messages () {
               sendByMe:false,
               time:data.time
             };
-            console.log(data.sender+" from receiver");
+            // console.log(data.sender+" from receiver");
             dispatch(updateMessage({id:(Number(data.sender)),message:receivedMessage}));
           });
       }

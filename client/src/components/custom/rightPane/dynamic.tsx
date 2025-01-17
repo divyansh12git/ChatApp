@@ -39,7 +39,7 @@ const DynamicMessagingArea = () => {
     let messages:Message[]=[];
     if (messagesData) {
         messages = messagesData.messages;
-        console.log(messages);
+        // console.log(messages);
         messages = [...messages].sort((a, b) => a.id - b.id);
         
         if (messages.length > 0) {
@@ -53,7 +53,7 @@ const DynamicMessagingArea = () => {
     //fetching previous message hitory if any:
     useEffect(()=>{
         //@ts-ignore
-        console.log(prevMessagesData);
+        // console.log(prevMessagesData);
         if(!prevMessagesData || prevMessagesData.messages.length===0){
             setLoading(true);
 

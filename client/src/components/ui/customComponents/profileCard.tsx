@@ -32,7 +32,7 @@ function ProfileCard({id,profilepic,username,message,count}:props) {
 
 
     const room=roomData.find((e)=>(e.friendID)===Number(id));
-    console.log(room?.roomID)
+    // console.log(room?.roomID)
     function changeCurrentFriend(){
 
       dispatch(updateCurrentFriend(
