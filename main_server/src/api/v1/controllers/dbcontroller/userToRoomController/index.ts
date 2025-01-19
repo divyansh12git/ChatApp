@@ -2,7 +2,8 @@ import { IUserToRoom,room } from "../../../interfaces/userToRoom";
 import Database from "../../../models/database";
 import {v4 as uuid} from "uuid";
 import { getRequestRequestingList } from "../../../services/friendlogic";
-import {getFriendList} from "../../../services/friendlogic/"
+import {getFriendList} from "../../../services/friendlogic/";
+import { getCacheData,setCacheData } from "../../../services";
 const dummyRoom:room={
     requested:[],//user have to accept this list of friend to be the friend
     requesting:[],// i'm asking for them to accept my request
@@ -26,12 +27,19 @@ class UserToRoomController implements IUserToRoom{
         const handler=Database.Client;
         
         try{
-            const result=await handler?.userToRoom.findFirst({
-                where:{
-                    userId:myId
-                }
-    
-            });
+            let result=null;
+            const cacheData=await getCacheData({parameters:{myId:myId}});
+            if(cacheData){
+                result=(await JSON.parse(cacheData));
+                // console.log(result);
+            }else{
+                result=await handler?.userToRoom.findFirst({
+                    where:{
+                        userId:myId
+                    }
+                });
+                if(result)setCacheData({parameters:{myId:myId},result:(result)});
+            }
             if(result){
                 const data:room={
                     id:result.id,

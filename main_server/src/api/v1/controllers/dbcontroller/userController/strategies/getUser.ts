@@ -1,7 +1,7 @@
 import { IGetUser } from "../../../../interfaces/databaseController";
 import { User } from "../../../../interfaces/types";
 import {Database} from "../../../../models";
-
+import { getCacheData,setCacheData } from "../../../../services";
 
 class getUserStrategy implements IGetUser {
 
@@ -16,11 +16,18 @@ class getUserStrategy implements IGetUser {
 
         let data=null
         try{
-            data=await handler?.user.findFirst({
-                where:{
-                    username:username
-                }
-            });
+            const cacheData=await getCacheData({parameters:username});
+            if(cacheData){
+                data=(await JSON.parse(cacheData));
+            }else{
+
+                data=await handler?.user.findFirst({
+                    where:{
+                        username:username
+                    }
+                });
+                if(data)setCacheData({parameters:username,result:(data)});
+            }
         }catch(e){
             console.log(e);
         }

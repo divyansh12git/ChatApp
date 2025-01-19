@@ -6,7 +6,7 @@ const getCacheData=async({parameters}:{parameters:any})=>{
     const redisKey = Object.entries(parameters)
         .map(([key, value]) => `${key}:${value}`)
         .join(",");
-        console.log(redisKey);
+        // console.log(redisKey);
     const redisValue=await client.get(redisKey);
     return redisValue;
 }

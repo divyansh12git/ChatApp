@@ -1,6 +1,8 @@
 import { IGetUserById } from "../../../../interfaces/databaseController";
 import { User } from "../../../../interfaces/types";
 import {Database} from "../../../../models";
+import { getCacheData,setCacheData } from "../../../../services";
+
 class getUserById implements IGetUserById{
     private Client:Database;
     constructor(){
@@ -18,11 +20,18 @@ class getUserById implements IGetUserById{
         }
         let data=null;
         try{
-            data=await handler?.user.findFirst({
-                where:{
-                    id:Number(id)
-                }
-            });
+            const cacheData=await getCacheData({parameters:{userId:id}});
+            if(cacheData){
+                data=(await JSON.parse(cacheData));
+            }else{
+
+                data=await handler?.user.findFirst({
+                    where:{
+                        id:Number(id)
+                    }
+                });
+                if(data)setCacheData({parameters:{userId:id},result:(data)});
+            }
         }catch(e){
             console.log(e);
         }
