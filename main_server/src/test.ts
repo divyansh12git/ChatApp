@@ -10,6 +10,7 @@ import { actionOnRequest, getAllFriendsData, sendRequest } from "./api/v1/servic
 import {getAllUsersHandler} from "./api/v1/services/user"
 import getRequestData from "./api/v1/services/user/getRequestData";
 import {getFriendList} from "./api/v1/services/friendlogic";
+import { getCacheData,setCacheData } from "./api/v1/services";
 (async()=>{
     const obj:User={
         id:444,
@@ -32,8 +33,8 @@ import {getFriendList} from "./api/v1/services/friendlogic";
     // const hand=new UserToRoomController();
     // const data=await sendRequest({myId:4,userId:5});
     // const data=await actionOnRequest({action:true,myId:1,userId:3});
-    const data=await getFriendList(5);
-    console.log(data);
+    // const data=await getFriendList(5);
+    // console.log(data);
     // const data=await hand.getUserToRoomData(1);
     // const data2=await hand.getUserToRoomData(5);
     
@@ -51,8 +52,11 @@ import {getFriendList} from "./api/v1/services/friendlogic";
     // const friends=new getAllFriendsData(1);
     // const data=await friends.getData();
     // console.log(data);
-    
-
+    setCacheData({parameters:"data",result:['5','5']});
+    const data=await getCacheData({parameters:"data"});
+    if(data){
+        console.log((data));
+    }else console.log("no data available")
 
 
 
