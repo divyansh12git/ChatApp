@@ -1,12 +1,21 @@
 import { executeQueries } from "../../controller/cassandra/executeQueries";
 import generateChatId from "../../helper/generate_chatId";
 import { message } from "../../interfaces/entities";
+import getCacheData from "../redis/getdata";
+import setCacheData from "../redis/setdata";
 const getMessages=async({sender_id,receiver_id}:any)=>{
 
     const chatId=generateChatId(sender_id,receiver_id);
-    // const chatId='u1_u2';
-    const query=`SELECT * FROM chat_messages WHERE chat_id='${chatId}'` ;
-    const result=await executeQueries(query,[]);
+    const cacheData=await getCacheData({parameters:{sender_id,receiver_id}});
+    let result=null;
+    if(cacheData){
+        result=(await JSON.parse(cacheData));
+    }else{
+        // const chatId='u1_u2';
+        const query=`SELECT * FROM chat_messages WHERE chat_id='${chatId}'` ;
+        result=await executeQueries(query,[]);
+        if(result)setCacheData({parameters:{sender_id,receiver_id},result:(result)});
+    }
     // console.log(result);
     const messagesData:message[]=[];
     if(result){

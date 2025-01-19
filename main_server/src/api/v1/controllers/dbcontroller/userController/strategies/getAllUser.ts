@@ -20,7 +20,7 @@ class getAllUserStrategy implements IGetAllUsers{
             const cacheData=await getCacheData({parameters:condition});
             // console.log(cacheData);
             if(cacheData){
-                console.log("from cache");
+                // console.log("from cache");
                 result=(await JSON.parse(cacheData));
                 // console.log(x[0]['id']);
                 // result=x;

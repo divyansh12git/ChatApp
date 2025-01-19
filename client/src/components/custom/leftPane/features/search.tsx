@@ -67,6 +67,7 @@ function SearchUsers () {
             if(search.length){
                const data=await searchUsers(search); 
                if(data){
+                setUsersList([]);
                 data.map((user)=>{
                     const status=findStatus(user.id);
                     const temp:searchUserList={

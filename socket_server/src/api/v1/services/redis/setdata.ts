@@ -12,7 +12,7 @@ const setCacheData=({parameters,result}:{parameters:any,result:any})=>{
     // client.expire('todos',60);
     client.set(redisKey,redisValue).then(() => {
         // console.log("Cache set successfully:", { redisKey, redisValue });
-        client.expire(redisKey,40);
+        client.expire(redisKey,60);
         return true;
     })
     .catch((error) => {
