@@ -1,7 +1,15 @@
 import { Phone,MoreVertical } from "lucide-react"
+import { useSelector } from "react-redux";
+import { RootState } from "@/lib/store/store";
 
-
-export default function Topbar({username,profilepic,status}:{username:string,profilepic:string,status:string}) {
+export default function Topbar({id,username,profilepic}:{id:number,username:string,profilepic:string}) {
+    const onlineUsers=useSelector((state:RootState)=>state.online);
+    let isOnline=false;
+    if(onlineUsers.some((e)=>e===Number(id))){
+        isOnline=true;
+    }
+    
+    
     const profile={
         backgroundSize: 'cover',backgroundPosition: 'center', backgroundImage: `url(${profilepic})`,
     }
@@ -14,7 +22,7 @@ export default function Topbar({username,profilepic,status}:{username:string,pro
                 </div>
                     <div className="flex flex-col justify-center">
                         <p className="text-white font-light text-xl -mb-1">{username}</p>
-                        <p className="text-zinc-500 font-light text-sm"> {status}</p>
+                        <p className="text-zinc-500 font-light text-sm"> {isOnline?"online":""}</p>
                     </div>
             </div>
             <div className="col-span-1 flex justify-center items-center gap-5">

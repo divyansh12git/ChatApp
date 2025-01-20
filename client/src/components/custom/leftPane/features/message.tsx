@@ -16,6 +16,7 @@ import { updateFriendList } from "@/lib/store/slice/lists/friendlist";
 import { useSocket } from "@/lib/socket/socketProvider";
 import { updateMessage } from "@/lib/store/slice/messages";
 import { Loader } from "@/components/ui";
+import { updateOnlineList,removeOnlineList } from "@/lib/store/slice/lists/online";
 
 const profilepic = {
     backgroundImage: `url(${profile1.src})`, // .src gives the URL path of the image
@@ -40,7 +41,7 @@ function Messages () {
     const dispatch=useDispatch();
     const [friendData,setFriendData]=useState<Friend[]>([]);
     const [roomData,setRoomData]=useState<Room[]>([]);
-    const data=useSelector((state:RootState)=>state.personalInformation)
+    const myId=useSelector((state:RootState)=>state.personalInformation).id
     
     const socket=useSocket();
     // const appContext = useContext(UserContext);
@@ -53,7 +54,7 @@ function Messages () {
       setLoading(true);
       // console.log("yupppp")
       if(friendData.length==0){
-          getFriendsData(Number(data.id)).then((data:any)=>{
+          getFriendsData(Number(myId)).then((data:any)=>{
               // console.log(data)
               if(data.status){
                 if(data.friends){
@@ -81,6 +82,13 @@ function Messages () {
     //message listening logic:
     useEffect(()=>{
       if(socket){
+        if(!socket.hasListeners("user-joined")){
+          socket.on("user-joined",(data:{id:string,message:string})=>{
+            console.log(data);
+            if(data.id && data.id!=myId)dispatch(updateOnlineList({id:Number(data.id)}));
+          })
+        }
+
         if (!socket.hasListeners("receive-message")) {
 
           socket.on("receive-message", (data:{id:number,sender:number,msg:string,time:string}) => {
@@ -96,6 +104,13 @@ function Messages () {
             // console.log(data.sender+" from receiver");
             dispatch(updateMessage({id:(Number(data.sender)),message:receivedMessage}));
           });
+      }
+      if(!socket.hasListeners("user-disconnected")){
+        socket.on("user-disconnected",(data:{id:string,message:string})=>{
+          if(data.id){
+            dispatch(removeOnlineList({id:Number(data.id)}))
+          }  
+        })
       }
     }
 

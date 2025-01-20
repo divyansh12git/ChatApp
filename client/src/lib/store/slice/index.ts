@@ -9,6 +9,7 @@ import FriendListReducer from "./lists/friendlist";
 import RequestListReducer from "./lists/requestlist";
 import RequestingListReducer from "./lists/requestinglist"
 import prevMessagesReducer from "./prevmessages"
+import onlineListReducer from "./lists/online"
 export {
     currentFriendSlice,
     friendDataSliceReducer,
@@ -20,5 +21,6 @@ export {
     FriendListReducer,
     RequestingListReducer,
     RequestListReducer,
-    prevMessagesReducer
+    prevMessagesReducer,
+    onlineListReducer
 }

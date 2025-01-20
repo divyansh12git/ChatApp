@@ -26,6 +26,7 @@ function ProfileCard({id,profilepic,username,message,count}:props) {
     }
 
     const dispatch=useDispatch();
+    const myId=useSelector((state:RootState)=>state.personalInformation).id;
     const roomData:Room[]=useSelector((state:RootState)=>state.roomData);
     const friendData=useSelector((state:RootState)=>state.friendData);
     const socket=useSocket();
@@ -50,7 +51,7 @@ function ProfileCard({id,profilepic,username,message,count}:props) {
       // console.log(room);
       if(room && socket ){
 
-        socket.emit("joinRoom",room.roomID);
+        socket.emit("joinRoom",{roomId:room.roomID,userId:myId});
         
         }else console.log("sominthg went wrong");
 

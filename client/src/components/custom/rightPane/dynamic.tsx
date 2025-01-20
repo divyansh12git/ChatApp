@@ -28,13 +28,11 @@ const DynamicMessagingArea = () => {
     const messagesEndRef = useRef<HTMLDivElement | null>(null);
     const roomId = currentFriend.roomId;
     const friendId = Number(currentFriend.id);
+
     // const xx=useSelector((state:RootState)=>state.messages);
     let messagesData = useSelector((state: RootState) => state.messages.find((e) => e.friendId === friendId));
     let prevMessagesData = useSelector((state: RootState) => state.prevMessages.find((e) => e.friendId === friendId));
-    // console.log(roomId)
-    // console.log(friendId)
-    // console.log(messagesData);
-    // console.log(xx);
+
     let currentMessageId=0;
     let messages:Message[]=[];
     if (messagesData) {
@@ -77,7 +75,7 @@ const DynamicMessagingArea = () => {
 
     return (
         <div className="col-span-7  h-full  flex flex-col justify-between bg-zinc-400 w-full ">
-            <Topbar username={currentFriend.username} profilepic={`${profile1.src}`} status="online" />
+            <Topbar username={currentFriend.username} profilepic={`${profile1.src}`} id={friendId} />
             <div  style={{ overflow: "auto", scrollbarWidth: "none" }} className="h-[32.5rem] mb-2 mx-4">
 
                 <div style={{ overflow: "auto", scrollbarWidth: "none" }} className="  overflow-y-scroll overflow-x-hidden flex flex-col ">

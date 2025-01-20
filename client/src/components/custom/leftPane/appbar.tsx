@@ -5,7 +5,9 @@ import { Settings } from "lucide-react";
 import Image from "next/image";
 import Logout from "./logout";
 import requestIcon from "./request.png";
+
 function Appbar({currentStatus}:any) {
+
     const [index,setIndex]=useState(0);
     const eleRefA=useRef(null);
     const eleRefB=useRef(null);
