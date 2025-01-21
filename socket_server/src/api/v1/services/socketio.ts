@@ -7,12 +7,14 @@ const allowedClient=[
 class SocketService{
     private _io: Server;
     private socketToId:Map<string,{userId:string,roomId:string}> | null=null;
+    private roomToUsers:Map<string,string[]> | null=null;
     constructor(httpServer:any){
         console.log("Initialised Socket server...");
         this._io=new Server(httpServer,{
             cors: { origin: allowedClient }
         });
         this.socketToId=new Map<string,{userId:string,roomId:string}>();
+        this.roomToUsers=new Map<string,string[]>();
     }
     
     public initListeners(){
@@ -40,6 +42,24 @@ class SocketService{
                     //setting the data in map
                     this.socketToId?.set(socket.id,{userId:userId,roomId:roomId});
                     
+                    //sending the online users to the client
+                    const onlineUsers=this.roomToUsers?.get(roomId);
+                    console.log("dfdf: "+onlineUsers);
+                    if(onlineUsers){
+                        io.to(socket.id).emit("online-users",{online:onlineUsers} );
+                    }
+                    
+                    if (this.roomToUsers?.has(roomId)) {
+                        // Get the array and push the new user
+                        if(!this.roomToUsers?.get(roomId)?.includes(userId)){
+                            this.roomToUsers.get(roomId)!.push(userId);
+                        }
+                    } else {
+                        // Initialize the array if the room doesn't exist
+                        this.roomToUsers?.set(roomId, [userId]);
+                    }
+                
+
                     socket.to(roomId).emit('user-joined', { id: userId, message: 'User has left' });
                 }
             })
@@ -55,6 +75,7 @@ class SocketService{
                     time
                 });
               });
+
               socket.on('disconnect', () => {
                 const socketData=this.socketToId?.get(socket.id);
                 console.log(`User disconnected: ${socket.id} ${socketData?.roomId} ${socketData?.userId}`);
@@ -62,6 +83,12 @@ class SocketService{
                 if(socketData){
                     io.to(socketData.roomId).emit('user-disconnected', { id: socketData.userId, message: 'User has left' });
                     this.socketToId?.delete(socket.id);
+                    
+                    const updatedUsers = this.roomToUsers?.get(socketData.roomId)?.filter((id) => id !== socketData.userId);
+                    console.log(updatedUsers);
+                    if (updatedUsers) {
+                        this.roomToUsers?.set(socketData.roomId, updatedUsers);
+                    }
                 }
               })
         });

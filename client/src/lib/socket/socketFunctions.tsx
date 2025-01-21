@@ -1,12 +1,13 @@
-
+import { useDispatch } from "react-redux";
 import { useSocket } from "./socketProvider";
-
+import {initOnlineUsers} from "@/lib/store/slice/lists/online"
 
 class SocketFunctions{
     private socket:any;
-    
+    private dispatch:any;
     SocketFunctions(){
         this.socket=useSocket();
+        this.dispatch=useDispatch();
     }
 
     async joinRoom(roomId:string):Promise<boolean>{
@@ -15,8 +16,11 @@ class SocketFunctions{
         // if(!(this.socket && (roomId)))return status 
         // try{
             console.log("Hi from joinig");
-            await this.socket.emit("joinRoom",roomId).then(()=>{status=true;console.log(`joined: ${roomId}`)});
-        // }catch(e){
+            await this.socket.emit("joinRoom",roomId).then(()=>{
+                status=true;console.log(`joined: ${roomId}`)
+                
+            });
+            // }catch(e){
         //     console.log(e);
         // }
         return status;
@@ -26,3 +30,7 @@ class SocketFunctions{
 
 }
 export default SocketFunctions;
+
+function updateOnlineUsers(arg0: { id: never; }): any {
+    throw new Error("Function not implemented.");
+}

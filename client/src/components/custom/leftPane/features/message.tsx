@@ -107,7 +107,8 @@ function Messages () {
       }
       if(!socket.hasListeners("user-disconnected")){
         socket.on("user-disconnected",(data:{id:string,message:string})=>{
-          if(data.id){
+          console.log(data);
+          if(data && data.id){
             dispatch(removeOnlineList({id:Number(data.id)}))
           }  
         })

@@ -9,7 +9,7 @@ import { useEffect } from "react";
 import SocketFunctions from "@/lib/socket/socketFunctions";
 import { useSocket } from "@/lib/socket/socketProvider";
 import getDateFormat from "@/lib/utils/date";
-
+import {initOnlineUsers} from "@/lib/store/slice/lists/online"
 interface props{
     id:number,
     profilepic:any,
@@ -52,6 +52,16 @@ function ProfileCard({id,profilepic,username,message,count}:props) {
       if(room && socket ){
 
         socket.emit("joinRoom",{roomId:room.roomID,userId:myId});
+        if(socket){
+          // console.log("yup from hids")
+          
+          socket.on("online-users",(data:{online:[]})=>{
+              // console.log(data);
+              if(data && data.online){
+                  dispatch(initOnlineUsers({users:data.online}));
+              }
+          })
+      }
         
         }else console.log("sominthg went wrong");
 

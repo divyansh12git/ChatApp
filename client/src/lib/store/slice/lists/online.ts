@@ -11,11 +11,23 @@ const OnlineListSlice=createSlice({
                 }
             },
             removeOnlineList:(state,action:PayloadAction<{id:number}>)=>{
-                state=state.filter((e)=>e!==action.payload.id);
+                // console.log(action.payload.id);
+                return state.filter((e) => e !== action.payload.id);
+            },
+
+            initOnlineUsers:(state,action:PayloadAction<{users:[]}>)=>{
+                if(action.payload.users.length>0){
+                    action.payload.users.map((id)=>{
+                        if(!state.some((e)=>e===Number(id))){
+                            //@ts-ignore
+                            state.push(Number(id));
+                        }
+                    })
+                }
             }
         }
     }
 
 );
-export const {updateOnlineList, removeOnlineList}=OnlineListSlice.actions;
+export const {updateOnlineList, removeOnlineList, initOnlineUsers}=OnlineListSlice.actions;
 export default OnlineListSlice.reducer
