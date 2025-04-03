@@ -6,10 +6,12 @@ import { Message, Room } from "@/lib/types/entities";
 import { updateCurrentFriend } from "@/lib/store/slice/currentFriend";
 import { updateMessage } from "@/lib/store/slice/messages";
 import { useEffect } from "react";
-import SocketFunctions from "@/lib/socket/socketFunctions";
-import { useSocket } from "@/lib/socket/socketProvider";
+import SocketFunctions from "@/lib/provider/socket/socketFunctions";
+import { useSocket } from "@/lib/provider/socket/socketProvider";
 import getDateFormat from "@/lib/utils/date";
-import {initOnlineUsers} from "@/lib/store/slice/lists/online"
+import {initOnlineUsers, removeOnlineList} from "@/lib/store/slice/lists/online"
+import { endIncoming } from "@/lib/store/slice/function/incomingCall";
+import { end } from "@/lib/store/slice/function/videoCall";
 interface props{
     id:number,
     profilepic:any,
@@ -31,11 +33,14 @@ function ProfileCard({id,profilepic,username,message,count}:props) {
     const friendData=useSelector((state:RootState)=>state.friendData);
     const socket=useSocket();
 
+    let videoCallController=useSelector((state:RootState)=>state.videoCall);
 
     const room=roomData.find((e)=>(e.friendID)===Number(id));
     // console.log(room?.roomID)
     function changeCurrentFriend(){
 
+      if(videoCallController.ongoing)return;
+      
       dispatch(updateCurrentFriend(
         {
           id:id,
@@ -43,7 +48,7 @@ function ProfileCard({id,profilepic,username,message,count}:props) {
           roomId:room?.roomID,
           profilePictureURL:profilepic
         }
-      ))
+      ));
     }
 
     //joining the room:
@@ -60,13 +65,32 @@ function ProfileCard({id,profilepic,username,message,count}:props) {
               if(data && data.online){
                   dispatch(initOnlineUsers({users:data.online}));
               }
-          })
+          });
+          
+          socket.on("user-disconnected",(data:{id:string,msg:string})=>{
+            // console.log("yoyoyoyoyo");
+              if(data && data.id){
+                // console.log(data);
+                dispatch(removeOnlineList({id:Number(data.id)}));
+                const incomingId=useSelector((state:RootState)=>state.incomingCall.friendId);
+                if(Number(incomingId)===Number(data.id)){
+                  dispatch(endIncoming())
+                }
+                const ongoingId=useSelector((state:RootState)=>state.videoCall.friendId);
+                if(Number(ongoingId)===Number(data.id)){
+                  dispatch(end());
+                }
+              }
+          });
       }
         
         }else console.log("sominthg went wrong");
 
-        
-    },[socket]);
+        return()=>{
+          socket.off("joinRoom");
+          socket.off("user-disconnected");
+        }
+    },[]);
 
     return (
         <div className="hover:bg-[#54545427] flex w-full flex-col" onClick={()=>{changeCurrentFriend()}}>

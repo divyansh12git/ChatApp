@@ -5,7 +5,7 @@ import { RootState } from '../../lib/store/store';
 import { getUserData } from "@/lib/services/api";
 import {updatePersonalInformation} from "@/lib/store/slice/personalInformation"
 import verifyToken from "@/lib/services/tokenVerifier";
-import { SocketProvider } from "@/lib/socket/socketProvider";
+import { SocketProvider } from "@/lib/provider/socket/socketProvider";
 import {LoadingPage} from "@/components/custom"
 export default function chatLayout({
     children

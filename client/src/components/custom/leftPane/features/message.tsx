@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import ProfileCard from "../../../ui/customComponents/profileCard";
 import profile1 from "../../../../../public/images/profile/1.png"
 import profile2 from "../../../../../public/images/profile/2.png"
-import UserContext from "@/lib/context/leftpane"
+import UserContext from "@/lib/provider/leftpane"
 import { useState,useEffect, useContext } from "react";
 import {RootState} from "@/lib/store/store"
 import { useSelector } from "react-redux";
@@ -13,7 +13,7 @@ import {User as Friend,Message,Room} from "@/lib/types/entities"
 import {updateFriendData} from "@/lib/store/slice/friendData"
 import { updateRoomData } from "@/lib/store/slice/roomData";
 import { updateFriendList } from "@/lib/store/slice/lists/friendlist";
-import { useSocket } from "@/lib/socket/socketProvider";
+import { useSocket } from "@/lib/provider/socket/socketProvider";
 import { updateMessage } from "@/lib/store/slice/messages";
 import { Loader } from "@/components/ui";
 import { updateOnlineList,removeOnlineList } from "@/lib/store/slice/lists/online";

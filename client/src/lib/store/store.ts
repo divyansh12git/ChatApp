@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import {currentFriendSlice,friendDataSliceReducer,personalInformationReducer
   ,roomDataSliceReducer,usernameSliceReducer,messageReducer,searchUserReducer,
   FriendListReducer,RequestListReducer,RequestingListReducer,prevMessagesReducer,
-  onlineListReducer
+  onlineListReducer,videoCallReducer,incomingCall
 } from "./slice"
 
 export const makeStore = () => {
@@ -19,7 +19,9 @@ export const makeStore = () => {
       requestList:RequestListReducer,
       requestingList:RequestingListReducer,
       prevMessages:prevMessagesReducer,
-      online:onlineListReducer
+      online:onlineListReducer,
+      videoCall:videoCallReducer,
+      incomingCall:incomingCall
     }
   })
 }

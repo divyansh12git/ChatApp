@@ -2,7 +2,7 @@ import Requests from "./features/requests";
 import Messages from "./features/message";
 import Profile from "./features/profile";
 import Search from "./features/search";
-import { UserProvider } from "@/lib/context/leftpane";
+import { UserProvider } from "@/lib/provider/leftpane";
 function FeatureBox (props:any) {
     if(props.index===0)
         return <UserProvider><Messages /></UserProvider>

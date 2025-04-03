@@ -10,6 +10,8 @@ import RequestListReducer from "./lists/requestlist";
 import RequestingListReducer from "./lists/requestinglist"
 import prevMessagesReducer from "./prevmessages"
 import onlineListReducer from "./lists/online"
+import videoCallReducer from "./function/videoCall"
+import incomingCall from "./function/incomingCall"
 export {
     currentFriendSlice,
     friendDataSliceReducer,
@@ -22,5 +24,7 @@ export {
     RequestingListReducer,
     RequestListReducer,
     prevMessagesReducer,
-    onlineListReducer
+    onlineListReducer,
+    videoCallReducer,
+    incomingCall
 }

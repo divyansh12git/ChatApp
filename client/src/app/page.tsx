@@ -42,7 +42,10 @@ export default  function Home() {
     }, []);
 
     // console.log(token)
-    return(<LoadingPage title="Welcome To ChatApp Please Wait...
-      " />)
+    return(
+    <LoadingPage title="Welcome To ChatApp Please Wait..." />
+    
+    
+    );
   
 }

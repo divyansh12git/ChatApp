@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import {updateMessage} from "@/lib/store/slice/messages"
 import { Message } from "@/lib/types/entities";
 import getDateFormat from "@/lib/utils/date";
-import { useSocket } from "@/lib/socket/socketProvider";
+import { useSocket } from "@/lib/provider/socket/socketProvider";
 import { insertMessage } from "@/lib/services/api/socket_server/insertmessage";
 interface InputBoxProps {    
     currentMessageId: number;

@@ -1,6 +1,6 @@
 // hooks/useRoom.js
 import { useState, useEffect } from "react";
-import { useSocket } from "@/lib/socket/socketProvider";
+import { useSocket } from "@/lib/provider/socket/socketProvider";
 
 export const useRoom = (roomId:String) => {
   const socket = useSocket();
