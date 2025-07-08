@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
   try {
     const body: Body = await request.json();
     const { username, value, updateId } = body;
-    console.log(username,value,updateId);
+    // console.log(username,value,updateId);
     if (!username || !value || !updateId)
       return NextResponse.json({ success: false, message: "Some parameters not provided" });
 

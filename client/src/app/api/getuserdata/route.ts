@@ -23,7 +23,7 @@ export async function GET(request: NextRequest) {
             
         });
         if(response.getUser){
-            console.log(response.getUser);
+            // console.log(response.getUser);
             return NextResponse.json({success:true,data:response.getUser});
         }
         return NextResponse.json({ success: false,NextRequest:"invalid username" })

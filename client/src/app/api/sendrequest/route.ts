@@ -7,7 +7,7 @@ export async function POST(request: NextRequest) {
     console.log("i am first")
     try{
         const {myId,userId}=await request.json();
-        console.log(request.json());
+        // console.log(request.json());
         // console.group(userId);
         // console.group("yoyoyoyoy");
         if(!myId || !userId )return NextResponse.json({ success: false,NextRequest:"some parameters not provided" });

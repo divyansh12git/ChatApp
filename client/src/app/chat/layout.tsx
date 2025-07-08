@@ -7,6 +7,7 @@ import {updatePersonalInformation} from "@/lib/store/slice/personalInformation"
 import verifyToken from "@/lib/services/tokenVerifier";
 import { SocketProvider } from "@/lib/provider/socket/socketProvider";
 import {LoadingPage} from "@/components/custom"
+import { useRouter } from "next/navigation";
 export default function chatLayout({
     children
   }:{
@@ -14,10 +15,12 @@ export default function chatLayout({
   }){
         const [loading,setLoading]=useState(true);
         const token = localStorage.getItem('token');
+        const router = useRouter();
+        const dispatch=useDispatch();
         let username = useSelector((state: RootState) => state.username.username);
         if(token) username=verifyToken(token);
-        const dispatch=useDispatch();
-
+        else router.push("/")
+            
         console.log(username);
         // console.log("YOYOYOYO");
         useEffect(()=>{
