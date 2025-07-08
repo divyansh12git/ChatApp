@@ -11,6 +11,7 @@ import {getAllUsersHandler} from "./api/v1/services/user"
 import getRequestData from "./api/v1/services/user/getRequestData";
 import {getFriendList} from "./api/v1/services/friendlogic";
 import { getCacheData,setCacheData } from "./api/v1/services";
+import {updateBioHandler} from "./api/v1/services/user"
 (async()=>{
     const obj:User={
         id:444,
@@ -26,8 +27,8 @@ import { getCacheData,setCacheData } from "./api/v1/services";
         userId:2
     }
     // const data=await getRequestData(5);
-    
-    
+    const data=await updateBioHandler("_divyansh_","Spiderman",1);
+    console.log(data);
     
     
     // const hand=new UserToRoomController();
@@ -52,11 +53,11 @@ import { getCacheData,setCacheData } from "./api/v1/services";
     // const friends=new getAllFriendsData(1);
     // const data=await friends.getData();
     // console.log(data);
-    setCacheData({parameters:"data",result:['5','5']});
-    const data=await getCacheData({parameters:"data"});
-    if(data){
-        console.log((data));
-    }else console.log("no data available")
+    // setCacheData({parameters:"data",result:['5','5']});
+    // const data=await getCacheData({parameters:"data"});
+    // if(data){
+    //     console.log((data));
+    // }else console.log("no data available")
 
 
 

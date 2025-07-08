@@ -5,7 +5,7 @@ class RedisClient {
     private _client: Redis;
 
     private constructor() {
-        this._client = new Redis();
+        this._client = new Redis(8006);
     }
 
     static getInstance(): RedisClient {

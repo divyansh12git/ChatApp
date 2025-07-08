@@ -898,15 +898,9 @@ export type ValueTypes = {
 	password: string | Variable<any, string>
 };
 	["updateUser"]: {
-	findUser: string | Variable<any, string>,
-	name?: string | undefined | null | Variable<any, string>,
-	username?: string | undefined | null | Variable<any, string>,
-	password?: string | undefined | null | Variable<any, string>,
-	friends?: number | undefined | null | Variable<any, string>,
-	requested?: number | undefined | null | Variable<any, string>,
-	number_of_posts?: number | undefined | null | Variable<any, string>,
-	profilePictureURL?: string | undefined | null | Variable<any, string>,
-	Bio?: string | undefined | null | Variable<any, string>
+	username: string | Variable<any, string>,
+	value: string | Variable<any, string>,
+	updateId: number | Variable<any, string>
 };
 	["SignInInput"]: {
 	username: string | Variable<any, string>,
@@ -974,15 +968,9 @@ export type ResolverInputTypes = {
 	password: string
 };
 	["updateUser"]: {
-	findUser: string,
-	name?: string | undefined | null,
-	username?: string | undefined | null,
-	password?: string | undefined | null,
-	friends?: number | undefined | null,
-	requested?: number | undefined | null,
-	number_of_posts?: number | undefined | null,
-	profilePictureURL?: string | undefined | null,
-	Bio?: string | undefined | null
+	username: string,
+	value: string,
+	updateId: number
 };
 	["SignInInput"]: {
 	username: string,
@@ -1051,15 +1039,9 @@ export type ModelTypes = {
 	password: string
 };
 	["updateUser"]: {
-	findUser: string,
-	name?: string | undefined,
-	username?: string | undefined,
-	password?: string | undefined,
-	friends?: number | undefined,
-	requested?: number | undefined,
-	number_of_posts?: number | undefined,
-	profilePictureURL?: string | undefined,
-	Bio?: string | undefined
+	username: string,
+	value: string,
+	updateId: number
 };
 	["SignInInput"]: {
 	username: string,
@@ -1129,15 +1111,9 @@ export type GraphQLTypes = {
 	password: string
 };
 	["updateUser"]: {
-		findUser: string,
-	name?: string | undefined,
-	username?: string | undefined,
-	password?: string | undefined,
-	friends?: number | undefined,
-	requested?: number | undefined,
-	number_of_posts?: number | undefined,
-	profilePictureURL?: string | undefined,
-	Bio?: string | undefined
+		username: string,
+	value: string,
+	updateId: number
 };
 	["SignInInput"]: {
 		username: string,

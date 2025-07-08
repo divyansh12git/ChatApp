@@ -95,25 +95,35 @@ class SocketService{
               //video calling logic:
             //   videoCalling(socket);
             socket.on("call-user",({roomId,offer,callerId,callerName,callerProfilePic}:{roomId:string,callerId:string,offer:any,callerName:string,callerProfilePic:string})=>{
-                console.log(roomId);
-                console.log("SDP-> ",offer);
-                socket.in(roomId).emit('incoming-call',{
+                // console.log(roomId);
+                // console.log("SDP-> ",offer);
+                socket.to(roomId).emit('incoming-call',{
                     callerId,callerName,callerProfilePic,
                     offer
                 });
             });
             
             socket.on('call-accepted',({roomId,ans}:{roomId:string,ans:any})=>{
-                socket.in(roomId).emit('receiver-accepted',{ans});
+                socket.to(roomId).emit('receiver-accepted',{ans});
             });
             socket.on('call-decline',({roomId})=>{
-                socket.in(roomId).emit('receiver-declined',{action:false});
+                socket.to(roomId).emit('receiver-decline',{action:false});
             })
             socket.on('sender-decline',({roomId}:{roomId:string})=>{
-                socket.in(roomId).emit('sender-decline');
+                socket.to(roomId).emit('sender-decline');
             })
             socket.on('call-busy',({roomId})=>{
-                socket.in(roomId).emit('call-busy');
+                socket.to(roomId).emit('call-busy');
+            })
+            
+            socket.on('negotiation:needed',({roomId,offer})=>{
+                console.log("nego--1: ")
+                console.log(offer);
+                io.to(roomId).emit('negotiation:needed',{roomId,offer}); 
+            });
+
+            socket.on("nego:done",({roomId,ans})=>{
+                io.to(roomId).emit("nego:final",{roomId,ans});
             })
 
 

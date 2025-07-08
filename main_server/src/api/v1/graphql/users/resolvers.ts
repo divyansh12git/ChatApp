@@ -1,7 +1,7 @@
 import { getUserStrategy, userDBManager } from "../../controllers";
 import { verifyToken } from "../../helpers";
 import { User, UserToRoom } from "../../interfaces/types";
-import {getUserHandler} from "../../services/user"
+import {getUserHandler, updateBioHandler} from "../../services/user"
 import { getAllFriendsData } from "../../services/friendlogic";
 import {getAllUsersHandler} from "../../services/user";
 import {getRequestRequestingList} from "../../services/friendlogic";
@@ -30,17 +30,7 @@ const u:User[]=[{
         profilePictureURL:"_",
         Bio: "This is me Divyanh gupta"
     },
-    {
-        id:9999,
-        name: "Kashish Verma",
-        username: "kash4.ish",
-        password: "13245789",
-        friends: 0,
-        requested:0,
-        number_of_posts: 0,
-        profilePictureURL:"_",
-        Bio: "This is me Kashish Verma"
-    },
+    
 ]
 
 const queries={
@@ -120,24 +110,9 @@ const mutation={
 
     updateUser:async(_:any,{input}:{input:any})=>{
         try{
-            const {name,username,password,Bio,followers,
-                following,number_of_posts,profilePictureURL,findUser}=input;
-                console.log(findUser); 
-                console.log(input); 
-            for(let i=0;i<u.length;i++){
-                if(u[i].username===findUser){
-                    u[i].name=name || u[i].name;
-                    u[i].username=username || u[i].username;
-                    u[i].password=password || u[i].password;
-                    u[i].Bio= Bio || u[i].Bio;
-                    u[i].friends=followers || u[i].friends;
-                    u[i].requested=following || u[i].requested;
-                    u[i].number_of_posts=number_of_posts || u[i].number_of_posts;
-                    u[i].profilePictureURL=profilePictureURL || u[i].profilePictureURL;
-                    console.log(u[i]);
-                    return true;
-                }
-            }
+            const {username,value,updateId}=input;
+            const res=await updateBioHandler(username,value,updateId);
+            return res===value;
         }
         catch(e){
             console.log(e);

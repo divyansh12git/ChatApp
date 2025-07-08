@@ -88,40 +88,17 @@ const DynamicMessagingArea = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [messages]);
 
-     useEffect(()=>{
-        socket.on('receiver-accepted',startVideoCall);
-        socket.on('receiver-declined',endVideoCall);
-        // console.log(calling.ongoing);
-        
-        return()=>{
-            socket.off('receiver-accepted',startVideoCall);
-            socket.off('receiver-declined',endVideoCall);
-            
-        }
-     },[]);
-
       const makeVideoCall=async()=>{
         if(videoCallController.ongoing)return;
         const offer=await createOffer();
+        console.log("step-1(user-1):creating offer: ");
+        console.log(offer)
         socket.emit('call-user',{roomId,offer,callerId:myId,callerName:myData.name,callerProfilePic:myProfilePic});
         dispatch(start({ongoing:true,friendId}));   
         dispatch(endIncoming()); 
       }
 
-      const startVideoCall=async({ans}:{ans:any})=>{
-        console.log("fro acceppted");
-        console.log("call accepted :",ans);
-        await setRemoteAnswer(ans);
-        dispatch(start({ongoing:true,friendId})); 
-
-        // dispatch(endIncoming());
-      };
-
-      const endVideoCall=()=>{
-        dispatch(end());
-        
-        // dispatch(endIncoming());
-      }
+      
       
 
 

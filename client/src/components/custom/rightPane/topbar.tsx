@@ -8,6 +8,7 @@ import {incoming,endIncoming} from "@/lib/store/slice/function/incomingCall"
 import {start,end} from "@/lib/store/slice/function/videoCall"
 import { useSocket } from "@/lib/provider/socket/socketProvider";
 import {usePeer} from "@/lib/provider/peer"
+
 // import 
 export default function Topbar({id,roomId,username,profilepic,makeVideoCall}:{id:number,roomId:string,username:string,profilepic:string,makeVideoCall:any}) {
     const onlineUsers=useSelector((state:RootState)=>state.online);
@@ -17,21 +18,14 @@ export default function Topbar({id,roomId,username,profilepic,makeVideoCall}:{id
     const incomingCall=useSelector((state:RootState)=>state.incomingCall);
     const [sdp,setSDP]=useState(null);
     // const videoCallController=useSelector((state:RootState)=>state.videoCall);
-    const {createAnswer,resetPeer}=usePeer();
     let isOnline=false;
     if(onlineUsers.some((e)=>e===Number(id))){
         isOnline=true;
     }
     const socket=useSocket();
+    const {createAnswer,resetPeer}=usePeer();
 
-    useEffect(()=>{
-        socket.on("incoming-call",handleIncomingCall);
-        socket.on("sender-decline",senderDecline);
-        return ()=>{
-            socket.off("incoming-call",handleIncomingCall);
-            socket.off("sender-decline",senderDecline);
-        }
-    },[]);
+   
     
     const handleIncomingCall=(data:any)=>{
         if(calling.ongoing){
@@ -45,16 +39,20 @@ export default function Topbar({id,roomId,username,profilepic,makeVideoCall}:{id
     };
 
     const responseIncomingCall=async(action:boolean)=>{
-        
-        if(action){
-            console.log(sdp);
-            const ans=await createAnswer(sdp);
-            socket.emit('call-accepted',{roomId:roomId,ans});
-            dispatch(start({friendId:incomingCall.friendId}))
-            console.log(ans);
-        }else{
-            socket.emit('call-decline',{roomId:roomId});
-            dispatch(end());
+        if(sdp){
+            if(action){
+                console.log("step-2 (user-2): getting sdp:");
+                console.log(sdp);
+                const ans=await createAnswer(sdp);
+                console.log("step-3 (user-2):creating answer ");
+                console.log(ans);
+                socket.emit('call-accepted',{roomId:roomId,ans});
+                dispatch(start({friendId:incomingCall.friendId}))
+                console.log(ans);
+            }else{
+                socket.emit('call-decline',{roomId:roomId});
+                dispatch(end());
+            }
         }
         dispatch(endIncoming());
     }
@@ -62,17 +60,26 @@ export default function Topbar({id,roomId,username,profilepic,makeVideoCall}:{id
     const senderDecline=()=>{
         console.log("sender decline")
         dispatch(endIncoming());
-        resetPeer
+        resetPeer();
     }
 
     const handleCall=()=>{
         if(!isOnline){
             toast.error("User is not online!!");
+            return;
         }
         console.log("call");
         makeVideoCall();
     }
-    
+
+    useEffect(()=>{
+        socket.on("incoming-call",handleIncomingCall);
+        socket.on("sender-decline",senderDecline);
+        return ()=>{
+            socket.off("incoming-call",handleIncomingCall);
+            socket.off("sender-decline",senderDecline);
+        }
+    },[handleIncomingCall,senderDecline]);
 
     const profile={
         backgroundSize: 'cover',backgroundPosition: 'center', backgroundImage: `url(${profilepic})`,
@@ -134,8 +141,4 @@ export default function Topbar({id,roomId,username,profilepic,makeVideoCall}:{id
         </>
         );
     }
-}
-const IncomingCallBar=()=>{
-    
-    
 }

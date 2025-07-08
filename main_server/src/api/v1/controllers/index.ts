@@ -4,6 +4,7 @@ import getUserStrategy from "./dbcontroller/userController/strategies/getUser";
 import deleteUserStrategy from "./dbcontroller/userController/strategies/deleteUser";
 import mutateUserStrategy from "./dbcontroller/userController/strategies/mutateUser";
 import { getUserById } from "./dbcontroller/userController/strategies/getuserbyid";
+import updateValues from "./dbcontroller/userController/updateValues"
 
 import UserToRoomController from "./dbcontroller/userToRoomController";
 
@@ -12,6 +13,6 @@ import UserToRoomController from "./dbcontroller/userToRoomController";
 export {
     userDBManager,deleteUserStrategy,getAllUserStrategy,
     getUserStrategy,mutateUserStrategy,getUserById,
-    UserToRoomController
+    UserToRoomController,updateValues
 
 }

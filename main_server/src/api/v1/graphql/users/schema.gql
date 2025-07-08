@@ -47,20 +47,15 @@ input createUserInput{
     Bio: String
 }
 input updateUser{
-    name: String!
     username: String!
-    password: String
-    friends: Int
-    requested: Int
-    number_of_posts: Int
-    profilePictureURL:String
-    Bio: String
+    value: String!
+    updateId:Int!
 }
 type mutation{
     #create user
     createUser(input:createUserInput):Boolean
     #update user
-    updateUser(input:updateUser,user:String!):Boolean
+    updateUser(input:updateUser):Boolean
 
     sendRequest(myId:String!, userId:String!):Boolean
     actionOnRequest(myId:String!, userId:String! ):Boolean

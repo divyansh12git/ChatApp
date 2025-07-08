@@ -13,6 +13,7 @@ const getUserData=async(username:string)=>{
         // console.log("Hi there")
         return response.data.NextRequest
     };
+    console.log(response);
     const data:User={
         name:response.data.data.name ,
         profilePictureURL:response.data.data.profilePictureURL ,
@@ -23,7 +24,7 @@ const getUserData=async(username:string)=>{
         number_of_posts:response.data.data.number_of_posts ,
         requested:response.data.data.requested 
     }
-    // console.log(data);
+    console.log("this is fetched user: ",data);
     return data;
 }
 export default getUserData;

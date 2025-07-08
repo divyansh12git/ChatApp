@@ -9,15 +9,18 @@ const getUserHandler=async(username:String):Promise<User|null>=>{
     try{
         // @ts-ignore
         const user:User=await dbhandler.doAction(username.toString());
-        
+        console.log(user);
         // decrypting the data;
         const {name,profilePictureURL,Bio}=user;
-        const decryptedData=DecryptData({name});
+        const decryptedData=DecryptData({name,bio:Bio?Bio:""});
+        // console.log(decryptedData);
         const decUser:User={
             ...user,
             name:decryptedData.name.toString(),
+            Bio:decryptedData.bio?decryptedData.bio.toString():"",
             // profilePictureURL:decryptedData.profilePictureURL.toString()
         }
+        // console.log("final: ",decUser);
         return decUser;
     }catch(e){
         console.log(e);

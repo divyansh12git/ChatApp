@@ -2,6 +2,7 @@ import { userDBManager } from "../../controllers"
 import { getUserById } from "../../controllers"
 import { getRequestRequestingList } from "../friendlogic"
 import { ResUser, User } from "../../interfaces/types"
+import { DecryptData } from "../../helpers"
 
 const getRequestData=async(myId:number)=>{
     const data:ResUser[]=[]
@@ -16,10 +17,12 @@ const getRequestData=async(myId:number)=>{
                     const temp:User=await handler.doAction(userId);
                     // console.log(temp);
                     if(temp && temp.id && temp.id!=0){
+                        console.log(temp.Bio);
+                        console.log(DecryptData({Bio:temp.Bio || ""}).Bio);
                         const userData:ResUser={
                             id:temp.id,
-                            Bio:temp.Bio ||"",
-                            name:temp.name,
+                            Bio:temp.Bio?DecryptData({Bio:temp.Bio || ""}).Bio.toString():"",
+                            name:DecryptData({name:temp.name || ""}).name.toString(),
                             profilePictureURL:temp.profilePictureURL,
                             username:temp.username
                         }

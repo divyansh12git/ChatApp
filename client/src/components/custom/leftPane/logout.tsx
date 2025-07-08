@@ -1,26 +1,28 @@
 'use client'
 import { LogOutIcon } from "lucide-react";
-import Link from "next/link";
-import { redirect } from 'next/navigation'
+import { useRouter } from "next/navigation";
+import toast, { Toaster } from 'react-hot-toast';
+const Logout = () => {
+    const router = useRouter();
 
-const Logout=()=>{
-
-    const LogOutHandler=(e:any)=>{
-        console.log("YO");
+    const LogOutHandler = (e: React.MouseEvent) => {
         e.preventDefault();
-            localStorage.removeItem('token');
-            // window.location.reload();
-            // return redirect('/auth');
-    }
+        toast.loading("Logging out...",{duration:2000});
+        localStorage.removeItem("token");
+        router.push("/auth");
+    };
 
     return (
-        <div  className="hover:bg-[#ffffff18]  w-12 h-12 flex justify-center items-center rounded-full" >
-            <Link href={'/auth'}>
-                <LogOutIcon onClick={(e)=>LogOutHandler(e)} className="text-white h-[2rem] w-auto" />
-            </Link> 
-
-        </div>
+        <>
+            <Toaster />
+            <div
+            onClick={LogOutHandler}
+            className="hover:bg-[#ffffff18] w-12 h-12 flex justify-center items-center rounded-full cursor-pointer"
+            >
+            <LogOutIcon className="text-white h-[2rem] w-auto" />
+            </div>
+        </>
     );
-}
+};
 
 export default Logout;

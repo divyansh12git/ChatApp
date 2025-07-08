@@ -15,14 +15,15 @@ const getAllUsersHandler=async(condition:string):Promise<ResUser[]>=>{
         // decrypting the data;
         users.map((user:User)=>{
             if(user.id!=0){
-                const {name}=user
-                const d=DecryptData({name});
+                const {name,Bio}=user
+                const d=DecryptData({name,Bio:Bio || ""});
+                // console.log(d);
                 const temp:ResUser={
                     id:user.id || 0,
                     name:d.name.toString(),
                     username:user.username,
                     profilePictureURL:user.profilePictureURL,
-                    Bio:user.Bio || ""
+                    Bio:d.Bio.toString() || ""
                 }
                 decryptedData.push(temp)
             }
