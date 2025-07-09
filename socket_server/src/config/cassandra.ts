@@ -1,13 +1,22 @@
 import cassandra from "cassandra-driver";
+import  path  from "path";
+require('dotenv').config();
+const connection=process.env.BUNDLEPATH || "";
+const keyspace=process.env.KEYSPACE || "chatapp";
 
-
+// console.log(connection);
+// console.log(process.env.CLIENT);
 const client = new cassandra.Client({
-    contactPoints: ['localhost'], // Docker container running Cassandra
-    protocolOptions: { port: 7001 },
-    localDataCenter: 'datacenter1', // Use the same data center as in Cassandra
-    keyspace: 'chatapp', // Optional: specify your keyspace
-    credentials: { username: 'divyansh', password: 'divyansh' }, // Authentication
+    cloud: {
+        secureConnectBundle: path.resolve(connection),
+    },
+    credentials: {
+        username: process.env.CLIENT || "",
+        password: process.env.PASSWORD || "",
+    },
+    keyspace: keyspace,
 });
+
 
 export default client;
 
