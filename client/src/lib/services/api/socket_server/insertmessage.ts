@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const connectionURL="http://localhost:4000/messages"
+const connectionURL=process.env.NEXT_PUBLIC_SOCKET_SERVER_URL+"/messages";
 
 interface props{
     sender_id:number,

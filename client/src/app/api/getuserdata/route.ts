@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import {Chain} from "../../../../zeus";
 
-const chain=Chain("http://localhost:5000/graphql");
+const chain=Chain(`${process.env.NEXT_PUBLIC_MAIN_SERVER_URL}/graphql`);
 
 export async function GET(request: NextRequest) {
     try{

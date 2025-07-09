@@ -5,7 +5,7 @@ type message={
     msg:string,
     time:string
 }
-const connectionURL="http://localhost:4000/messages"
+const connectionURL=process.env.NEXT_PUBLIC_SOCKET_SERVER_URL+"/messages";
 
 const getMessages=async({sender_id,receiver_id}:any)=>{
     const data:message[]=[];

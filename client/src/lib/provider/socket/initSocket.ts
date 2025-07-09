@@ -1,7 +1,9 @@
 import { io, Socket } from "socket.io-client";
 
+const socketURL=process.env.NEXT_PUBLIC_SOCKET_SERVER_URL ;
+console.log(socketURL);
 class InitSocket{
-    private SocketServer="http://localhost:4000";
+    private SocketServer=socketURL;
     private static socket:Socket;
     public static isConnected:boolean;
     private InitSocket(){
@@ -9,7 +11,7 @@ class InitSocket{
     }
     public static getConnection():Socket{
         if(!InitSocket.isConnected){
-             InitSocket.socket =  io("http://localhost:4000");
+             InitSocket.socket =  io(socketURL);
              InitSocket.isConnected=true;
         }
         return InitSocket.socket;
