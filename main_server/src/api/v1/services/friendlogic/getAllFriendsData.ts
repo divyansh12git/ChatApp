@@ -1,6 +1,6 @@
 import { getUserById, userDBManager } from "../../controllers";
 import {UserToRoomController} from "../../controllers/"
-
+import { DecryptData } from "../../helpers";
 import { User,UserToRoom } from "../../interfaces/types";
 
 class getAllFriendsData{
@@ -40,7 +40,17 @@ class getAllFriendsData{
             for (const el of this.friendList) {
                 const res = await userhandler.doAction(el.toString());
                 // console.log(res);
-                if (res) {
+                if (res ) {
+                    //@ts-ignore
+                    const {name,Bio}=res
+                    //@ts-ignore
+                    const d=DecryptData({name,Bio:Bio || ""});
+                    // console.log(d);
+                    //@ts-ignore
+                    res.name=d.name.toString();
+                    //@ts-ignore
+                    res.Bio=d.Bio.toString() || "";
+                
                   //@ts-ignore
                   friendData.push(res);
                 }

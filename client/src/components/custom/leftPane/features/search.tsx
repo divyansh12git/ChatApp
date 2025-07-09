@@ -2,7 +2,6 @@ import {useState,useEffect, useCallback} from "react";
 import {Search } from "lucide-react"
 import { useDispatch,useSelector } from "react-redux";
 import { RootState } from "@/lib/store/store";
-import SearchUserCard from "../../../ui/customComponents/searchUserCard";
 import { updateRequestingList} from "@/lib/store/slice/lists/requestinglist";
 import { updateRequestList } from "@/lib/store/slice/lists/requestlist";
 import { getLists } from "@/lib/services/api";
@@ -69,12 +68,14 @@ function SearchUsers () {
                if(data){
                 setUsersList([]);
                 data.map((user)=>{
-                    const status=findStatus(user.id);
-                    const temp:searchUserList={
-                        status:status,
-                        userData:user
+                    if(user.id!==Number(myId)){
+                        const status=findStatus(user.id);
+                        const temp:searchUserList={
+                            status:status,
+                            userData:user
+                        }
+                        setUsersList((e)=>[...e,temp]);
                     }
-                    setUsersList((e)=>[...e,temp]);
                 });
                 setLoading(false);
                }

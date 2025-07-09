@@ -133,7 +133,7 @@ function Messages () {
               </div>:
               friendData?.map((user:Friend)=>{
                 return(
-                  <ProfileCard key={user.id} id={user.id} username={user.username} count={0} message={"hi"} profilepic={profilepic2} />
+                  <ProfileCard key={user.id} id={user.id} username={user.username} count={0} message={user.Bio || ""} profilepic={profilepic2}  />
                 )
             })}
             
