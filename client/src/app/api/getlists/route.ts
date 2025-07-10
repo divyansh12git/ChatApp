@@ -23,10 +23,10 @@ export async function GET(request: NextRequest) {
         if(response.getRequestRequestingList){
             return NextResponse.json({success:true,data:response.getRequestRequestingList});
         }
-        return NextResponse.json({ success: false,NextRequest:"invalid username" })
+        
     }catch(e){
         console.log(e);
-        NextResponse.json({ success: false,NextRequest:"error" })
+       return  NextResponse.json({ success: false,NextRequest:"error" })
     }
-    
+    return NextResponse.json({ success: false,NextRequest:"invalid username" });
 };

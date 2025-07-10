@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import dynamic from 'next/dynamic';
 import StoreProvider from "../lib/store/StoreProvider";
-import PeerProvider from "@/lib/provider/peer"
+const PeerProvider = dynamic(() => import('@/lib/provider/peer'), { ssr: false });
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Chat App",
-  description: "Made with love by Divyansh Gupta",
+  description: "Made with Passion by Divyansh Gupta",
 };
 
 export default function RootLayout({

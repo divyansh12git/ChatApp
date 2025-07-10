@@ -6,7 +6,6 @@ import { Message, Room } from "@/lib/types/entities";
 import { updateCurrentFriend } from "@/lib/store/slice/currentFriend";
 import { updateMessage } from "@/lib/store/slice/messages";
 import { useEffect } from "react";
-import SocketFunctions from "@/lib/provider/socket/socketFunctions";
 import { useSocket } from "@/lib/provider/socket/socketProvider";
 import getDateFormat from "@/lib/utils/date";
 import {initOnlineUsers, removeOnlineList} from "@/lib/store/slice/lists/online"
@@ -53,7 +52,8 @@ function ProfileCard({id,profilepic,username,message,count,name}:props) {
         }
       ));
     }
-
+	const incomingId=useSelector((state:RootState)=>state.incomingCall.friendId);
+	const ongoingId=useSelector((state:RootState)=>state.videoCall.friendId);
     //joining the room:
     useEffect(()=>{
       // console.log(room);
@@ -75,11 +75,11 @@ function ProfileCard({id,profilepic,username,message,count,name}:props) {
               if(data && data.id){
                 // console.log(data);
                 dispatch(removeOnlineList({id:Number(data.id)}));
-                const incomingId=useSelector((state:RootState)=>state.incomingCall.friendId);
+                
                 if(Number(incomingId)===Number(data.id)){
                   dispatch(endIncoming())
                 }
-                const ongoingId=useSelector((state:RootState)=>state.videoCall.friendId);
+                
                 if(Number(ongoingId)===Number(data.id)){
                   dispatch(end());
                 }

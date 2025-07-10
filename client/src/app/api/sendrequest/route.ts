@@ -24,11 +24,11 @@ export async function POST(request: NextRequest) {
         if(response.sendRequest  ){
             return NextResponse.json({success:true,data:response.sendRequest});
         }
-        return NextResponse.json({ success: false,NextRequest:"request not sent"});
     }catch(e){
         console.log(e);
-        NextResponse.json({ success: false,NextRequest:"error" })
+        return NextResponse.json({ success: false,NextRequest:"error" })
     }
+    return NextResponse.json({ success: false,NextRequest:"request not sent"});
     
 };
 

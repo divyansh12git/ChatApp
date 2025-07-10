@@ -8,7 +8,7 @@ import verifyToken from "@/lib/services/tokenVerifier";
 import { SocketProvider } from "@/lib/provider/socket/socketProvider";
 import {LoadingPage} from "@/components/custom"
 import { useRouter } from "next/navigation";
-export default function chatLayout({
+export default function ChatLayout({
     children
   }:{
       children:React.ReactNode,

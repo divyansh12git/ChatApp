@@ -26,10 +26,10 @@ export async function GET(request: NextRequest) {
             // console.log(response.getUser);
             return NextResponse.json({success:true,data:response.getUser});
         }
-        return NextResponse.json({ success: false,NextRequest:"invalid username" })
+        
     }catch(e){
         console.log(e);
-        NextResponse.json({ success: false,NextRequest:"error" })
+        return NextResponse.json({ success: false,NextRequest:"error" })
     }
-    
+    return NextResponse.json({ success: false,NextRequest:"invalid username" })
 };

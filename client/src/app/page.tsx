@@ -7,39 +7,35 @@ import {DecryptData,verifyToken} from "@/lib/services"
 import {getUserData} from "@/lib/services/api"
 import {update} from "@/lib/store/slice/username";
 import { LoadingPage } from "@/components/custom";
+import { useRouter } from "next/navigation";
 export default  function Home() {
   // redirect(`/chat`);
     const dispatch = useDispatch()
-    useEffect(() => {
-      // This will run only on the client-side
-      const token = localStorage.getItem('token');
-      // console.log(token);
+    const router=useRouter();
+    
+	useEffect(() => {
+		const token = localStorage.getItem('token');
 
-      return ()=>{
-        if (!token) {
-          return redirect(`/auth`);
-        }        
-        // console.log(token);
-        try {
-          // Verify the token
-          const username=verifyToken(token);
-          console.log(username);
-          // console.log(data)
-          dispatch(update({username:username}));
-          if(username!=null){
-              return redirect('/chat');
-          }
+		if (!token) {
+			router.push("/auth");
+			return;
+		}
 
-        } catch (err) {
-          // console.log("Hi from error")
-          //@ts-ignore
-          if(err.message === "NEXT_REDIRECT")redirect('/chat');
-          console.log(err);
-          
-        }
-        return redirect(`/auth`);
-      }
-    }, []);
+		try {
+			const username = verifyToken(token);
+			dispatch(update({ username }));
+
+			if (username) {
+				router.push('/chat');
+			} else {
+				router.push('/auth');
+			}
+		} catch (err) {
+			console.error("Error verifying token:", err);
+			router.push('/auth');
+		}
+	}, [dispatch, router]);
+
 
     // console.log(token)
     return(

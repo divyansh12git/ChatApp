@@ -31,10 +31,10 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: true });
     }
 
-    return NextResponse.json({ success: false, message: "Request not sent" });
-
+    
   } catch (e) {
     console.error(e);
     return NextResponse.json({ success: false, message: "Error occurred" });
   }
+  return NextResponse.json({ success: false, message: "Request not sent" });
 }

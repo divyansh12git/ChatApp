@@ -33,11 +33,11 @@ export async function GET(request: NextRequest) {
         if(response.getFriendsData && response.getUserToRoomData){
             return NextResponse.json({success:true,data:{friends:response.getFriendsData,rooms:response.getUserToRoomData}});
         }
-        return NextResponse.json({ success: false,NextRequest:"no data available" });
+        
     }catch(e){
         console.log(e);
-        NextResponse.json({ success: false,NextRequest:"error" })
+        return NextResponse.json({ success: false,NextRequest:"error" })
     }
-    
+    return NextResponse.json({ success: false,NextRequest:"no data available" });
 };
 

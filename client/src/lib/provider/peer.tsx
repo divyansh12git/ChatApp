@@ -42,6 +42,7 @@ export const PeerProvider = ({ children }: PeerProviderProps): JSX.Element => {
   const [peerState, setPeerState] = useState<string>("new");
   
   const createNewPeerConnection = (): RTCPeerConnection => {
+    
     // Close existing connection if it exists
     if (peerRef.current) {
       // console.log("Closing existing peer connection before creating a new one");
