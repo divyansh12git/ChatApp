@@ -8,6 +8,7 @@ import Image from "next/image";
 import Loader from "../loader";
 import { handleRequest } from "@/lib/services/api";
 import NormalBox from "./box/normalBox";
+import getProfilePic from "@/lib/utils/getprofielpic";
 interface IProps{
   userId:number;
   Bio:string;
@@ -21,8 +22,9 @@ const RequestUserCard=({userId,Bio,username,profilePic}:IProps)=>{
   const [boxData,setBoxData]=useState("friend");
   const myId=useSelector((state:RootState)=>state.personalInformation).id;
   const dispatch=useDispatch();
+  const profilePicgen=getProfilePic(username);
     const profilepicStyle = {
-        backgroundImage:`url(${profile1.src})` , 
+        backgroundImage:`url(/images/profile/${profilePicgen}.jpg)` , 
          // .src gives the URL path of the image
         backgroundSize: 'cover', // adjust as needed
         backgroundPosition: 'center',

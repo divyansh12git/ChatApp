@@ -8,6 +8,7 @@
     "dev": "tsc -b && node dist/index.js",
     "start": "nodemon dist/index.js",
     "build": "tsc -w",
+    "deploy":"tsc -b && pm2 start dist/index.js", 
     "cassendra": " tsc -b && node dist/config/cassandra.js"
   },
   "author": "Divyansh Gupta",

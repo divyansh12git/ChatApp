@@ -42,7 +42,7 @@ function Messages () {
     const [friendData,setFriendData]=useState<Friend[]>([]);
     const [roomData,setRoomData]=useState<Room[]>([]);
     const myId=useSelector((state:RootState)=>state.personalInformation).id
-    
+    const [search,setSearch]=useState("");
     const socket=useSocket();
     // const appContext = useContext(UserContext);
     
@@ -52,7 +52,6 @@ function Messages () {
     // const { users, setUser } = appContext;
     useEffect(() => {
       setLoading(true);
-      // console.log("yupppp")
       if(friendData.length==0){
           getFriendsData(Number(myId)).then((data:any)=>{
               // console.log(data)
@@ -78,6 +77,20 @@ function Messages () {
           .finally(()=>setLoading(false))
       }
     },[]);
+
+	let debounceTimeout: NodeJS.Timeout;;
+
+    const handleSearchBar=(e:React.ChangeEvent<HTMLInputElement>)=>{
+        e.preventDefault();
+      	setSearch(e.target.value);
+		clearTimeout(debounceTimeout); // Clear previous timer
+
+		debounceTimeout = setTimeout(() => {
+			// searchFunction(value);
+		}, 500);
+
+    }
+
 
     //message listening logic:
     useEffect(()=>{
@@ -107,7 +120,7 @@ function Messages () {
       }
       if(!socket.hasListeners("user-disconnected")){
         socket.on("user-disconnected",(data:{id:string,message:string})=>{
-          console.log(data);
+        //   console.log(data);
           if(data && data.id){
             dispatch(removeOnlineList({id:Number(data.id)}))
           }  
@@ -124,7 +137,7 @@ function Messages () {
     return (
             <div style={{overflow: "auto", scrollbarWidth: "none"}} className="bg-[#1c1c24] w-full col-span-7 flex flex-col items-center overflow-y-scroll overflow-x-hidden">
             <div className=" flex items-center text-sm mt-5 w-5/6  bg-zinc-800 m-2 rounded-full">
-              <input type="text" className="focus:outline-none p-3 ml-5 bg-transparent text-slate-300 font-extralight" placeholder="Enter the username..." />
+              <input type="text"  className="focus:outline-none p-3 ml-5 bg-transparent text-slate-300 font-extralight" placeholder="Enter the username..." value={search} onChange={(e)=>handleSearchBar(e)} />
               {/* <div className=""></div> */}
             </div>
             <p className="self-start text-2xl text-white ml-5 mt-2">Chats</p>
@@ -133,7 +146,7 @@ function Messages () {
               </div>:
               friendData?.map((user:Friend)=>{
                 return(
-                  <ProfileCard key={user.id} id={user.id} username={user.username} count={0} message={user.Bio || ""} profilepic={profilepic2}  />
+                  <ProfileCard key={user.id} id={user.id} username={user.username} name={user.name} count={0} message={user.Bio || ""} profilepic={profilepic2}  />
                 )
             })}
             

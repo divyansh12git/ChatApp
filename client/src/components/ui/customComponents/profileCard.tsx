@@ -12,27 +12,30 @@ import getDateFormat from "@/lib/utils/date";
 import {initOnlineUsers, removeOnlineList} from "@/lib/store/slice/lists/online"
 import { endIncoming } from "@/lib/store/slice/function/incomingCall";
 import { end } from "@/lib/store/slice/function/videoCall";
+import getProfilePic from "@/lib/utils/getprofielpic";
 interface props{
     id:number,
     profilepic:any,
     username:string,
     message:string,
-    count:number
-}
-function ProfileCard({id,profilepic,username,message,count}:props) {
-    const profilepicStyle = {
-      backgroundImage:`url(${profile1.src})` || `url(${profilepic.src})`, 
-       // .src gives the URL path of the image
-      backgroundSize: 'cover', // adjust as needed
-      backgroundPosition: 'center',
-    }
+    count:number,
+	name:string
 
+}
+function ProfileCard({id,profilepic,username,message,count,name}:props) {
+    
     const dispatch=useDispatch();
     const myId=useSelector((state:RootState)=>state.personalInformation).id;
     const roomData:Room[]=useSelector((state:RootState)=>state.roomData);
     const friendData=useSelector((state:RootState)=>state.friendData);
     const socket=useSocket();
-
+    const profilePic=getProfilePic(username);
+    const profilepicStyle = {
+		backgroundImage:`url(/images/profile/${profilePic}.jpg)` || `url(${profilepic.src})`, 
+		// .src gives the URL path of the image
+		backgroundSize: 'cover', // adjust as needed
+		backgroundPosition: 'center',
+    }
     let videoCallController=useSelector((state:RootState)=>state.videoCall);
 
     const room=roomData.find((e)=>(e.friendID)===Number(id));
@@ -100,12 +103,12 @@ function ProfileCard({id,profilepic,username,message,count}:props) {
                 </div>
                 <div className=" w-full flex flex-row justify-start ">
                     <div className=" overflow-hidden h-full flex flex-col justify-center truncate w-[15rem]">
-                      <p className="font-medium text-lg text-white -mb-1">{username} </p>
+                      <p className="font-medium text-lg text-white -mb-1">{name} </p>
                       <p className=" font-extralight text-sm text-zinc-400 ">{message}</p>
                     </div>
-                    <div className="flex justify-center items-center w-10  ">
+                    {/* <div className="flex justify-center items-center w-10  ">
                       <div className="w-6 h-6 text-sm mr-2 bg-red-500 rounded-full text-white flex justify-center items-center">{count}</div>
-                    </div>
+                    </div> */}
 
                 </div>
                 

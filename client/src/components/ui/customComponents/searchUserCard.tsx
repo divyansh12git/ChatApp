@@ -9,6 +9,7 @@ import RequestBox from "./box/requestBox";
 import NormalBox from "./box/normalBox";
 import { handleRequest } from "@/lib/services/api";
 import Loader from "../loader";
+import getProfilePic from "@/lib/utils/getprofielpic";
 
 interface props{
   userName:string;
@@ -18,8 +19,9 @@ interface props{
   status:string;
 }
 const SearchUserCard=({userName,Bio,profilePic,userId,status}:props)=>{
-    const profilepicStyle = {
-        backgroundImage:`url(${profile1.src})` , 
+	const profilePicgen=getProfilePic(userName);  
+	const profilepicStyle = {
+        backgroundImage:`url(/images/profile/${profilePicgen}.jpg)` , 
          // .src gives the URL path of the image
         backgroundSize: 'cover', // adjust as needed
         backgroundPosition: 'center',

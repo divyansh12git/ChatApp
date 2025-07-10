@@ -8,6 +8,7 @@ import {incoming,endIncoming} from "@/lib/store/slice/function/incomingCall"
 import {start,end} from "@/lib/store/slice/function/videoCall"
 import { useSocket } from "@/lib/provider/socket/socketProvider";
 import {usePeer} from "@/lib/provider/peer"
+import getProfilePic from "@/lib/utils/getprofielpic";
 
 // import 
 export default function Topbar({id,roomId,username,profilepic,makeVideoCall}:{id:number,roomId:string,username:string,profilepic:string,makeVideoCall:any}) {
@@ -80,9 +81,9 @@ export default function Topbar({id,roomId,username,profilepic,makeVideoCall}:{id
             socket.off("sender-decline",senderDecline);
         }
     },[handleIncomingCall,senderDecline]);
-
+    const profilePicgen=getProfilePic(username);
     const profile={
-        backgroundSize: 'cover',backgroundPosition: 'center', backgroundImage: `url(${profilepic})`,
+        backgroundSize: 'cover',backgroundPosition: 'center', backgroundImage: `url(/images/profile/${profilePicgen}.jpg)`,
     }
     if(!incomingCall.status){
         return (

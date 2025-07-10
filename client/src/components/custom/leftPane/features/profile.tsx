@@ -6,15 +6,18 @@ import { getUserData, updateProfile } from "@/lib/services/api";
 import { useSelector,useDispatch } from "react-redux";
 import { RootState  } from "@/lib/store/store";
 import { updatePersonalInformation } from "@/lib/store/slice/personalInformation";
+import getProfilePic from "@/lib/utils/getprofielpic";
+import toast, { Toaster } from 'react-hot-toast';
 function Profile() {
 
-  // Dummy data — replace with actual user data
     const myData=useSelector((state:RootState)=>state.personalInformation);
     const [name, setName] = useState(myData.name);
     const [bio, setBio] = useState(myData.Bio);
-    console.log(myData.Bio);
+    // console.log(myData.Bio);
+	const profilePicgen=getProfilePic(myData.username);
     const [isBioUpdated, setIsBioUpdated] = useState(false);
     const [isNameUpdated, setIsNameUpdated] = useState(false);
+
     const dispatch=useDispatch();
     const handleUpdate = async() => {
         if(!isBioUpdated && !isNameUpdated)return;
@@ -34,24 +37,26 @@ function Profile() {
             const updatedUser = await getUserData(myData.username);
             console.log(updatedUser);
             dispatch(updatePersonalInformation(updatedUser));
-            alert("Profile updated!");
+			toast.success("Profile updated!",{duration:2000});
+            // alert();
         } else {
-            alert("Failed to update profile.");
+			toast.error("Failed to update profile.",{duration:2000});
         }
         } catch (error) {
             console.error("Update failed:", error);
-            alert("Something went wrong while updating profile.");
+            toast.error("Failed to update profile.",{duration:2000});
         }
         setIsNameUpdated(false);
         setIsBioUpdated(false);
     };
 
 return (
+	<>
+	<Toaster />
     <div className="bg-[#1c1c24] w-full max-w-xl  col-span-7 flex flex-col items-center pt-20 px-[12%]">
-      {/* Profile Picture & Username */}
       <div className="flex items-center justify-center space-x-4 mb-6 w-full">
         <img
-          src="/images/profile/2.png"
+          src={`/images/profile/${profilePicgen}.jpg`}
           alt="Profile"
           className="w-20 h-20 rounded-full object-cover border-2 border-blue-500"
         />
@@ -61,7 +66,7 @@ return (
         </div>
       </div>
 
-      {/* Editable Form */}
+
       <div className="space-y-4 w-full">
         <div className="w-full">
           <label className="block text-gray-500 font-medium mb-1">{myData.name}</label>
@@ -93,6 +98,7 @@ return (
         </button>
       </div>
     </div>
+	</>
   );
 }
 
