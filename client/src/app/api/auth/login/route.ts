@@ -13,8 +13,8 @@ export async function POST(request: NextRequest) {
     //for url encoded: request.formdata();
     
     const {username,password}=await request.json();
-    console.log(username)
-    console.log(password)
+    // console.log(username)
+    // console.log(password)
     if(!username || !password)return NextResponse.json({ success: false,NextRequest:"Data invalid" });
     const data:loginData={
         username:username,

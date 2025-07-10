@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
             msg="can't connect to server";
             console.log(e);
         }
-        console.log(token);
+        // console.log(token);
         
     return NextResponse.json({status:status,msg:msg,token:token});
 }

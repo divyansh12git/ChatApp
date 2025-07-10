@@ -16,7 +16,7 @@ export default function AuthLayout({
 
             <div style={bgimageStyling}
                 className={` h-full flex flex-col justify-center items-center bg-[#12132a] `} >
-                <div className="text-5xl">Messagify</div>
+                <div className="text-5xl">Zync Connect</div>
                 {/*inner box form */}
                 <div className="  w-[25rem] rounded-lg my-10 p-10 bg-[#222331] outline outline-1 outline-blue-300 ">
                     {children}

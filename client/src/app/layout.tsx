@@ -7,8 +7,29 @@ const PeerProvider = dynamic(() => import('@/lib/provider/peer'), { ssr: false }
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Chat App",
-  description: "Made with Passion by Divyansh Gupta",
+  title: "Zync Connect | Real-Time Chat App",
+  description: "Zync Connect is a real-time chat application built for seamless and secure communication. Developed with passion by Divyansh Gupta.",
+  keywords: ["Zync Connect", "chat app", "real-time messaging", "Divyansh Gupta", "WebRTC", "React chat", "Next.js chat app"],
+  authors: [{ name: "Divyansh Gupta" }],
+   icons: {
+    icon: '/icons/favicon.ico', 
+  },
+  creator: "Divyansh Gupta",
+  openGraph: {
+    title: "Zync Connect",
+    description: "Chat faster and smarter with Zync Connect — a blazing fast, real-time chat platform.",
+    url: "https://your-domain.com", // Replace with your deployed URL
+    siteName: "Zync Connect",
+    images: [
+      {
+        url: "https://www.flaticon.com/free-icons/application" , 
+        width: 1200,
+        height: 630,
+        alt: "Zync Connect Chat App",
+      },
+    ],
+    type: "website",
+  },
 };
 
 export default function RootLayout({
