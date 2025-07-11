@@ -134,3 +134,6 @@ dist
 **/node_modules
 **/package-lock.json
 **/.env
+socket_server/*.zip
+socket_server/secure-connect-chatdb.zip
+*.zip
