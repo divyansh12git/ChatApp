@@ -30,7 +30,7 @@ const handleRequest=async({myId,userId,action,sending}:handleRequestParams)=>{
                 action:action
             });
             if(response.data.success){
-                console.log(response.data.data);
+                // console.log(response.data.data);
                 result=response.data.data;
             }
         }catch(e){

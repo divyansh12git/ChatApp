@@ -1,7 +1,7 @@
 import { io, Socket } from "socket.io-client";
 
-const socketURL=process.env.NEXT_PUBLIC_SOCKET_SERVER_URL ;
-console.log(socketURL);
+const socketURL=process.env.NEXT_PUBLIC_SOCKET_CONNECTION ;
+// console.log(socketURL);
 class InitSocket{
     private SocketServer=socketURL;
     private static socket:Socket;
@@ -11,8 +11,20 @@ class InitSocket{
     }
     public static getConnection():Socket{
         if(!InitSocket.isConnected){
-             InitSocket.socket =  io(socketURL);
+             InitSocket.socket =  io(socketURL,{
+                // transports: ["websocket", "polling"],
+                 transports: ["websocket"],
+                    // path: "/socket.io",
+                // withCredentials: true,
+            });
              InitSocket.isConnected=true;
+             InitSocket.socket.on("connect", () => {
+            console.log("Socket connected with ID:", InitSocket.socket.id);
+        });
+
+        InitSocket.socket.on("connect_error", (err) => {
+            console.error(" Socket connection error:", err.message);
+        });
         }
         return InitSocket.socket;
     }

@@ -39,7 +39,7 @@ export default  function Home() {
 
     // console.log(token)
     return(
-    <LoadingPage title="Welcome To ChatApp Please Wait..." />
+    <LoadingPage title="Welcome To Zync Connect Please Wait..." />
     
     
     );

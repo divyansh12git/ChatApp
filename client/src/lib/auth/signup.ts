@@ -14,7 +14,7 @@ export default async function makeSignUp(data:para){
         }
     });
     
-    console.log(response);
+    // console.log(response);
    
     return response.data;
 }

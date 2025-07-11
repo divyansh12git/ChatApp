@@ -83,7 +83,7 @@ const Login=()=>{
 
         if(response.status){
             toast.success(response.msg);
-            console.log(response.token);
+            // console.log(response.token);
             //setting token to local storage:
             localStorage.removeItem('token');
             localStorage.setItem('token', response.token);
