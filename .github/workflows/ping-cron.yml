@@ -1,0 +1,20 @@
+name: Ping Chat App on render every 5 minutes
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'  # Every 5 minutes (UTC)
+
+jobs:
+  ping-server:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping your Render app
+        run: |
+          echo "🌐 Pinging https://chatapp-veqf.onrender.com ..."
+          RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" https://chatapp-veqf.onrender.com)
+          if [ "$RESPONSE" -eq 200 ]; then
+            echo "✅ Ping successful: Render app is up (HTTP $RESPONSE)"
+          else
+            echo "❌ Ping failed: Got HTTP $RESPONSE"
+            exit 1
+          fi
