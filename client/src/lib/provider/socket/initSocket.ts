@@ -13,7 +13,7 @@ class InitSocket{
         if(!InitSocket.isConnected){
              InitSocket.socket =  io(socketURL,{
                 // transports: ["websocket", "polling"],
-                 transports: ["websocket"],
+                 transports: ["websocket","polling"],
                     // path: "/socket.io",
                 // withCredentials: true,
             });
