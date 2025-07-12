@@ -120,8 +120,10 @@ function SearchUsers () {
                             <div className="h-10 w-10 mx-auto my-10">
                                 <Loader />
                             </div>
-                        ):!(usersList.length)?<div className=" mx-4 my-4 text-white font-light">
-                            No user Found...</div>:
+                        ):!(usersList.length)?<><div className=" mx-4 my-4 text-white font-light">
+                            No user Found...</div>
+                            <div className=" mx-4 my-4 text-gray-500 font-light">(for testing search for testuser or open another brower and make account there.)</div>
+                            </>:
                                 usersList.map((user:searchUserList,ind)=>{
                                     return(
                                         <CustomCard key={ind} status={user.status} userId={user.userData.id} Bio={user.userData.Bio} userName={user.userData.username} profilePic={user.userData.profilePictureURL} />
